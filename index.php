@@ -134,4 +134,4 @@ while ($row = mysqli_fetch_assoc($ceramics_result)) $one_of_a_kind_arr[] = $row;
 
 </body>
 
-<?php require_once __DIR__ . '/includes/foot.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
