@@ -150,13 +150,6 @@ section#index-header div.inner>div.left {
     z-index        : 2;
 }
 
-section#index-header div.inner>div.left h1 {
-    margin     : 0;
-    color      : var(--primary);
-    font-size  : 52px;
-    font-weight: 400;
-}
-
 section#index-header div.inner>div.left p {
     max-width     : 800px;
     font-size     : 24px;
@@ -181,4 +174,34 @@ section#index-header div.inner>div.right {
 .carousel-cell,
 .carousel-cell img {
     height: 100%;
+}
+
+#landing-title-container {
+    margin     : 0;
+    color      : var(--primary);
+    font-size  : 52px;
+    font-weight: 400;
+    display    : flex;
+    gap        : 12px;
+}
+
+#landing-title-container>div {
+    position: relative;
+    display : flex;
+}
+
+#landing-title-container>div>span {
+    opacity       : 0;
+    pointer-events: none;
+    transition    : opacity ease 1s;
+}
+
+#landing-title-container>div>span:nth-child(n+2) {
+    position: absolute;
+    left    : 0;
+}
+
+#landing-title-container>div>span.showing {
+    opacity       : 1;
+    pointer-events: all;
 }

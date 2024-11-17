@@ -13,3 +13,15 @@ $(".carousel").flickity({
     fullscreen: false,
     pauseAutoPlayOnHover: false
 });
+
+$(document).ready(function () {
+
+    setInterval(() => {
+        const allWords = $("#landing-title-container>div>span")
+        const activeWord = allWords.filter((_i, elem) => $(elem).hasClass('showing'));
+        const nextWord = activeWord.next().length ? activeWord.next() : allWords.first();
+        activeWord.removeClass("showing");
+        nextWord.addClass("showing");
+    }, 3000);
+
+});

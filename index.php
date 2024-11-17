@@ -6,7 +6,14 @@
     <section id="index-header">
         <div class="inner">
             <div class="left">
-                <h1>Signature Ceramics. Stone. Wood.</h1>
+                <div id="landing-title-container">
+                    <span>Signature</span>
+                    <div>
+                        <span class="showing">Ceramics</span>
+                        <span>Stone</span>
+                        <span>Wood</span>
+                    </div>
+                </div>
                 <p>Caribbean maker of finely crafted production and bespoke ceramic wall lights, signature pieces in ceramic, stone, and wood.</p>
             </div>
             <div class="right">
