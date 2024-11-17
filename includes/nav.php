@@ -5,7 +5,7 @@ $current_url = $_SERVER['REQUEST_URI'];
 <nav id="desktop-nav">
     <ul>
         <a class="logo-link" href="/">
-            <img src="/assets/images/logos/logo-white.png" alt="Logo">
+            <img src="/assets/images/logos/logo-primary.png" alt="Logo">
         </a>
         <li>
             <a href="/" class="<?php echo ($current_url == '/') ? 'current' : ''; ?>">Home</a>
