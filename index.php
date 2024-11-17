@@ -1,4 +1,14 @@
-<?php require_once __DIR__ . '/includes/head.php'; ?>
+<?php
+
+require_once __DIR__ . '/includes/head.php';
+
+$one_of_a_kind_arr = [];
+
+$ceramics_query = "SELECT * FROM unique_ceramics WHERE status = 'active';";
+$ceramics_result = mysqli_query($con, $ceramics_query);
+while ($row = mysqli_fetch_assoc($ceramics_result)) $one_of_a_kind_arr[] = $row;
+
+?>
 
 <body>
     <?php require_once __DIR__ . '/includes/nav.php'; ?>
@@ -90,6 +100,20 @@
                         <img src="/assets/images/panels/commissions.png" alt="">
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="one-of-a-kind-section">
+        <div class="inner">
+            <h1>One Of A Kind</h1>
+            <div class="gallery">
+                <?php foreach ($one_of_a_kind_arr as $one_of_a_kind) { ?>
+                    <div class="gallery-panel">
+                        <img src="<?php echo $one_of_a_kind['image_url']; ?>" alt="Oops">
+                        <span><?php echo $one_of_a_kind['name']; ?></span>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </section>

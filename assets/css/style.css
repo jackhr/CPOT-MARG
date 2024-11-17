@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'quickpen';
+    src        : url('fonts/Quickpen.ttf') format("truetype");
+    font-weight: normal;
+    font-style : normal;
+}
+
 :root {
     --primary           : #2E4398;
     --primary-rgb       : rgb(46, 67, 152);
@@ -135,7 +142,7 @@ section#index-header {
 }
 
 section#index-header div.inner {
-    height: 600px;
+    height: 800px;
 }
 
 section#index-header div.inner>div.left {
@@ -171,9 +178,15 @@ section#index-header div.inner>div.right {
     z-index : 1;
 }
 
-.carousel-cell,
+.carousel-cell {
+    height         : 100%;
+    display        : flex;
+    justify-content: flex-end;
+}
+
 .carousel-cell img {
     height: 100%;
+    width : 80%;
 }
 
 #landing-title-container {
@@ -264,4 +277,64 @@ section#index-header div.inner>div.right {
 
 .name-panel.michael>div.right img {
     object-position: top;
+}
+
+#one-of-a-kind-section {
+    padding: 120px 0;
+}
+
+#one-of-a-kind-section div.inner {
+    flex-direction: column;
+}
+
+#one-of-a-kind-section div.inner h1 {
+    font-size  : 52px;
+    color      : var(--primary);
+    font-weight: 400;
+    margin     : 0 0 52px;
+}
+
+.gallery {
+    display        : flex;
+    gap            : 24px;
+    flex-wrap      : wrap;
+    margin         : auto;
+    justify-content: center;
+}
+
+.gallery-panel {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    height         : 300px;
+    width          : 300px;
+    position       : relative;
+    cursor         : pointer;
+    overflow       : hidden;
+}
+
+.gallery-panel img {
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
+    transition: ease 0.4s filter;
+}
+
+.gallery-panel span {
+    position      : absolute;
+    opacity       : 0;
+    pointer-events: none;
+    transition    : ease 0.4s opacity;
+    color         : var(--white);
+    font-weight   : 500;
+    font-size     : 18px;
+}
+
+.gallery-panel:hover img {
+    filter: blur(4px);
+}
+
+.gallery-panel:hover span {
+    pointer-events: all;
+    opacity       : 1;
 }
