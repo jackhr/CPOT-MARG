@@ -7,7 +7,8 @@
     --secondary-rgb-vals: 46, 67, 152;
     --blue              : #3a6ed3;
     --black             : #232628;
-    --white             : #f5f5f5;
+    --white             : #fff;
+    --white-soft        : #f5f5f5;
     --grey-x-light      : #cdcdcd;
     --grey-light        : #888888;
     --grey-dark         : #676767;
@@ -129,8 +130,12 @@ nav ul a.logo-link img {
     width : auto;
 }
 
+section#index-header {
+    position: relative;
+}
+
 section#index-header div.inner {
-    height: 500px;
+    height: 600px;
 }
 
 section#index-header div.inner>div.left {
@@ -141,6 +146,8 @@ section#index-header div.inner>div.left {
     justify-content: center;
     align-items    : center;
     text-align     : center;
+    position       : relative;
+    z-index        : 2;
 }
 
 section#index-header div.inner>div.left h1 {
@@ -160,4 +167,18 @@ section#index-header div.inner>div.left p {
 section#index-header div.inner>div.right {
     height: 100%;
     width : 40%;
+}
+
+.carousel {
+    position: absolute !important;
+    width   : 100%;
+    height  : 100%;
+    left    : 0;
+    top     : 0;
+    z-index : 1;
+}
+
+.carousel-cell,
+.carousel-cell img {
+    height: 100%;
 }
