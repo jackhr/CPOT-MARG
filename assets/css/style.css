@@ -338,3 +338,33 @@ section#index-header div.inner>div.right {
     pointer-events: all;
     opacity       : 1;
 }
+
+#about-us-section div.inner {
+    flex-direction: column;
+    max-width     : var(--max-width);
+    margin        : auto;
+}
+
+#about-us-section div.inner h1 {
+    font-weight: 400;
+    font-size  : 52px;
+    margin     : 0 0 52px;
+}
+
+#about-us-section div.inner>div {
+    display: flex;
+    gap    : 24px;
+}
+
+#about-us-section div.inner>div>div {
+    font-size  : 18px;
+    line-height: 1.67;
+}
+
+#about-us-section img {
+    max-width: 420px
+}
+
+#about-us-section div.inner p:first-child {
+    margin: 0;
+}

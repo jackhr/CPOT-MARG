@@ -15,6 +15,7 @@ assets/images/logos/hi-res/logo-black-hi-res.png filter=lfs diff=lfs merge=lfs -
 assets/images/logos/hi-res/logo-primary-hi-res.png filter=lfs diff=lfs merge=lfs -text
 assets/images/logos/hi-res/logo-secondary-hi-res.png filter=lfs diff=lfs merge=lfs -text
 assets/images/logos/hi-res/logo-white-hi-res.png filter=lfs diff=lfs merge=lfs -text
+assets/images/misc/about-us.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/commissions.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/imogen.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/lights.png filter=lfs diff=lfs merge=lfs -text

@@ -118,6 +118,20 @@ while ($row = mysqli_fetch_assoc($ceramics_result)) $one_of_a_kind_arr[] = $row;
         </div>
     </section>
 
+    <section id="about-us-section">
+        <div class="inner">
+            <h1>About Us</h1>
+            <div>
+                <div>
+                    <p>Cedars Pottery began in 1996 when Antiguan-born ceramicist Michael Hunt returned to the island with his English wife and fellow ceramicist Imogen Margie. They initially collaborated to produce a range of hand-thrown decorative tableware, before an architect commission heralded their foray into wall light sconces.</p>
+                    <p>Whilst continuing to offer hand-thrown pieces to order, they are now developing an eclectic mix of architectural, one-of-a-kind pieces made to commission, in collaboration with architects and clients. The pair recently decided to rebrand to Margie Hunt as Cedars Pottery no longer reflects the diverse range of work they produce. Their portfolio includes ceramic wall pieces, relief carvings, highly individual fountains, stone carvings and imaginative ceramic sculptures.</p>
+                    <p>As individuals both Mike and Imogen have continued to experiment in their one-of-a-kind pieces, the creative energy feeding into all aspects of their production. Their work continues to be admired for its sense of design, consummate craft skill and attention to detail.</p>
+                </div>
+                <img src="/assets/images/misc/about-us.jpg" alt="">
+            </div>
+        </div>
+    </section>
+
 </body>
 
 <?php require_once __DIR__ . '/includes/foot.php'; ?>
