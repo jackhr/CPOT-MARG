@@ -1,16 +1,4 @@
-<?php
-
-require_once __DIR__ . '/../includes/head.php';
-
-$sconces_query = "SELECT * FROM sconces WHERE status = :status";
-
-$stmt = $pdo->prepare($sconces_query);
-$stmt->execute(['status' => 'active']);
-
-$sconces_arr = [];
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $sconces_arr[] = $row;
-
-?>
+<?php require_once __DIR__ . '/../includes/head.php'; ?>
 
 <body>
     <?php require_once __DIR__ . '/../includes/nav.php'; ?>
@@ -39,25 +27,75 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $sconces_arr[] = $row;
                     </select>
                 </div>
             </div>
-            <div class="gallery">
-                <?php foreach ($sconces_arr as $sconce) { ?>
-                    <div class="sconce-panel">
-                        <img src="<?php echo $sconce['image_url']; ?>" alt="Oops">
-                        <div>
-                            <h4><?php echo $sconce['name']; ?></h4>
-                            <span><?php echo $sconce['dimensions']; ?></span>
-                            <div>
-                                <span><?php echo $sconce['base_price']; ?><sub>(usd)</sub></span>
-                                <span>View More...</span>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
+            <div class="gallery"></div>
             <button class="load-more-btn">Load More Lights</button>
         </div>
     </section>
 
 </body>
+
+<script>
+    $(document).ready(function() {
+        const STATE = {
+            current_page: 0,
+            total_items: null,
+            total_pages: null
+        }
+
+        function loadMoreSconces() {
+            $.ajax({
+                type: "POST",
+                url: "/api/sconces/api.php",
+                data: JSON.stringify({
+                    action: "get_more_sconces",
+                    page: STATE.current_page
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                success: res => {
+                    if (res.status === 200) {
+                        res.data.forEach(sconce => {
+                            $(".gallery").append(`
+                                <div class="sconce-panel">
+                                    <img src="${sconce.image_url}" alt="Oops">
+                                    <div>
+                                        <h4>${sconce.name}</h4>
+                                        <span>${sconce.dimensions}</span>
+                                        <div>
+                                            <span>${sconce.base_price}<sub>(usd)</sub></span>
+                                            <span>View More...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
+                        });
+
+                        STATE.current_page = res.pagination.current_page;
+                        STATE.total_items = res.pagination.total_items;
+                        STATE.total_pages = res.pagination.total_pages;
+                        if (STATE.current_page === STATE.total_pages) {
+                            $(".load-more-btn").remove();
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: res.message
+                        });
+                    }
+                },
+                error: function() {
+                    console.log(arguments);
+                }
+            });
+        }
+
+        loadMoreSconces();
+
+        $(".load-more-btn").on('click', function() {
+            loadMoreSconces();
+        });
+    });
+</script>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
