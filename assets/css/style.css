@@ -7,9 +7,11 @@
 
 :root {
     --primary              : #2E4398;
+    --primary-darker       : #233374;
     --primary-rgb          : rgb(46, 67, 152);
     --primary-rgb-vals     : 209, 110, 69;
     --secondary            : #ED6F35;
+    --secondary-darker     : #da6732;
     --secondary-rgb        : rgb(237, 111, 53);
     --secondary-rgb-vals   : 46, 67, 152;
     --blue                 : #3a6ed3;
@@ -97,6 +99,44 @@ select {
     font-weight  : 500;
     border       : none;
     border-radius: 2px;
+}
+
+button {
+    margin-top   : auto;
+    background   : var(--secondary);
+    border       : solid 1px transparent;
+    padding      : 16px;
+    border-radius: 8px;
+    color        : var(--white);
+    font-weight  : 500;
+    font-size    : 16px;
+    cursor       : pointer;
+    transition   : ease 0.3s all;
+}
+
+button:hover {
+    border-color: var(--white);
+}
+
+button:active {
+    background-color: var(--secondary-darker);
+}
+
+button.load-more-btn {
+    margin       : 40px 0;
+    background   : var(--white);
+    border-color : var(--primary);
+    color        : var(--primary);
+    border-radius: 16px;
+}
+
+button.load-more-btn:hover {
+    color           : var(--white);
+    background-color: var(--primary);
+}
+
+button.load-more-btn:active {
+    background-color: var(--primary-darker);
 }
 
 nav {
@@ -231,7 +271,7 @@ section#index-header div.inner>div.right {
     grid-gap     : 32px;
     width        : 100%;
     margin       : auto;
-    max-width    : 1300px;
+    max-width    : var(--max-width);
 }
 
 .name-panel {
@@ -302,9 +342,15 @@ section#index-header div.inner>div.right {
     flex-wrap      : wrap;
     margin         : auto;
     justify-content: center;
+    max-width      : var(--max-width);
 }
 
-.gallery-panel {
+.gallery:has(.sconce-panel) {
+    max-width: 1440px;
+}
+
+.gallery-panel,
+.sconce-panel {
     display        : flex;
     align-items    : center;
     justify-content: center;
@@ -313,6 +359,18 @@ section#index-header div.inner>div.right {
     position       : relative;
     cursor         : pointer;
     overflow       : hidden;
+}
+
+.sconce-panel {
+    width         : 420px;
+    flex-direction: column;
+    height        : 500px;
+}
+
+.sconce-panel img {
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
 }
 
 .gallery-panel img {
@@ -339,6 +397,46 @@ section#index-header div.inner>div.right {
 .gallery-panel:hover span {
     pointer-events: all;
     opacity       : 1;
+}
+
+.sconce-panel>div:last-child {
+    background: var(--primary-unsaturated);
+    width     : 100%;
+    padding   : 12px 18px;
+}
+
+.sconce-panel>div:last-child h4 {
+    margin     : 0;
+    font-weight: 400;
+    font-size  : 24px;
+}
+
+.sconce-panel>div:last-child>span {
+    font-size: 14px;
+    margin   : 4px 0 8px;
+    display  : block;
+}
+
+.sconce-panel>div:last-child>div {
+    display        : flex;
+    align-items    : center;
+    justify-content: space-between;
+}
+
+.sconce-panel>div:last-child>div span:first-child {
+    font-size  : 22px;
+    display    : flex;
+    align-items: baseline;
+    gap        : 4px;
+}
+
+.sconce-panel>div:last-child>div span:first-child sub {
+    font-size: 12px;
+}
+
+.sconce-panel>div:last-child>div span:last-child {
+    font-size: 14px;
+    color    : var(--secondary);
 }
 
 #about-us-section {
@@ -456,4 +554,50 @@ div#copyright {
     padding   : 12px 0;
     border-top: solid 1px var(--grey-dark);
     text-align: center;
+}
+
+#lights-header div.inner {
+    height        : 500px;
+    flex-direction: column;
+    background    : var(--primary);
+    color         : var(--white);
+    gap           : 24px;
+}
+
+#lights-header h1 {
+    margin     : auto 0 0;
+    font-size  : 52px;
+    font-weight: 400;
+}
+
+#lights-header p {
+    max-width : 700px;
+    text-align: center;
+    font-size : 20px;
+    margin    : 0;
+}
+
+#sconce-section div.inner {
+    flex-direction: column;
+}
+
+#sconce-section div.inner>div:has(.filter-container) {
+    display: flex;
+    margin : 40px auto;
+    gap    : 24px;
+}
+
+.filter-container {
+    display      : flex;
+    align-items  : center;
+    width        : max-content;
+    padding      : 0 12px;
+    border       : solid 1px var(--black);
+    background   : var(--white);
+    border-radius: 12px;
+}
+
+.filter-container select {
+    width     : max-content;
+    background: transparent;
 }
