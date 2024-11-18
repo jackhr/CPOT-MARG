@@ -2,11 +2,13 @@
 
 require_once __DIR__ . '/includes/head.php';
 
-$one_of_a_kind_arr = [];
+$ceramics_query = "SELECT * FROM unique_ceramics WHERE status = :status";
 
-$ceramics_query = "SELECT * FROM unique_ceramics WHERE status = 'active';";
-$ceramics_result = mysqli_query($con, $ceramics_query);
-while ($row = mysqli_fetch_assoc($ceramics_result)) $one_of_a_kind_arr[] = $row;
+$stmt = $pdo->prepare($ceramics_query);
+$stmt->execute(['status' => 'active']);
+
+$one_of_a_kind_arr = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $one_of_a_kind_arr[] = $row;
 
 ?>
 

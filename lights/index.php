@@ -2,11 +2,13 @@
 
 require_once __DIR__ . '/../includes/head.php';
 
-$sconces_arr = [];
+$sconces_query = "SELECT * FROM sconces WHERE status = :status";
 
-$sconces_query = "SELECT * FROM sconces WHERE status = 'active';";
-$sconces_result = mysqli_query($con, $sconces_query);
-while ($row = mysqli_fetch_assoc($sconces_result)) $sconces_arr[] = $row;
+$stmt = $pdo->prepare($sconces_query);
+$stmt->execute(['status' => 'active']);
+
+$sconces_arr = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $sconces_arr[] = $row;
 
 ?>
 

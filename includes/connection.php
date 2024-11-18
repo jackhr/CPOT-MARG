@@ -2,9 +2,9 @@
 
 require_once 'env.php';
 
-$con = mysqli_connect($hostname, $username, $password, $database);
-
-if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    exit();
+try {
+    $pdo = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
 }
