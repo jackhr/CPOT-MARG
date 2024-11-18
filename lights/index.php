@@ -37,9 +37,11 @@
 <script>
     $(document).ready(function() {
         const STATE = {
-            current_page: 0,
-            total_items: null,
-            total_pages: null
+            pagination: {
+                current_page: 0,
+                total_items: null,
+                total_pages: null
+            }
         }
 
         function loadMoreSconces() {
@@ -48,7 +50,7 @@
                 url: "/api/sconces/api.php",
                 data: JSON.stringify({
                     action: "get_more_sconces",
-                    page: STATE.current_page
+                    page: STATE.pagination.current_page
                 }),
                 contentType: "application/json",
                 dataType: "json",
@@ -70,10 +72,11 @@
                             `);
                         });
 
-                        STATE.current_page = res.pagination.current_page;
-                        STATE.total_items = res.pagination.total_items;
-                        STATE.total_pages = res.pagination.total_pages;
-                        if (STATE.current_page === STATE.total_pages) {
+                        STATE.pagination = {
+                            ...res.pagination
+                        };
+
+                        if (STATE.pagination.current_page === STATE.pagination.total_pages) {
                             $(".load-more-btn").remove();
                         }
                     } else {
