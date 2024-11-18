@@ -86,7 +86,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $one_of_a_kind_arr[] = $row;
                     <div class="left">
                         <h2>Lights</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ad reiciendis aspernatur dignissimos soluta perspiciatis tempore cumque, exercitationem quisquam provident delectus mollitia sed excepturi suscipit odio officia vel voluptatum rerum?</p>
-                        <a href="#">view more...</a>
+                        <a href="/lights/">view more...</a>
                     </div>
                     <div class="right">
                         <img src="/assets/images/panels/lights.png" alt="">
