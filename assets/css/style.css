@@ -161,12 +161,12 @@ nav ul li {
 }
 
 nav ul a {
-    color      : var(--black);
+    color      : var(--primary);
     font-weight: 600;
 }
 
 nav ul a.current {
-    color: var(--primary);
+    color: var(--secondary);
 }
 
 nav ul a.logo-link {
