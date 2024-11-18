@@ -32,6 +32,21 @@
         </div>
     </section>
 
+    <div id="sconce-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-options">
+                        <span class="modal-close">×</span>
+                    </div>
+                    <h1>Sconce Details</h1>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 <script>
@@ -57,7 +72,7 @@
                 success: res => {
                     if (res.status === 200) {
                         res.data.forEach(sconce => {
-                            $(".gallery").append(`
+                            const sconceEl = $(`
                                 <div class="sconce-panel">
                                     <img src="${sconce.image_url}" alt="Oops">
                                     <div>
@@ -70,6 +85,12 @@
                                     </div>
                                 </div>
                             `);
+
+                            sconceEl.on('click', function() {
+                                $("#sconce-modal").addClass('showing');
+                            });
+
+                            $(".gallery").append(sconceEl);
                         });
 
                         STATE.pagination = {
