@@ -9,11 +9,11 @@
     --primary              : #2E4398;
     --primary-darker       : #233374;
     --primary-rgb          : rgb(46, 67, 152);
-    --primary-rgb-vals     : 209, 110, 69;
+    --primary-rgb-vals     : 46, 67, 152;
     --secondary            : #ED6F35;
     --secondary-darker     : #da6732;
     --secondary-rgb        : rgb(237, 111, 53);
-    --secondary-rgb-vals   : 46, 67, 152;
+    --secondary-rgb-vals   : 237, 111, 53;
     --blue                 : #3a6ed3;
     --black                : #232628;
     --white                : #fff;
@@ -628,6 +628,10 @@ div#copyright {
     backdrop-filter: blur(2px);
 }
 
+html:has(.modal.showing) {
+    overflow: hidden;
+}
+
 .modal.showing {
     opacity       : 1;
     pointer-events: all;
@@ -670,13 +674,14 @@ div#copyright {
 
 .modal-options {
     position       : absolute;
-    right          : 0;
+    right          : 24px;
     line-height    : 0.5;
-    font-size      : 35px;
-    top            : 0;
+    font-size      : 54px;
+    top            : 24px;
     display        : flex;
     align-items    : center;
     justify-content: space-between;
+    z-index        : 10;
 }
 
 .modal-close {
@@ -695,3 +700,193 @@ div#copyright {
     border-top     : solid 1px #d3d3d3;
     gap            : 12px;
 }
+
+#sconce-modal .modal-dialog,
+#sconce-modal .modal-content,
+#sconce-modal .modal-body {
+    width: 100%;
+}
+
+#sconce-modal,
+#sconce-modal .modal-content {
+    border       : none;
+    border-radius: 0;
+}
+
+#sconce-modal .modal-body {
+    padding: 24px;
+    display: flex;
+    gap    : 20px;
+}
+
+#sconce-img-container {
+    width : 100%;
+    height: 750px;
+}
+
+#sconce-img-container img {
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
+}
+
+#sconce-info-container {
+    width: 100%;
+}
+
+.sconce-info-section {
+    border-bottom: solid 1px var(--secondary);
+    padding      : 20px 0;
+    position     : relative;
+}
+
+#sconce-info-container .sconce-info-section:first-child {
+    padding-top: 0;
+}
+
+#sconce-info-container .sconce-info-section:first-child h3 {
+    margin     : 0 0 20px;
+    font-size  : 36px;
+    font-weight: 500;
+}
+
+#sconce-info-container span[data-base_price] {
+    display      : flex;
+    align-items  : baseline;
+    margin-bottom: 12px;
+    font-size    : 36px;
+    font-weight  : 500;
+}
+
+#sconce-info-container span[data-base_price] span {
+    margin-right: 8px;
+}
+
+#sconce-info-container span[data-base_price] sub {
+    font-size: 14px;
+}
+
+#sconce-info-container .sconce-info-section p,
+#sconce-info-container span[data-dimensions]:not(.sconce-spec-pair span[data-dimensions]) {
+    font-size  : 14px;
+    margin     : 0 0 12px;
+    display    : block;
+    line-height: 24px;
+}
+
+#sconce-info-container .sconce-info-section:first-child p {
+    color      : #B4B4B4;
+    font-weight: 500;
+    line-height: 26px;
+    margin     : 0;
+}
+
+#sconce-info-container .sconce-info-section h5 {
+    font-size  : 24px;
+    margin     : 0 0 4px;
+    font-weight: 400;
+    line-height: 34px;
+    display    : flex;
+    cursor     : pointer;
+}
+
+#sconce-info-container .sconce-info-section.collapsible.collapsed h5 {
+    margin: 0;
+}
+
+#sconce-info-container .sconce-info-section.collapsible h5::before {
+    margin-right: 12px;
+    content     : "-";
+}
+
+#sconce-info-container .sconce-info-section.collapsible.collapsed h5::before {
+    content: "+";
+}
+
+#sconce-info-container .sconce-info-section.collapsible h5~* {
+    overflow: hidden;
+}
+
+#sconce-info-container .sconce-info-section.collapsible.collapsed h5~* {
+    height : 0;
+    margin : 0;
+    padding: 0;
+}
+
+#sconce-info-container .sconce-info-section select {
+    height       : 56px;
+    border       : solid 1px var(--black);
+    border-radius: 16px;
+    background   : transparent;
+    font-size    : 14px;
+}
+
+#sconce-info-container .sconce-info-section [data-quantity] {
+    border       : solid 1px var(--black);
+    width        : 90px;
+    height       : unset;
+    border-radius: 16px;
+    font-size    : 14px;
+    padding      : 16px 8px 16px 24px;
+    margin-top   : 20px;
+}
+
+#sconce-info-container .sconce-info-section.final-price>div {
+    display: flex;
+    gap    : 16px;
+}
+
+#sconce-info-container .sconce-info-section [data-total_price] {
+    width          : max-content;
+    background     : rgba(var(--primary-rgb-vals), 0.1);
+    border-radius  : 8px;
+    font-size      : 24px;
+    display        : flex;
+    align-items    : baseline;
+    padding        : 12px;
+    min-width      : 200px;
+    justify-content: center;
+    height         : fit-content;
+    margin-top     : 20px;
+}
+
+#sconce-info-container .sconce-info-section [data-total_price] span {
+    margin-right: 4px;
+}
+
+#sconce-info-container .sconce-info-section [data-total_price] sub {
+    font-size: 14px;
+}
+
+#sconce-info-container .sconce-info-section [data-total_price]+button {
+    width: 100%;
+}
+
+#sconce-info-container .sconce-info-section [data-total_price]+button:hover {
+    border-color: var(--secondary);
+    background  : var(--white);
+    color       : var(--secondary);
+}
+
+.sconce-spec-pair {
+    display      : flex;
+    align-items  : center;
+    margin-bottom: 8px;
+}
+
+.sconce-spec-pair span:first-child {
+    min-width  : 150px;
+    font-weight: 500;
+    font-size  : 16px;
+    line-height: 26px;
+}
+
+#sconce-info-container .sconce-info-section:first-child h3 {}
+
+#sconce-info-container .sconce-info-section:first-child h3 {}
+
+#sconce-info-container .sconce-info-section:first-child h3 {}
+
+#sconce-info-container .sconce-info-section:first-child h3 {}
+
+#sconce-info-container .sconce-info-section:first-child h3 {}
