@@ -59,7 +59,7 @@ function getLineItemDescription(quantity) {
     return desc;
 };
 
-function loadSconces(getAllSconces = false) {
+function loadSconces(setActiveSconce = null, getAllSconces = false) {
     const data = getAllSconces ? {
         action: "get_all_sconces",
     } : {
@@ -92,7 +92,7 @@ function loadSconces(getAllSconces = false) {
                         </div>
                     `);
 
-                    sconceEl.on('click', () => setActiveSconce(sconce));
+                    setActiveSconce && sconceEl.on('click', () => setActiveSconce(sconce));
 
                     $(".gallery").append(sconceEl);
                 });

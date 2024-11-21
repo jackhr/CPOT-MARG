@@ -71,7 +71,7 @@
     $(document).ready(async function() {
         loadCart();
         loadCutouts();
-        loadSconces(true);
+        loadSconces(null, true);
 
         function loadCart() {
             const cart = getCart();
@@ -120,16 +120,35 @@
                                             <span>x</span>
                                             <input data-quantity type="text" name="" id="" value="${quantity}">
                                         </div>
-                                        <div data-dimensions>${item.item.dimensions}</div>
                                     </div>
-                                    <div class="right">
+                                    <div class="bottom">
                                         <div>
-                                            <span>Color</span>
+                                            <span>Size:</span>
+                                            <span>${item.item.dimensions}</span>
+                                        </div>
+                                        <div>
+                                            <span>Material:</span>
+                                            <span>${item.item.material}</span>
+                                        </div>
+                                        <div>
+                                            <span>Color:</span>
                                             <span>${item.item.color}</span>
                                         </div>
                                         <div>
-                                            <span>Material</span>
-                                            <span>${item.item.material}</span>
+                                            <span>Finish:</span>
+                                            <span>${item.item.finish || "-"}</span>
+                                        </div>
+                                        <div>
+                                            <span>Mounting Type:</span>
+                                            <span>${item.item.mounting_type || "-"}</span>
+                                        </div>
+                                        <div>
+                                            <span>Fitting Type:</span>
+                                            <span>${item.item.fitting_type || "-"}</span>
+                                        </div>
+                                        <div>
+                                            <span>Description:</span>
+                                            <span>${item.item.description || "-"}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -158,6 +177,13 @@
                                                 <span>$${item?.item?.cutout?.base_price || 0}</span>
                                                 <sub>(usd)</sub>
                                             </div>
+                                        </div>
+                                        <div class="bottom">
+                                            ${item?.item?.cutout?.description ? (
+                                                `<div>
+                                                    <span>${item.item.cutout.description}</span>
+                                                </div>`
+                                            ) : ""}
                                         </div>
                                     </div>
                                 </div>

@@ -198,10 +198,10 @@
             $("#sconce-modal [data-total_price]>span").text(newPrice);
         }
 
-        loadSconces();
+        loadSconces(setActiveSconce);
 
         $(".load-more-btn").on('click', function() {
-            loadSconces();
+            loadSconces(setActiveSconce);
         });
 
         $("#sconce-info-container .sconce-info-section.collapsible h5").on("click", function() {
