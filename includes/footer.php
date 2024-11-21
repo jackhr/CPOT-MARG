@@ -22,6 +22,9 @@
                     <li>
                         <a href="/contact" class="<?php echo ($current_url == '/contact/') ? 'current' : ''; ?>">Contact</a>
                     </li>
+                    <li>
+                        <a href="/cart" class="<?php echo ($current_url == '/cart/') ? 'current' : ''; ?>">Cart</a>
+                    </li>
                 </ul>
             </div>
             <div class="footer-logo">
