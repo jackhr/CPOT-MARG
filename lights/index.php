@@ -257,7 +257,7 @@
                                     <div class="cutout-list-item-info">
                                         <span>${cutout.name}</span>
                                         <div>
-                                            <span>$35</span>
+                                            <span>$${cutout.base_price}</span>
                                             <sub>(usd)</sub>
                                         </div>
                                     </div>
