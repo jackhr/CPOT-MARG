@@ -56,9 +56,10 @@
                         <div class="sconce-info-section">
                             <h5>Cutouts</h5>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus asperiores perspiciatis perferendis blanditiis!</p>
-                            <select data-cutout name="" id="">
-                                <option value="">No Cutout Selected</option>
-                            </select>
+                            <button data-cutout="">
+                                <span>No Cutout Selected</span>
+                                <img src="/assets/icons/right-arrow.svg" alt="">
+                            </button>
                         </div>
                         <div class="sconce-info-section">
                             <h5>Quantity</h5>
@@ -112,6 +113,33 @@
         </div>
     </div>
 
+    <div id="cutout-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-options">
+                    <span class="modal-close">×</span>
+                </div>
+                <div class="modal-body">
+                    <div id="cutout-selection-container">
+                        <h3>Select a Cutout</h3>
+                        <div id="cutout-list">
+                            <div class="cutout-list-item selected no-cutout">
+                                <div class="cutout-list-item-img-container"></div>
+                                <div class="cutout-list-item-info">
+                                    <span>No Cutout</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button>Confirm Selection</button>
+                    </div>
+                    <div id="cutout-preview-container">
+                        <img style="display: none;" src="" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 <script>
@@ -122,14 +150,16 @@
             total_pages: null
         },
         sconcesLookup: {},
-        activeSconce: null
+        cutoutsLookup: {},
+        activeSconce: null,
+        activeCutout: null
     }
     $(document).ready(function() {
         function setActiveSconce(sconce) {
             $("#sconce-modal").addClass('showing');
-            
+
             if (sconce.sconce_id === STATE.activeSconce?.sconce_id) return;
-            
+
             $("#sconce-img-container img").attr("src", sconce.image_url);
             $("#sconce-modal [data-name]").text(sconce.name);
             $("#sconce-modal [data-base_price]>span").text(sconce.base_price);
@@ -201,9 +231,70 @@
             });
         }
 
+        function setActiveCutout(cutout) {
+            STATE.activeCutout = cutout;
+            $("[data-cutout] span").text(cutout?.name || "No Cutout Selected");
+        }
+
+        async function loadCutouts() {
+            await $.ajax({
+                type: "POST",
+                url: "/api/cutouts/api.php",
+                data: JSON.stringify({
+                    action: "get_all_cutouts",
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                success: res => {
+                    if (res.status === 200) {
+                        res.data.forEach(cutout => {
+                            STATE.cutoutsLookup[cutout.cutout_id] = cutout;
+                            const cutoutEl = $(`
+                                <div data-id="${cutout.cutout_id}" class="cutout-list-item">
+                                    <div class="cutout-list-item-img-container">
+                                        <img src="${cutout.image_url}" alt="">
+                                    </div>
+                                    <div class="cutout-list-item-info">
+                                        <span>${cutout.name}</span>
+                                        <div>
+                                            <span>$35</span>
+                                            <sub>(usd)</sub>
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
+
+                            $("#cutout-list").append(cutoutEl);
+                        });
+                        $(".cutout-list-item").on('click', function() {
+                            const selectedCutoutImg = $(this).find(".cutout-list-item-img-container img").attr('src');
+                            $(".cutout-list-item").removeClass('selected');
+                            $(this).addClass('selected');
+                            if ($(this).hasClass('no-cutout')) {
+                                $("#cutout-preview-container img").hide();
+                            } else {
+                                $("#cutout-preview-container img").attr('src', selectedCutoutImg).show();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: res.message
+                        });
+                    }
+                },
+                error: function() {
+                    console.log(arguments);
+                }
+            });
+        }
+
         function calculateNewTotal() {
-            const quantity = $("[data-quantity]").val();
-            const newPrice = Number(STATE.activeSconce.base_price) * quantity;
+            const quantity = Number($("[data-quantity]").val());
+            const basePrice = Number(STATE.activeSconce.base_price);
+            const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
+            const newPrice = (basePrice + cutoutPrice) * quantity;
             $("#sconce-modal [data-total_price]>span").text(newPrice);
         }
 
@@ -227,6 +318,26 @@
             let newQuantity = match === null ? "" : match.join("");
             if (newQuantity > 100) newQuantity = 100;
             $(this).val(newQuantity);
+            calculateNewTotal();
+        });
+
+        $("[data-cutout]").on('click', async function(evt) {
+            if ($(".cutout-list-item").length <= 1) await loadCutouts();
+            $(".cutout-list-item").removeClass('selected');
+            const activeId = STATE.activeCutout?.cutout_id;
+            if (Number(activeId)) {
+                $(`.cutout-list-item[data-id="${activeId}"]`).trigger('click');
+            } else {
+                $(`.cutout-list-item.no-cutout`).trigger('click');
+            }
+            $("#cutout-modal").addClass('showing');
+        });
+
+        $("#cutout-list + button").on('click', function() {
+            const selectedCutout = $(".cutout-list-item.selected");
+            const cutoutId = selectedCutout.data('id');
+            $("#cutout-modal .modal-close").trigger('click');
+            setActiveCutout(STATE.cutoutsLookup[cutoutId]);
             calculateNewTotal();
         });
     });

@@ -720,8 +720,8 @@ html:has(.modal.showing) {
 }
 
 #sconce-img-container {
-    width : 100%;
-    height: 750px;
+    width : clamp(200px, 100%, 750px);
+    height: clamp(200px, 40vw, 750px);
 }
 
 #sconce-img-container img {
@@ -731,7 +731,8 @@ html:has(.modal.showing) {
 }
 
 #sconce-info-container {
-    width: 100%;
+    width    : 100%;
+    max-width: 750px;
 }
 
 .sconce-info-section {
@@ -813,12 +814,16 @@ html:has(.modal.showing) {
     padding: 0;
 }
 
-#sconce-info-container .sconce-info-section select {
-    height       : 56px;
-    border       : solid 1px var(--black);
-    border-radius: 16px;
-    background   : transparent;
-    font-size    : 14px;
+#sconce-info-container .sconce-info-section [data-cutout] {
+    border         : solid 1px var(--black);
+    border-radius  : 16px;
+    background     : transparent;
+    font-size      : 14px;
+    color          : var(--black);
+    display        : flex;
+    align-items    : center;
+    width          : 100%;
+    justify-content: space-between;
 }
 
 #sconce-info-container .sconce-info-section [data-quantity] {
@@ -881,12 +886,105 @@ html:has(.modal.showing) {
     line-height: 26px;
 }
 
-#sconce-info-container .sconce-info-section:first-child h3 {}
+#cutout-modal .modal-content {
+    width        : max-content;
+    padding      : 0;
+    border       : none;
+    border-radius: 0;
+}
 
-#sconce-info-container .sconce-info-section:first-child h3 {}
+#cutout-modal .modal-body {
+    display: flex;
+    padding: 0;
+    height : 530px;
+}
 
-#sconce-info-container .sconce-info-section:first-child h3 {}
+#cutout-selection-container {
+    width         : 330px;
+    display       : flex;
+    flex-direction: column;
+    padding       : 0;
+}
 
-#sconce-info-container .sconce-info-section:first-child h3 {}
+#cutout-selection-container h3 {
+    font-size  : 24px;
+    font-weight: 400;
+    line-height: 34px;
+    padding    : 20px 20px 8px;
+    margin     : 0;
+}
 
-#sconce-info-container .sconce-info-section:first-child h3 {}
+#cutout-preview-container {
+    width: 530px;
+}
+
+#cutout-preview-container img {
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
+}
+
+#cutout-selection-container h3,
+#cutout-list {
+    background: var(--grey-x-light);
+}
+
+#cutout-list {
+    display       : flex;
+    flex-direction: column;
+    gap           : 8px;
+    height        : 100%;
+    max-height    : 100%;
+    padding       : 0 20px 20px;
+    overflow      : auto;
+}
+
+.cutout-list-item {
+    height : 64px;
+    display: flex;
+    cursor : pointer;
+}
+
+.cutout-list-item-img-container {
+    width    : 64px;
+    min-width: 64px;
+}
+
+.cutout-list-item.selected .cutout-list-item-img-container {
+    border: solid 1px var(--secondary);
+}
+
+.cutout-list-item-img-container img {
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
+}
+
+.cutout-list-item-info {
+    display        : flex;
+    align-items    : center;
+    padding        : 20px;
+    justify-content: space-between;
+    background     : transparent;
+    width          : 100%;
+    font-size      : 14px;
+}
+
+.cutout-list-item-info>div {
+    display    : flex;
+    align-items: baseline;
+    gap        : 2px;
+}
+
+.cutout-list-item-info sub {
+    font-size: 10px;
+}
+
+.cutout-list-item.selected .cutout-list-item-info,
+.cutout-list-item:hover .cutout-list-item-info {
+    background: rgba(var(--primary-rgb-vals), 0.2);
+}
+
+#cutout-selection-container button {
+    margin: 20px;
+}
