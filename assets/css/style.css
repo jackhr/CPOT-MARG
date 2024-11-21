@@ -22,6 +22,7 @@
     --grey-light           : #888888;
     --grey-dark            : #676767;
     --red                  : #ea0c0c;
+    --red-darker           : #d10b0b;
     --primary-unsaturated  : #d1d7e1;
     --secondary-unsaturated: #e1dad1;
     --max-width            : 1140px;
@@ -1029,6 +1030,10 @@ html:has(.modal.showing) {
     margin-bottom: 48px;
 }
 
+.line-item-container hr {
+    border-top: solid 1px var(--primary);
+}
+
 .line-item {
     display       : flex;
     flex-direction: column;
@@ -1036,14 +1041,48 @@ html:has(.modal.showing) {
     gap           : 12px;
 }
 
-.line-item>h3 {
+.line-item>div:first-child {
+    display        : flex;
+    justify-content: space-between;
+    border-bottom  : solid 1px var(--grey-x-light);
+    padding-bottom : 12px;
+    align-items    : center;
+}
+
+.line-item>div:first-child>h3 {
     margin        : 0;
     font-size     : 32px;
     font-weight   : 400;
     text-transform: capitalize;
 }
 
-.line-item>div {
+.line-item>div:first-child>div {
+    display: flex;
+    height : fit-content;
+    gap    : 12px;
+}
+
+.line-item>div:first-child svg {
+    width     : 18px;
+    color     : var(--primary);
+    transition: transform ease 0.2s;
+    transform : scale(1);
+    cursor    : pointer;
+}
+
+.line-item>div:first-child svg:hover {
+    transform: scale(1.25);
+}
+
+.line-item>div:first-child svg.edit {
+    color: var(--primary);
+}
+
+.line-item>div:first-child svg.delete {
+    color: var(--red-darker);
+}
+
+.line-item>div:last-child {
     display: flex;
     gap    : 12px;
 }
