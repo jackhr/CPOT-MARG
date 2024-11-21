@@ -20,6 +20,7 @@
     <!-- BEGIN PLUGINS CSS -->
     <link rel="stylesheet" href="/assets/js/Flickity/css/flickity.min.css" media="screen">
     <link rel="stylesheet" href="/assets/js/Flickity/css/flickity-fade.css" media="screen">
+    <link rel="stylesheet" href="/assets/js/sweetalert2/styles/sweetalert2.min.css" media="screen">
     <!-- END PLUGINS CSS -->
 
     <!-- BEGIN PLUGINS JS -->
@@ -27,6 +28,7 @@
     <script src="/assets/js/Flickity/js/flickity.pkgd.min.js"></script>
     <script src="/assets/js/Flickity/js/flickity-fade.js"></script>
     <script src="/assets/js/Flickity/js/flickity-imagesloaded.js"></script>
+    <script src="/assets/js/sweetalert2/js/sweetalert2.all.min.js"></script>
     <!-- END PLUGINS JS -->
 
     <!-- END PLUGINS -->
