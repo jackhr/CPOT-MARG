@@ -950,6 +950,10 @@ html:has(.modal.showing) {
     min-width: 64px;
 }
 
+.cutout-list-item-img-container:empty {
+    background-color: var(--white);
+}
+
 .cutout-list-item.selected .cutout-list-item-img-container {
     border: solid 1px var(--secondary);
 }
