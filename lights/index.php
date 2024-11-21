@@ -155,36 +155,6 @@
         activeCutout: null
     }
     $(document).ready(function() {
-        const resetSconceModal = () => {
-            $("#sconce-modal [data-quantity]").val(1);
-            $(".cutout-list-item.no-cutout").trigger('click');
-            $("#cutout-selection-container button").trigger('click');
-        }
-
-        function setActiveSconce(sconce) {
-            $("#sconce-modal").addClass('showing');
-
-            if (sconce.sconce_id === STATE.activeSconce?.sconce_id) return;
-
-            resetSconceModal();
-
-            $("#sconce-img-container img").attr("src", sconce.image_url);
-            $("#sconce-modal [data-name]").text(sconce.name);
-            $("#sconce-modal [data-base_price]>span").text(sconce.base_price);
-            $("#sconce-modal [data-sku]").text("#" + sconce.sconce_id);
-            $("#sconce-modal [data-description]").text(sconce.description);
-            $("#sconce-modal [data-dimensions]").text(sconce.dimensions);
-            $("#sconce-modal [data-material]").text(sconce.material);
-            $("#sconce-modal [data-color]").text(sconce.color);
-            $("#sconce-modal [data-quantity]").val(1);
-            $("#sconce-modal [data-total_price]>span").text(sconce.base_price);
-            $("#sconce-modal [data-finish]").text(sconce.finish || "-");
-            $("#sconce-modal [data-mounting_type]").text(sconce.mounting_type || "-");
-            $("#sconce-modal [data-fitting_type]").text(sconce.fitting_type || "-");
-
-            STATE.activeSconce = sconce;
-        }
-
         function setActiveCutout(cutout) {
             STATE.activeCutout = cutout;
             $("[data-cutout] span").text(cutout?.name || "No Cutout Selected");
@@ -198,10 +168,10 @@
             $("#sconce-modal [data-total_price]>span").text(newPrice);
         }
 
-        loadSconces(setActiveSconce);
+        loadSconces();
 
         $(".load-more-btn").on('click', function() {
-            loadSconces(setActiveSconce);
+            loadSconces();
         });
 
         $("#sconce-info-container .sconce-info-section.collapsible h5").on("click", function() {

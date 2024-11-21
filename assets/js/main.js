@@ -59,7 +59,47 @@ function getLineItemDescription(quantity) {
     return desc;
 };
 
-function loadSconces(setActiveSconce = null, getAllSconces = false) {
+function resetSconceModal() {
+    $("#sconce-modal [data-quantity]").val(1);
+    $(".cutout-list-item.no-cutout").trigger('click');
+    $("#cutout-selection-container button").trigger('click');
+}
+
+function setActiveSconce(item, editingCart = false) {
+    $("#sconce-modal").addClass('showing');
+    const sconce = editingCart ? item.item : item;
+    const quantity = editingCart ? item.quantity : 1;
+
+    if (sconce.sconce_id === STATE.activeSconce?.sconce_id && !editingCart) return;
+
+    resetSconceModal();
+
+    $("#sconce-img-container img").attr("src", sconce.image_url);
+    $("#sconce-modal [data-name]").text(sconce.name);
+    $("#sconce-modal [data-base_price]>span").text(sconce.base_price);
+    $("#sconce-modal [data-sku]").text("#" + sconce.sconce_id);
+    $("#sconce-modal [data-description]").text(sconce.description);
+    $("#sconce-modal [data-dimensions]").text(sconce.dimensions);
+    $("#sconce-modal [data-material]").text(sconce.material);
+    $("#sconce-modal [data-color]").text(sconce.color);
+    $("#sconce-modal [data-quantity]").val(quantity);
+    $("#sconce-modal [data-total_price]>span").text(sconce.base_price);
+    $("#sconce-modal [data-finish]").text(sconce.finish || "-");
+    $("#sconce-modal [data-mounting_type]").text(sconce.mounting_type || "-");
+    $("#sconce-modal [data-fitting_type]").text(sconce.fitting_type || "-");
+
+    if (editingCart) {
+        $("[data-cutout] span").text(sconce.cutout?.name || "No Cutout Selected");
+        const cutoutId = sconce.cutout?.cutout_id;
+        const cutoutEl = cutoutId ? $(`.cutout-list-item[data-id="${cutoutId}"]`) : $(".cutout-list-item.no-cutout");
+        cutoutEl.trigger('click');
+        $("[data-cutout] span").text(STATE.cutoutsLookup[cutoutId]?.name || "No Cutout Selected");
+    }
+
+    STATE.activeSconce = sconce;
+}
+
+function loadSconces(getAllSconces = false) {
     const data = getAllSconces ? {
         action: "get_all_sconces",
     } : {
@@ -92,7 +132,7 @@ function loadSconces(setActiveSconce = null, getAllSconces = false) {
                         </div>
                     `);
 
-                    setActiveSconce && sconceEl.on('click', () => setActiveSconce(sconce));
+                    sconceEl.on('click', () => setActiveSconce(sconce));
 
                     $(".gallery").append(sconceEl);
                 });

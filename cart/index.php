@@ -31,6 +31,87 @@
         </div>
     </section>
 
+    <div id="sconce-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-options">
+                    <span class="modal-close">×</span>
+                </div>
+                <div class="modal-body">
+                    <div id="sconce-img-container">
+                        <img src="/assets/images/sconces/single/IMG_9516.jpg" alt="">
+                    </div>
+                    <div id="sconce-info-container">
+                        <div class="sconce-info-section">
+                            <h3 data-name></h3>
+                            <span data-base_price>
+                                $
+                                <span></span>
+                                <sub>(usd)</sub>
+                            </span>
+                            <span data-dimensions></span>
+                            <p>Made to order<br>Ships in 4 - 6 weeks<br>SKU - <span data-sku></span></p>
+                        </div>
+                        <div class="sconce-info-section">
+                            <h5>Cutouts</h5>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus asperiores perspiciatis perferendis blanditiis!</p>
+                            <button data-cutout="">
+                                <span>No Cutout Selected</span>
+                                <img src="/assets/icons/right-arrow.svg" alt="">
+                            </button>
+                        </div>
+                        <div class="sconce-info-section">
+                            <h5>Quantity</h5>
+                            <input data-quantity type="text" name="" id="">
+                        </div>
+                        <div class="sconce-info-section final-price">
+                            <h5>Total Price</h5>
+                            <div>
+                                <div data-total_price>
+                                    $
+                                    <span></span>
+                                    <sub>(usd)</sub>
+                                </div>
+                                <button id="update-cart">Confirm</button>
+                            </div>
+                        </div>
+                        <div class="sconce-info-section collapsible">
+                            <h5>Overview</h5>
+                            <p data-description>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum ab, consequuntur deserunt nam quasi consequatur corporis?</p>
+                        </div>
+                        <div class="sconce-info-section collapsible">
+                            <h5>Specification</h5>
+                            <div class="sconce-spec-pair">
+                                <span>Size:</span>
+                                <span data-dimensions></span>
+                            </div>
+                            <div class="sconce-spec-pair">
+                                <span>Material:</span>
+                                <span data-material></span>
+                            </div>
+                            <div class="sconce-spec-pair">
+                                <span>Colour:</span>
+                                <span data-color></span>
+                            </div>
+                            <div class="sconce-spec-pair">
+                                <span>Finish:</span>
+                                <span data-finish></span>
+                            </div>
+                            <div class="sconce-spec-pair">
+                                <span>Mounting Type:</span>
+                                <span data-mounting_type></span>
+                            </div>
+                            <div class="sconce-spec-pair">
+                                <span>Fitting Type:</span>
+                                <span data-fitting_type></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="cutout-modal" class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -66,12 +147,13 @@
         sconcesLookup: {},
         cutoutsLookup: {},
         activeSconce: null,
-        activeCutout: null
+        activeCutout: null,
+        openingSconceModal: false
     }
     $(document).ready(async function() {
         loadCart();
         loadCutouts();
-        loadSconces(null, true);
+        loadSconces(true);
 
         function loadCart() {
             const cart = getCart();
@@ -159,12 +241,6 @@
                             <div class="line-item cutout" data-type="cutout">
                                 <div>
                                     <h3>Cutout</h3>
-                                    <div>
-                                        <svg class="edit" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path>
-                                            <path d="m15 5 4 4"></path>
-                                        </svg>
-                                    </div>
                                 </div>
                                 <div>
                                     <div class="img-container">
@@ -207,6 +283,21 @@
             $("#order-summary .summary-pair.total span:last-child").text(`$${subTotal}`);
         }
 
+        async function handleOpenCutoutModal() {
+            const cart = getCart();
+            const lineItem = cart[STATE.activeIdx];
+
+            if ($(".cutout-list-item").length <= 1) await loadCutouts();
+            $(".cutout-list-item").removeClass('selected');
+            const activeId = lineItem.item.cutout?.cutout_id;
+            if (Number(activeId)) {
+                $(`.cutout-list-item[data-id="${activeId}"]`).trigger('click');
+            } else {
+                $(`.cutout-list-item.no-cutout`).trigger('click');
+            }
+            $("#cutout-modal").addClass('showing');
+        }
+
         $("svg.edit").off('click').on('click', async function() {
             const cart = getCart();
             const lineItemEl = $(this).closest('.line-item');
@@ -217,32 +308,59 @@
             STATE.activeIdx = cartIdx;
             STATE.activeSconce = lineItem.item
 
-            if (type === "cutout") {
-                if ($(".cutout-list-item").length <= 1) await loadCutouts();
-                $(".cutout-list-item").removeClass('selected');
-                const activeId = lineItem.item.cutout?.cutout_id;
-                if (Number(activeId)) {
-                    $(`.cutout-list-item[data-id="${activeId}"]`).trigger('click');
-                } else {
-                    $(`.cutout-list-item.no-cutout`).trigger('click');
-                }
-                $("#cutout-modal").addClass('showing');
+            if (type === "light") {
+                setActiveSconce(lineItem, true);
+            } else if (type === "cutout") {
+                handleOpenCutoutModal();
             }
+        });
+
+        $("[data-cutout]").on('click', async function() {
+            handleOpenCutoutModal();
         });
 
         $("#cutout-selection-container>button").on('click', function() {
             const selectedCutout = $(".cutout-list-item.selected");
             const cutoutId = selectedCutout.hasClass('no-cutout') ? null : selectedCutout.data('id');
+            $("[data-cutout] span").text(STATE.cutoutsLookup[cutoutId]?.name || "No Cutout Selected");
+            $("#cutout-modal .modal-close").trigger('click');
+        });
+
+        $("#update-cart").on('click', function() {
+            const selectedCutout = $(".cutout-list-item.selected");
+            const cutoutId = selectedCutout.hasClass('no-cutout') ? null : selectedCutout.data('id');
             const cart = getCart();
+            const newQuantity = $("#sconce-modal [data-quantity]").val();
             STATE.activeCutout = STATE.cutoutsLookup[cutoutId] || null;
             cart[STATE.activeIdx] = {
                 ...cart[STATE.activeIdx],
-                lineItemDesc: getLineItemDescription(cart[STATE.activeIdx].quantity)
+                item: {
+                    ...cart[STATE.activeIdx].item,
+                    cutout: STATE.activeCutout
+                },
+                lineItemDesc: getLineItemDescription(newQuantity),
+                quantity: newQuantity
             }
-            cart[STATE.activeIdx].item.cutout = STATE.cutoutsLookup[cutoutId];
             localStorage.setItem('cart', JSON.stringify(cart));
             location.reload();
         });
+
+        $("#sconce-modal [data-quantity]").on('input', function(evt) {
+            const currentQuantity = $(this).val();
+            const match = currentQuantity.match(/\d+/g);
+            let newQuantity = match === null ? "" : match.join("");
+            if (newQuantity > 100) newQuantity = 100;
+            $(this).val(newQuantity);
+            calculateNewTotal();
+        });
+
+        function calculateNewTotal() {
+            const quantity = Number($("#sconce-modal [data-quantity]").val());
+            const basePrice = Number(STATE?.activeSconce?.base_price);
+            const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
+            const newPrice = formatPrice((basePrice + cutoutPrice) * quantity);
+            $("#sconce-modal [data-total_price]>span").text(newPrice);
+        }
     });
 </script>
 
