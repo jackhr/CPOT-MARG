@@ -156,8 +156,8 @@
     }
     $(document).ready(function() {
         const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? [];
-        const getLineItemDescription = () => {
-            const quantity = $("#sconce-modal [data-quantity]").val();
+        const getLineItemDescription = (quantityOverride = null) => {
+            const quantity = quantityOverride || $("#sconce-modal [data-quantity]").val();
             let desc = `"${STATE.activeSconce.name}"`;
 
             if (STATE.activeCutout) {
@@ -370,18 +370,33 @@
             let text = `${lineItemDesc} successfully added to cart!`;
             try {
                 const cart = getCart();
-                const quantity = $("#sconce-modal [data-quantity]").val();
-                cart.push({
-                    type: "sconce",
-                    item: {
-                        ...STATE.activeSconce,
-                        cutout: {
-                            ...STATE.activeCutout
-                        }
-                    },
-                    quantity: Number(quantity),
-                    lineItemDesc
-                })
+                const quantity = Number($("#sconce-modal [data-quantity]").val());
+                const itemInCartIdx = cart.findIndex(item => {
+                    return item.item.sconce_id === STATE.activeSconce.sconce_id &&
+                        item.item.cutout.cutout_id === STATE?.activeCutout?.cutout_id
+                });
+
+                if (itemInCartIdx > -1) {
+                    const currentQuantity = cart[itemInCartIdx].quantity;
+                    const newQuantity = currentQuantity + quantity;
+                    text = `The item (${getLineItemDescription(currentQuantity)}) is already in the cart so we updated the quantity to "${newQuantity}"!`;
+                    cart[itemInCartIdx] = {
+                        ...cart[itemInCartIdx],
+                        quantity: newQuantity
+                    }
+                } else {
+                    cart.push({
+                        type: "sconce",
+                        item: {
+                            ...STATE.activeSconce,
+                            cutout: {
+                                ...STATE.activeCutout
+                            }
+                        },
+                        quantity: Number(quantity),
+                        lineItemDesc
+                    });
+                }
 
                 localStorage.setItem('cart', JSON.stringify(cart));
                 resetSconceModal();
