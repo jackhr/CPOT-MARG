@@ -298,21 +298,37 @@
             $("#cutout-modal").addClass('showing');
         }
 
-        $("svg.edit").off('click').on('click', async function() {
+        $("svg.edit").on('click', async function() {
             const cart = getCart();
             const lineItemEl = $(this).closest('.line-item');
-            const type = lineItemEl.data('type');
             const cartIdx = lineItemEl.closest('.line-item-container').data('cart-idx');
             const lineItem = cart[cartIdx];
 
             STATE.activeIdx = cartIdx;
             STATE.activeSconce = lineItem.item
 
-            if (type === "light") {
-                setActiveSconce(lineItem, true);
-            } else if (type === "cutout") {
-                handleOpenCutoutModal();
-            }
+            setActiveSconce(lineItem, true);
+        });
+
+        $("svg.delete").on('click', async function() {
+            const cart = getCart();
+            const lineItemEl = $(this).closest('.line-item');
+            const cartIdx = lineItemEl.closest('.line-item-container').data('cart-idx');
+            const lineItem = cart[cartIdx];
+
+            const choice = await Swal.fire({
+                icon: "warning",
+                title: "Removing From Cart",
+                html: `Are you sure you'd like to remove the following item from the cart: <p style="font-weight:700">${lineItem.lineItemDesc}</p>`,
+                showCancelButton: true,
+                confirmButtonText: "Remove"
+            });
+
+            if (!choice.isConfirmed) return;
+
+            cart.splice(cartIdx, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            location.reload();
         });
 
         $("[data-cutout]").on('click', async function() {
