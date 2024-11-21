@@ -157,7 +157,7 @@
     $(document).ready(function() {
         const getLineItemDescription = (quantityOverride = null) => {
             const quantity = quantityOverride || $("#sconce-modal [data-quantity]").val();
-            let desc = `"${STATE.activeSconce.name}"`;
+            let desc = `"${STATE.activeSconce.name}" light`;
 
             if (STATE.activeCutout) {
                 desc += ` with "${STATE.activeCutout.name}"`;
@@ -212,6 +212,7 @@
                 success: res => {
                     if (res.status === 200) {
                         res.data.forEach(sconce => {
+                            sconce = formatResource(sconce);
                             STATE.sconcesLookup[sconce.sconce_id] = sconce;
                             const sconceEl = $(`
                                 <div data-id="${sconce.sconce_id}" class="sconce-panel">
@@ -270,6 +271,7 @@
                 success: res => {
                     if (res.status === 200) {
                         res.data.forEach(cutout => {
+                            cutout = formatResource(cutout);
                             STATE.cutoutsLookup[cutout.cutout_id] = cutout;
                             const cutoutEl = $(`
                                 <div data-id="${cutout.cutout_id}" class="cutout-list-item">
@@ -316,7 +318,7 @@
             const quantity = Number($("[data-quantity]").val());
             const basePrice = Number(STATE?.activeSconce?.base_price);
             const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
-            const newPrice = (basePrice + cutoutPrice) * quantity;
+            const newPrice = formatPrice((basePrice + cutoutPrice) * quantity);
             $("#sconce-modal [data-total_price]>span").text(newPrice);
         }
 
@@ -372,7 +374,7 @@
                 const quantity = Number($("#sconce-modal [data-quantity]").val());
                 const itemInCartIdx = cart.findIndex(item => {
                     return item.item.sconce_id === STATE.activeSconce.sconce_id &&
-                        item.item.cutout.cutout_id === STATE?.activeCutout?.cutout_id
+                        item?.item?.cutout?.cutout_id === STATE?.activeCutout?.cutout_id
                 });
 
                 if (itemInCartIdx > -1) {
@@ -381,14 +383,15 @@
                     text = `The item (${getLineItemDescription(currentQuantity)}) is already in the cart so we updated the quantity to "${newQuantity}"!`;
                     cart[itemInCartIdx] = {
                         ...cart[itemInCartIdx],
-                        quantity: newQuantity
+                        quantity: newQuantity,
+                        lineItemDesc: getLineItemDescription(newQuantity)
                     }
                 } else {
                     cart.push({
-                        type: "sconce",
+                        type: "light",
                         item: {
                             ...STATE.activeSconce,
-                            cutout: {
+                            cutout: !STATE.activeCutout ? null : {
                                 ...STATE.activeCutout
                             }
                         },

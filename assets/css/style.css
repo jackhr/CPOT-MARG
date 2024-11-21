@@ -1031,8 +1031,21 @@ html:has(.modal.showing) {
 }
 
 .line-item {
+    display       : flex;
+    flex-direction: column;
+    padding       : 12px;
+    gap           : 12px;
+}
+
+.line-item>h3 {
+    margin        : 0;
+    font-size     : 32px;
+    font-weight   : 400;
+    text-transform: capitalize;
+}
+
+.line-item>div {
     display: flex;
-    padding: 12px;
     gap    : 12px;
 }
 
@@ -1052,10 +1065,37 @@ html:has(.modal.showing) {
     object-fit: cover;
 }
 
+.line-item.cutout .img-container:has(img[src=""]) img {
+    display: none;
+}
+
 .line-item-info {
     display        : flex;
     justify-content: space-between;
     width          : 100%;
+}
+
+.line-item.cutout .line-item-info>div:first-child {
+    display        : flex;
+    height         : fit-content;
+    width          : 100%;
+    justify-content: space-between;
+    align-items    : center;
+}
+
+.line-item.cutout .line-item-info>div:first-child h5 {
+    margin: 0;
+}
+
+.line-item.cutout .line-item-info>div:first-child h5+div {
+    display    : flex;
+    align-items: baseline;
+    font-size  : 28px;
+    font-weight: 500;
+}
+
+.line-item.cutout .line-item-info>div:first-child h5+div sub {
+    font-size: 14px;
 }
 
 .line-item-info>div:first-child h5 {

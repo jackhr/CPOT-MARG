@@ -27,3 +27,18 @@ $(document).ready(function () {
 });
 
 const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? [];
+
+function formatPrice(price) {
+    // Convert to number and then to a string and use toLocaleString for formatting
+    return Number(price).toLocaleString('en-US', {
+        minimumFractionDigits: 2, // Ensures two decimal places
+        maximumFractionDigits: 2 // Prevents more than two decimal places
+    });
+}
+
+function formatResource(resource) {
+    return {
+        ...resource,
+        base_price: formatPrice(resource.base_price)
+    }
+}
