@@ -12,11 +12,11 @@
                 <hr>
                 <div class="summary-pair sub">
                     <span>Sub-Total:</span>
-                    <span>$680</span>
+                    <span>-</span>
                 </div>
-                <div class="summary-pair">
+                <div class="summary-pair fee">
                     <span>Delivery Fee:</span>
-                    <span>FREE</span>
+                    <span>-</span>
                 </div>
                 <div class="summary-pair promo">
                     <span>Promo:</span>
@@ -25,7 +25,7 @@
                 <hr>
                 <div class="summary-pair total">
                     <span>Total:</span>
-                    <span>$680</span>
+                    <span>-</span>
                 </div>
             </div>
         </div>
@@ -157,6 +157,20 @@
 
         function loadCart() {
             const cart = getCart();
+
+            if (!cart.length) {
+                $("#cart-list").html(`
+                    <div id="empty-cart-alert">
+                        <h3>There are no items in your cart!</h3>
+                        <a href="/lights/">
+                            <button>View Lights</button>
+                        </a>
+                    </div>
+                `);
+                return;
+            }
+
+            $(".summary-pair.fee span:last-child").text("FREE");
 
             let subTotal = cart.reduce((acc, item, idx) => {
                 item.item = formatResource(item.item);
