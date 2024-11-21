@@ -25,3 +25,5 @@ $(document).ready(function () {
     }, 3000);
 
 });
+
+const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? [];

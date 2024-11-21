@@ -155,7 +155,6 @@
         activeCutout: null
     }
     $(document).ready(function() {
-        const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? [];
         const getLineItemDescription = (quantityOverride = null) => {
             const quantity = quantityOverride || $("#sconce-modal [data-quantity]").val();
             let desc = `"${STATE.activeSconce.name}"`;
