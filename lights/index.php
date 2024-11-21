@@ -73,7 +73,7 @@
                                     <span></span>
                                     <sub>(usd)</sub>
                                 </div>
-                                <button>Add to Cart</button>
+                                <button id="add-to-cart">Add to Cart</button>
                             </div>
                         </div>
                         <div class="sconce-info-section collapsible">
@@ -155,10 +155,33 @@
         activeCutout: null
     }
     $(document).ready(function() {
+        const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? [];
+        const getLineItemDescription = () => {
+            const quantity = $("#sconce-modal [data-quantity]").val();
+            let desc = `"${STATE.activeSconce.name}"`;
+
+            if (STATE.activeCutout) {
+                desc += ` with "${STATE.activeCutout.name}"`;
+            } else {
+                desc += ` without a`;
+            }
+            desc += ` cutout x ${quantity}`;
+
+            return desc;
+        };
+
+        const resetSconceModal = () => {
+            $("#sconce-modal [data-quantity]").val(1);
+            $(".cutout-list-item.no-cutout").trigger('click');
+            $("#cutout-selection-container button").trigger('click');
+        }
+
         function setActiveSconce(sconce) {
             $("#sconce-modal").addClass('showing');
 
             if (sconce.sconce_id === STATE.activeSconce?.sconce_id) return;
+
+            resetSconceModal();
 
             $("#sconce-img-container img").attr("src", sconce.image_url);
             $("#sconce-modal [data-name]").text(sconce.name);
@@ -292,7 +315,7 @@
 
         function calculateNewTotal() {
             const quantity = Number($("[data-quantity]").val());
-            const basePrice = Number(STATE.activeSconce.base_price);
+            const basePrice = Number(STATE?.activeSconce?.base_price);
             const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
             const newPrice = (basePrice + cutoutPrice) * quantity;
             $("#sconce-modal [data-total_price]>span").text(newPrice);
@@ -339,6 +362,40 @@
             $("#cutout-modal .modal-close").trigger('click');
             setActiveCutout(STATE.cutoutsLookup[cutoutId]);
             calculateNewTotal();
+        });
+
+        $("#add-to-cart").on('click', function() {
+            const lineItemDesc = getLineItemDescription();
+            let title = "Success";
+            let text = `${lineItemDesc} successfully added to cart!`;
+            try {
+                const cart = getCart();
+                const quantity = $("#sconce-modal [data-quantity]").val();
+                cart.push({
+                    type: "sconce",
+                    item: {
+                        ...STATE.activeSconce,
+                        cutout: {
+                            ...STATE.activeCutout
+                        }
+                    },
+                    quantity: Number(quantity),
+                    lineItemDesc
+                })
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                resetSconceModal();
+            } catch (err) {
+                title = "Error";
+                text = err;
+                console.log(err);
+            }
+
+            Swal.fire({
+                title,
+                text,
+                icon: title.toLocaleLowerCase()
+            });
         });
     });
 </script>
