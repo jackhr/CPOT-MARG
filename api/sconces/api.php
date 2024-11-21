@@ -14,7 +14,23 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 }
 
 if (isset($data['action'])) {
-    if ($data['action'] === "get_more_sconces") {
+    if ($data['action'] === "get_all_sconces") {
+        $res = [
+            "status" => 200,
+            "message" => "Successfully fetched sconces",
+            "data" => [],
+        ];
+
+        try {
+            // Fetch data
+            $stmt = $pdo->prepare("SELECT * FROM sconces WHERE deleted_at IS NULL");
+            $stmt->execute();
+            $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            $res['status'] = 500;
+            $res['message'] = $e->getMessage();
+        }
+    } else if ($data['action'] === "get_more_sconces") {
         $page = isset($data['page']) ? (int)$data['page'] : 0;
         $itemsPerPage = 6;
         $offset = $page * $itemsPerPage;
