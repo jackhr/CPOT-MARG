@@ -104,7 +104,7 @@ function loadSconces(getAllSconces = false) {
         action: "get_all_sconces",
     } : {
         action: "get_more_sconces",
-        page: STATE?.pagination?.page
+        page: STATE?.pagination?.current_page
     };
 
     $.ajax({
