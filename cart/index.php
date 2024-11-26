@@ -155,6 +155,50 @@
         loadCutouts();
         loadSconces(true);
 
+        function submitOrder() {
+            const cart = getCart();
+            const data = {
+                action: "create",
+                name: "", // User's name will be added dynamically later
+                email: "", // User's email will be added dynamically later
+                phone: "", // User's phone will be added dynamically later
+                message: "", // Optional message will be added dynamically later
+                total_amount: cart.reduce((total, item) => {
+                    const basePrice = parseFloat(item.item.base_price || 0);
+                    const cutoutPrice = item.item.cutout ? parseFloat(item.item.cutout.base_price || 0) : 0;
+                    return total + (basePrice + cutoutPrice) * item.quantity;
+                }, 0),
+                order_items: cart.map(item => ({
+                    item_type: item.type === "light" ? "sconce" : item.type,
+                    sconce_id: item.item.sconce_id || null,
+                    cutout_id: item.item.cutout ? item.item.cutout.cutout_id : null,
+                    ceramic_id: null, // Will be added dynamically later
+                    finish_option_id: null, // Will be added dynamically later
+                    cover_option_id: null, // Will be added dynamically later
+                    quantity: item.quantity,
+                    price: (parseFloat(item.item.base_price || 0) + (item.item.cutout ? parseFloat(item.item.cutout.base_price || 0) : 0)) * item.quantity
+                }))
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/orders/api.php",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "json",
+                success: res => {
+                    Swal.fire({
+                        icon: res.status === 200 ? "success" : "error",
+                        title: res.status === 200 ? "Success" : "Error",
+                        text: res.message,
+                    });
+                },
+                error: function() {
+                    console.log(arguments);
+                }
+            });
+        }
+
         function loadCart() {
             const cart = getCart();
 
@@ -169,6 +213,13 @@
                 `);
                 return;
             }
+
+            $("#order-summary").append(`
+                <hr>
+                <button id="submit-order-req-btn">Submit Request</button>
+            `);
+
+            $("#submit-order-req-btn").on('click', submitOrder);
 
             $(".summary-pair.fee span:last-child").text("FREE");
 
