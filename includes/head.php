@@ -32,6 +32,7 @@
 
     <!-- BEGIN PLUGINS JS -->
     <script src="/assets/js/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/assets/js/hongymagic-jQuery.serializeObject/dist/jquery.serializeObject.min.js"></script>
     <script src="/assets/js/Flickity/js/flickity.pkgd.min.js"></script>
     <script src="/assets/js/Flickity/js/flickity-fade.js"></script>
     <script src="/assets/js/Flickity/js/flickity-imagesloaded.js"></script>

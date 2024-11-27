@@ -154,10 +154,10 @@
                         <h3>Contact Info</h3>
                         <div class="multiple-input-container">
                             <div class="input-container">
-                                <input type="text" name="first-name" placeholder="First Name" required>
+                                <input type="text" name="first_name" placeholder="First Name" required>
                             </div>
                             <div class="input-container">
-                                <input type="text" name="last-name" placeholder="Last Name" required>
+                                <input type="text" name="last_name" placeholder="Last Name" required>
                             </div>
                         </div>
                         <div class="multiple-input-container">
@@ -202,7 +202,8 @@
         cutoutsLookup: {},
         activeSconce: null,
         activeCutout: null,
-        openingSconceModal: false
+        openingSconceModal: false,
+        emailRegEx: /[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/
     }
 
     function openConfirmationModal() {
@@ -214,12 +215,59 @@
         loadCutouts();
         loadSconces(true);
 
+        function handleInvalidFormData() {
+            const data = $("#confirmation-modal form").serializeObject();
+            let text;
+
+            if (data.first_name === '') {
+                text = 'Please enter Your first name.';
+                element = $('input[name="first_name"]');
+            } else if (data.last_name === '') {
+                text = 'Please enter your last name.';
+                element = $('input[name="last_name"]');
+            } else if (data.email === '') {
+                text = 'Please enter your email address.';
+                element = $('input[name="email"]');
+            } else if (!STATE.emailRegEx.test(data.email)) {
+                text = 'Please enter a valid email address.';
+                element = $('input[name="email"]');
+            } else if (data.phone === '') {
+                text = 'Please enter your phone number.';
+                element = $('input[name="phone"]');
+            } else if (data.address_1 === '') {
+                text = 'Please enter your address.';
+                element = $('input[name="address_1"]');
+            } else if (data.town_or_city === '') {
+                text = 'Please enter your town or city.';
+                element = $('input[name="town_or_city"]');
+            } else if (data.state === '') {
+                text = 'Please enter your state.';
+                element = $('input[name="state"]');
+            } else if (data.country === '') {
+                text = 'Please enter your country.';
+                element = $('input[name="country"]');
+            }
+
+            if (text) {
+                Swal.fire({
+                    text,
+                    title: "Incomplete form",
+                    icon: "warning",
+                });
+                element.addClass('form-error');
+            }
+
+            return !text;
+        }
+
         function submitOrder() {
+            if (!handleInvalidFormData()) return;
+
             const cart = getCart();
             const data = {
                 action: "create",
-                first_name: $('input[name="first-name"]').val().trim(),
-                last_name: $('input[name="last-name"]').val().trim(),
+                first_name: $('input[name="first_name"]').val().trim(),
+                last_name: $('input[name="last_name"]').val().trim(),
                 email: $('input[name="email"]').val().trim(),
                 phone: $('input[name="phone"]').val().trim(),
                 message: $('textarea[name="message"]').val().trim(),
@@ -429,6 +477,10 @@
             }
             $("#cutout-modal").addClass('showing');
         }
+
+        $("input").on('input', function() {
+            $(this).removeClass('form-error');
+        });
 
         $("#send-request-btn").on('click', submitOrder);
 

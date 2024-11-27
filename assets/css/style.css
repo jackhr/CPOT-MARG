@@ -1329,6 +1329,10 @@ html:has(.modal.showing) {
     margin-bottom: 16px;
 }
 
+input.form-error {
+    border: solid 2px red !important;
+}
+
 .input-container textarea {
     width        : 100%;
     resize       : vertical;
