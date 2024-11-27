@@ -25,16 +25,33 @@ if (isset($data['action'])) {
             // Start a transaction
             $pdo->beginTransaction();
 
+            // Create contact_info
+            $stmt = $pdo->prepare("
+                INSERT INTO contact_info (first_name, last_name, email, phone, address_1, town_or_city, state, country) VALUES (:first_name, :last_name, :email, :phone, :address_1, :town_or_city, :state, :country);
+            ");
+
+            // Bind contact parameters
+            $stmt->bindParam(':first_name', $data['first_name']);
+            $stmt->bindParam(':last_name', $data['last_name']);
+            $stmt->bindParam(':email', $data['email']);
+            $stmt->bindParam(':phone', $data['phone']);
+            $stmt->bindParam(':address_1', $data['address_1']);
+            $stmt->bindParam(':town_or_city', $data['town_or_city']);
+            $stmt->bindParam(':state', $data['state']);
+            $stmt->bindParam(':country', $data['country']);
+            $stmt->execute();
+
+            // Get the last inserted order ID
+            $contact_id = $pdo->lastInsertId();
+
             // Create order
             $stmt = $pdo->prepare("
-                INSERT INTO orders (name, email, phone, message, total_amount, current_status)
-                VALUES (:name, :email, :phone, :message, :total_amount, :current_status)
+                INSERT INTO orders (contact_id, message, total_amount, current_status)
+                VALUES (:contact_id, :message, :total_amount, :current_status)
             ");
 
             // Bind order parameters
-            $stmt->bindParam(':name', $data['name']);
-            $stmt->bindParam(':email', $data['email']);
-            $stmt->bindParam(':phone', $data['phone']);
+            $stmt->bindParam(':contact_id', $contact_id);
             $stmt->bindParam(':message', $data['message']);
             $stmt->bindParam(':total_amount', $data['total_amount']);
             $stmt->bindValue(':current_status', "pending");

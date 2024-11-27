@@ -139,6 +139,60 @@
         </div>
     </div>
 
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-options">
+                        <span class="modal-close">×</span>
+                    </div>
+                    <h3>Complete Your Request</h3>
+                    <p>Provide your contact details below, and we will get in touch to finalize your request.</p>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <h3>Contact Info</h3>
+                        <div class="multiple-input-container">
+                            <div class="input-container">
+                                <input type="text" name="first-name" placeholder="First Name" required>
+                            </div>
+                            <div class="input-container">
+                                <input type="text" name="last-name" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div class="multiple-input-container">
+                            <div class="input-container">
+                                <input type="text" name="email" placeholder="Email" required>
+                            </div>
+                            <div class="input-container">
+                                <input type="text" name="phone" placeholder="Phone" required>
+                            </div>
+                        </div>
+                        <h3>Address Info</h3>
+                        <div class="input-container">
+                            <input type="text" name="address_1" placeholder="Street Address" required>
+                        </div>
+                        <div class="input-container">
+                            <input type="text" name="town_or_city" placeholder="Town / City" required>
+                        </div>
+                        <div class="input-container">
+                            <input type="text" name="state" placeholder="State" required>
+                        </div>
+                        <div class="input-container">
+                            <input type="text" name="country" placeholder="Country" required>
+                        </div>
+                        <div class="input-container">
+                            <textarea name="message" placeholder="Message" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="send-request-btn">Send Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 <script>
@@ -150,6 +204,11 @@
         activeCutout: null,
         openingSconceModal: false
     }
+
+    function openConfirmationModal() {
+        $("#confirmation-modal").addClass('showing');
+    }
+
     $(document).ready(async function() {
         loadCart();
         loadCutouts();
@@ -159,10 +218,15 @@
             const cart = getCart();
             const data = {
                 action: "create",
-                name: "", // User's name will be added dynamically later
-                email: "", // User's email will be added dynamically later
-                phone: "", // User's phone will be added dynamically later
-                message: "", // Optional message will be added dynamically later
+                first_name: $('input[name="first-name"]').val().trim(),
+                last_name: $('input[name="last-name"]').val().trim(),
+                email: $('input[name="email"]').val().trim(),
+                phone: $('input[name="phone"]').val().trim(),
+                message: $('textarea[name="message"]').val().trim(),
+                address_1: $('input[name="address_1"]').val().trim(),
+                town_or_city: $('input[name="town_or_city"]').val().trim(),
+                state: $('input[name="state"]').val().trim(),
+                country: $('input[name="country"]').val().trim(),
                 total_amount: cart.reduce((total, item) => {
                     const basePrice = parseFloat(item.item.base_price || 0);
                     const cutoutPrice = item.item.cutout ? parseFloat(item.item.cutout.base_price || 0) : 0;
@@ -172,9 +236,9 @@
                     item_type: item.type === "light" ? "sconce" : item.type,
                     sconce_id: item.item.sconce_id || null,
                     cutout_id: item.item.cutout ? item.item.cutout.cutout_id : null,
-                    ceramic_id: null, // Will be added dynamically later
-                    finish_option_id: null, // Will be added dynamically later
-                    cover_option_id: null, // Will be added dynamically later
+                    ceramic_id: null,
+                    finish_option_id: null,
+                    cover_option_id: null,
                     quantity: item.quantity,
                     price: (parseFloat(item.item.base_price || 0) + (item.item.cutout ? parseFloat(item.item.cutout.base_price || 0) : 0)) * item.quantity
                 }))
@@ -186,12 +250,17 @@
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 dataType: "json",
-                success: res => {
-                    Swal.fire({
+                success: async (res) => {
+                    await Swal.fire({
                         icon: res.status === 200 ? "success" : "error",
                         title: res.status === 200 ? "Success" : "Error",
                         text: res.message,
                     });
+
+                    if (res.status === 200) {
+                        localStorage.clear('cart');
+                        location.reload();
+                    }
                 },
                 error: function() {
                     console.log(arguments);
@@ -216,10 +285,8 @@
 
             $("#order-summary").append(`
                 <hr>
-                <button id="submit-order-req-btn">Submit Request</button>
+                <button id="open-confirm-order-btn" onClick="openConfirmationModal()">Send Request</button>
             `);
-
-            $("#submit-order-req-btn").on('click', submitOrder);
 
             $(".summary-pair.fee span:last-child").text("FREE");
 
@@ -362,6 +429,8 @@
             }
             $("#cutout-modal").addClass('showing');
         }
+
+        $("#send-request-btn").on('click', submitOrder);
 
         $("svg.edit").on('click', async function() {
             const cart = getCart();
