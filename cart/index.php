@@ -288,7 +288,8 @@
                     finish_option_id: null,
                     cover_option_id: null,
                     quantity: item.quantity,
-                    price: (parseFloat(item.item.base_price || 0) + (item.item.cutout ? parseFloat(item.item.cutout.base_price || 0) : 0)) * item.quantity
+                    price: (parseFloat(item.item.base_price || 0) + (item.item.cutout ? parseFloat(item.item.cutout.base_price || 0) : 0)) * item.quantity,
+                    description: item.lineItemDesc
                 }))
             };
 
@@ -310,8 +311,13 @@
                         location.reload();
                     }
                 },
-                error: function() {
+                error: function(jqXHR, textStatus, errorThrown) {
                     console.log(arguments);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: errorThrown,
+                    });
                 }
             });
         }

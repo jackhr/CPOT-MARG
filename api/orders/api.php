@@ -2,6 +2,15 @@
 session_start();
 
 include '../../includes/connection.php';
+include '../../includes/helpers.php';
+
+$debugging = isset($debugging_email_string);
+
+if ($debugging) {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+}
 
 // Get the JSON data
 $json = file_get_contents('php://input');
@@ -63,8 +72,8 @@ if (isset($data['action'])) {
             // Create order items
             if (!empty($data['order_items']) && is_array($data['order_items'])) {
                 $stmt = $pdo->prepare("
-                    INSERT INTO order_items (order_id, item_type, sconce_id, cutout_id, ceramic_id, finish_option_id, cover_option_id, quantity, price, created_at)
-                    VALUES (:order_id, :item_type, :sconce_id, :cutout_id, :ceramic_id, :finish_option_id, :cover_option_id, :quantity, :price, NOW())
+                    INSERT INTO order_items (order_id, item_type, sconce_id, cutout_id, ceramic_id, finish_option_id, cover_option_id, quantity, price, description)
+                    VALUES (:order_id, :item_type, :sconce_id, :cutout_id, :ceramic_id, :finish_option_id, :cover_option_id, :quantity, :price, description)
                 ");
 
                 foreach ($data['order_items'] as $item) {
@@ -78,6 +87,7 @@ if (isset($data['action'])) {
                     $stmt->bindParam(':cover_option_id', $item['cover_option_id'], PDO::PARAM_INT);
                     $stmt->bindParam(':quantity', $item['quantity'], PDO::PARAM_INT);
                     $stmt->bindParam(':price', $item['price']);
+                    $stmt->bindParam(':description', $item['description']);
                     $stmt->execute();
                 }
             }
