@@ -73,7 +73,7 @@ if (isset($data['action'])) {
             if (!empty($data['order_items']) && is_array($data['order_items'])) {
                 $stmt = $pdo->prepare("
                     INSERT INTO order_items (order_id, item_type, sconce_id, cutout_id, ceramic_id, finish_option_id, cover_option_id, quantity, price, description)
-                    VALUES (:order_id, :item_type, :sconce_id, :cutout_id, :ceramic_id, :finish_option_id, :cover_option_id, :quantity, :price, description)
+                    VALUES (:order_id, :item_type, :sconce_id, :cutout_id, :ceramic_id, :finish_option_id, :cover_option_id, :quantity, :price, :description)
                 ");
 
                 foreach ($data['order_items'] as $item) {
@@ -99,6 +99,28 @@ if (isset($data['action'])) {
             $pdo->rollBack();
             $res['status'] = 500;
             $res['message'] = $e->getMessage();
+        }
+
+        // Check if the transaction is active (it should not be active if commit or rollback was called)
+        if ($pdo->inTransaction()) {
+            // This means the transaction is still open, which could indicate an issue
+            $res['status'] = 500;
+            $res['message'] = "Transaction was not completed successfully.";
+        } else if ($res['status'] === 200) {
+            // Transaction was successful
+            $mail_res_client = handleSendEmail($data['email'], "Go get them!");
+
+            // determine admin email string
+            if ($debugging) {
+                $admin_email_str = $debugging_email_string;
+            } else if (isset($testing_email_string)) {
+                $admin_email_str = $testing_email_string;
+            } else {
+                $admin_email_str = $email_string;
+            }
+
+            // Send email to admin
+            $mail_res_admin = handleSendEmail($admin_email_str, $body = "There has been an order request made by {$data['first_name']} {$data['last_name']} on the website.", $data['email']);
         }
     }
 } else {
