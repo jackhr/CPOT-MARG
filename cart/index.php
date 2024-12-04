@@ -281,7 +281,7 @@
                     return total + (basePrice + cutoutPrice) * item.quantity;
                 }, 0),
                 order_items: cart.map(item => ({
-                    item_type: item.type === "light" ? "sconce" : item.type,
+                    item_type: item.type,
                     sconce_id: item.item.sconce_id || null,
                     cutout_id: item.item.cutout ? item.item.cutout.cutout_id : null,
                     ceramic_id: null,
@@ -329,8 +329,8 @@
                 $("#cart-list").html(`
                     <div id="empty-cart-alert">
                         <h3>There are no items in your cart!</h3>
-                        <a href="/lights/">
-                            <button>View Lights</button>
+                        <a href="/sconces/">
+                            <button>View Sconces</button>
                         </a>
                     </div>
                 `);
@@ -422,7 +422,7 @@
                                 </div>
                             </div>
                         </div>
-                        ${item.type === "light" ? (
+                        ${item.type === "sconce" ? (
                             `<hr>
                             <div class="line-item cutout" data-type="cutout">
                                 <div>

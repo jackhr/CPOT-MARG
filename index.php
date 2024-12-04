@@ -26,7 +26,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $one_of_a_kind_arr[] = $row;
                         <span>Wood</span>
                     </div>
                 </div>
-                <p>Caribbean maker of finely crafted production and bespoke ceramic wall lights, signature pieces in ceramic, stone, and wood.</p>
+                <p>Caribbean maker of finely crafted production and bespoke ceramic wall sconces, signature pieces in ceramic, stone, and wood.</p>
             </div>
             <div class="right">
                 <div class="carousel">
@@ -82,14 +82,14 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $one_of_a_kind_arr[] = $row;
                         <img src="/assets/images/panels/michael.jpeg" alt="">
                     </div>
                 </div>
-                <div class="name-panel lights">
+                <div class="name-panel sconces">
                     <div class="left">
-                        <h2>Lights</h2>
+                        <h2>Sconces</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ad reiciendis aspernatur dignissimos soluta perspiciatis tempore cumque, exercitationem quisquam provident delectus mollitia sed excepturi suscipit odio officia vel voluptatum rerum?</p>
-                        <a href="/lights/">view more...</a>
+                        <a href="/sconces/">view more...</a>
                     </div>
                     <div class="right">
-                        <img src="/assets/images/panels/lights.png" alt="">
+                        <img src="/assets/images/panels/sconces.png" alt="">
                     </div>
                 </div>
                 <div class="name-panel commissions">
@@ -125,7 +125,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $one_of_a_kind_arr[] = $row;
             <h1>About Us</h1>
             <div>
                 <div>
-                    <p>Cedars Pottery began in 1996 when Antiguan-born ceramicist Michael Hunt returned to the island with his English wife and fellow ceramicist Imogen Margie. They initially collaborated to produce a range of hand-thrown decorative tableware, before an architect commission heralded their foray into wall light sconces.</p>
+                    <p>Cedars Pottery began in 1996 when Antiguan-born ceramicist Michael Hunt returned to the island with his English wife and fellow ceramicist Imogen Margie. They initially collaborated to produce a range of hand-thrown decorative tableware, before an architect commission heralded their foray into wall sconces.</p>
                     <p>Whilst continuing to offer hand-thrown pieces to order, they are now developing an eclectic mix of architectural, one-of-a-kind pieces made to commission, in collaboration with architects and clients. The pair recently decided to rebrand to Margie Hunt as Cedars Pottery no longer reflects the diverse range of work they produce. Their portfolio includes ceramic wall pieces, relief carvings, highly individual fountains, stone carvings and imaginative ceramic sculptures.</p>
                     <p>As individuals both Mike and Imogen have continued to experiment in their one-of-a-kind pieces, the creative energy feeding into all aspects of their production. Their work continues to be admired for its sense of design, consummate craft skill and attention to detail.</p>
                 </div>

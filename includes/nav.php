@@ -11,7 +11,7 @@ $current_url = $_SERVER['REQUEST_URI'];
             <a href="/" class="<?php echo ($current_url == '/') ? 'current' : ''; ?>">Home</a>
         </li>
         <li>
-            <a href="/lights" class="<?php echo ($current_url == '/lights/') ? 'current' : ''; ?>">Lights</a>
+            <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
         </li>
         <li>
             <a href="/one-of-a-kind" class="<?php echo ($current_url == '/one-of-a-kind/') ? 'current' : ''; ?>">One of a Kind</a>

@@ -25,7 +25,7 @@ if (isset($data['action'])) {
             // Fetch data
             $stmt = $pdo->prepare("SELECT * FROM cutouts WHERE deleted_at IS NULL");
             $stmt->execute();
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $res['data'][] = $row;
+            $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             $res['status'] = 500;
             $res['message'] = $e->getMessage();

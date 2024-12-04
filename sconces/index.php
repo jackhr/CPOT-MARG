@@ -3,11 +3,11 @@
 <body>
     <?php require_once __DIR__ . '/../includes/nav.php'; ?>
 
-    <section id="lights-header">
+    <section id="sconces-header">
         <div class="inner">
-            <h1>Lighting</h1>
-            <p>Elevate your interiors with refined ceramic lights and sconces, thoughtfully crafted with timeless elegance and sophisticated design.</p>
-            <button>Download Light Catalogue</button>
+            <h1>Sconces</h1>
+            <p>Elevate your interiors with refined ceramic sconces, thoughtfully crafted with timeless elegance and sophisticated design.</p>
+            <button>Download Sconce Catalogue</button>
         </div>
     </section>
 
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="gallery"></div>
-            <button class="load-more-btn">Load More Lights</button>
+            <button class="load-more-btn">Load More Sconces</button>
         </div>
     </section>
 
@@ -230,7 +230,7 @@
                     }
                 } else {
                     cart.push({
-                        type: "light",
+                        type: "sconce",
                         item: {
                             ...STATE.activeSconce,
                             cutout: !STATE.activeCutout ? null : {

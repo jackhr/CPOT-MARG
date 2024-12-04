@@ -47,7 +47,7 @@ function formatResource(resource) {
 }
 
 function getLineItemDescription(quantity) {
-    let desc = `"${STATE.activeSconce.name}" light`;
+    let desc = `"${STATE.activeSconce.name}" sconce`;
 
     if (STATE.activeCutout) {
         desc += ` with "${STATE.activeCutout.name}"`;
