@@ -2,13 +2,15 @@
 
 require_once __DIR__ . '/includes/head.php';
 
-$ceramics_query = "SELECT * FROM unique_ceramics WHERE status = :status";
-
-$stmt = $pdo->prepare($ceramics_query);
-$stmt->execute(['status' => 'active']);
-
-$one_of_a_kind_arr = [];
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) $one_of_a_kind_arr[] = $row;
+$stmt = $pdo->prepare(
+    "SELECT one_of_a_kind.*, one_of_a_kind_images.image_url
+        FROM one_of_a_kind
+        LEFT JOIN one_of_a_kind_images ON one_of_a_kind.primary_image_id = one_of_a_kind_images.image_id
+    WHERE status = :status"
+);
+$stmt->bindValue(':status', 'active', PDO::PARAM_STR);
+$stmt->execute();
+$one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 

@@ -23,7 +23,13 @@ if (isset($data['action'])) {
 
         try {
             // Fetch data
-            $stmt = $pdo->prepare("SELECT * FROM sconces WHERE deleted_at IS NULL");
+            $stmt = $pdo->prepare(
+                "SELECT sconces.*, sconce_images.image_url
+                    FROM sconces
+                    LEFT JOIN sconce_images ON sconces.primary_image_id = sconce_images.image_id
+                WHERE status = :status"
+            );
+            $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
             $stmt->execute();
             $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
@@ -49,7 +55,14 @@ if (isset($data['action'])) {
 
         try {
             // Fetch data
-            $stmt = $pdo->prepare("SELECT * FROM sconces WHERE status = :status LIMIT :limit OFFSET :offset");
+            $stmt = $pdo->prepare(
+                "SELECT sconces.*, sconce_images.image_url
+                    FROM sconces
+                    LEFT JOIN sconce_images ON sconces.primary_image_id = sconce_images.image_id
+                WHERE status = :status
+                LIMIT :limit
+                OFFSET :offset"
+            );
             $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
             $stmt->bindValue(':limit', $itemsPerPage, PDO::PARAM_INT);
             $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);

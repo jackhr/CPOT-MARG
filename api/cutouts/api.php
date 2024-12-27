@@ -23,7 +23,12 @@ if (isset($data['action'])) {
 
         try {
             // Fetch data
-            $stmt = $pdo->prepare("SELECT * FROM cutouts WHERE deleted_at IS NULL");
+            $stmt = $pdo->prepare(
+                "SELECT cutouts.*, cutout_images.image_url
+                    FROM cutouts
+                    LEFT JOIN cutout_images ON cutouts.primary_image_id = cutout_images.image_id
+                WHERE deleted_at IS NULL"
+            );
             $stmt->execute();
             $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
