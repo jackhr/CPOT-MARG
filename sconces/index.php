@@ -244,6 +244,7 @@
 
                 localStorage.setItem('cart', JSON.stringify(cart));
                 resetSconceModal();
+                reCalculateCartCount();
             } catch (err) {
                 title = "Error";
                 text = err;

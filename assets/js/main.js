@@ -27,9 +27,17 @@ $(document).ready(function () {
     $(".modal-close").on("click", function () {
         $(this).closest(".modal").removeClass('showing');
     });
+
+    reCalculateCartCount();
 });
 
-const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? [];
+function reCalculateCartCount() {
+    $("#cart-count").html(getCart().length || "");
+}
+
+function getCart() {
+    return JSON.parse(localStorage.getItem('cart')) ?? [];
+};
 
 function formatPrice(price) {
     // Convert to number and then to a string and use toLocaleString for formatting
