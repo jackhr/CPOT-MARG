@@ -47,14 +47,14 @@ function formatResource(resource) {
 }
 
 function getLineItemDescription(quantity) {
-    let desc = `"${STATE.activeSconce.name}" sconce`;
+    let desc = `${quantity} x "${STATE.activeSconce.name}" sconce`;
 
     if (STATE.activeCutout) {
         desc += ` with "${STATE.activeCutout.name}"`;
     } else {
         desc += ` without a`;
     }
-    desc += ` cutout x ${quantity}`;
+    desc += " cutout";
 
     return desc;
 };
