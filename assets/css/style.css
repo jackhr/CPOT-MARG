@@ -68,6 +68,27 @@ section div.inner {
     padding        : var(--general-padding);
 }
 
+section.header div.inner {
+    height        : 500px;
+    flex-direction: column;
+    background    : var(--primary);
+    color         : var(--white);
+    gap           : 24px;
+}
+
+section.header div.inner h1 {
+    margin     : auto 0 0;
+    font-size  : 52px;
+    font-weight: 400;
+}
+
+section.header div.inner p {
+    max-width : 700px;
+    text-align: center;
+    font-size : 20px;
+    margin    : 0 0 auto;
+}
+
 a {
     color          : var(--primary);
     text-decoration: none;
@@ -108,7 +129,6 @@ select {
 }
 
 button {
-    margin-top   : auto;
     background   : var(--secondary);
     border       : solid 1px transparent;
     padding      : 16px;
@@ -355,7 +375,7 @@ section#index-header div.inner>div.right {
     max-width      : var(--max-width);
 }
 
-.gallery:has(.sconce-panel) {
+.gallery:not(:empty) {
     max-width    : 1440px;
     margin-bottom: 40px;
 }
@@ -368,7 +388,8 @@ section#index-header div.inner>div.right {
 }
 
 .gallery-panel,
-.sconce-panel {
+.sconce-panel,
+.one-of-a-kind-panel {
     display        : flex;
     align-items    : center;
     justify-content: center;
@@ -455,6 +476,31 @@ section#index-header div.inner>div.right {
 .sconce-panel>div:last-child>div span:last-child {
     font-size: 14px;
     color    : var(--secondary);
+}
+
+.one-of-a-kind-panel img {
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
+}
+
+.one-of-a-kind-panel .oak-title {
+    position       : absolute;
+    color          : var(--white);
+    transition     : opacity ease 0.2s;
+    opacity        : 0;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    width          : 100%;
+    height         : 100%;
+    backdrop-filter: blur(2px);
+    pointer-events : none;
+}
+
+.one-of-a-kind-panel:hover .oak-title {
+    opacity       : 1;
+    pointer-events: all;
 }
 
 #about-us-section {
@@ -574,32 +620,11 @@ div#copyright {
     text-align: center;
 }
 
-#sconces-header div.inner {
-    height        : 500px;
-    flex-direction: column;
-    background    : var(--primary);
-    color         : var(--white);
-    gap           : 24px;
-}
-
-#sconces-header h1 {
-    margin     : auto 0 0;
-    font-size  : 52px;
-    font-weight: 400;
-}
-
-#sconces-header p {
-    max-width : 700px;
-    text-align: center;
-    font-size : 20px;
-    margin    : 0;
-}
-
-#sconce-section div.inner {
+.gallery-section div.inner {
     flex-direction: column;
 }
 
-#sconce-section div.inner>div:has(.filter-container) {
+.gallery-section div.inner>div:has(.filter-container) {
     display: flex;
     margin : 40px auto;
     gap    : 24px;

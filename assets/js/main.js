@@ -223,3 +223,57 @@ async function loadCutouts() {
         }
     });
 }
+
+function loadOAKs(getAll = false) {
+    const data = getAll ? {
+        action: "get_all",
+    } : {
+        action: "get_more",
+        page: STATE?.pagination?.current_page
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/api/one-of-a-kind/api.php",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: "json",
+        success: res => {
+            if (res.status === 200) {
+                res.data.forEach(oAK => {
+                    oAK = formatResource(oAK);
+                    STATE.oAKsLookup[oAK.one_of_a_kind_id] = oAK;
+                    const oAKEl = $(`
+                        <div data-id="${oAK.one_of_a_kind_id}" class="one-of-a-kind-panel">
+                            <img src="${oAK.image_url}" alt="Oops">
+                            <div class="oak-title">
+                                <h4>${oAK.name}</h4>
+                            </div>
+                        </div>
+                    `);
+
+                    oAKEl.on('click', () => setActiveSconce(sconce));
+
+                    $(".gallery").append(oAKEl);
+                });
+
+                STATE.pagination = {
+                    ...res.pagination
+                };
+
+                if (STATE.pagination.current_page === STATE.pagination.total_pages) {
+                    $(".load-more-btn").remove();
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: res.message
+                });
+            }
+        },
+        error: function () {
+            console.log(arguments);
+        }
+    });
+}

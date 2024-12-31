@@ -3,7 +3,7 @@
 <body>
     <?php require_once __DIR__ . '/../includes/nav.php'; ?>
 
-    <section id="sconces-header">
+    <section class="header">
         <div class="inner">
             <h1>Sconces</h1>
             <p>Elevate your interiors with refined ceramic sconces, thoughtfully crafted with timeless elegance and sophisticated design.</p>
@@ -11,7 +11,7 @@
         </div>
     </section>
 
-    <section id="sconce-section">
+    <section class="gallery-section">
         <div class="inner">
             <div>
                 <div class="filter-container">
