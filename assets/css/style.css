@@ -754,39 +754,39 @@ html:has(.modal.showing) {
     gap    : 20px;
 }
 
-#sconce-img-container {
+.img-container {
     width : clamp(200px, 100%, 750px);
     height: clamp(200px, 40vw, 750px);
 }
 
-#sconce-img-container img {
+.img-container img {
     width     : 100%;
     height    : 100%;
     object-fit: cover;
 }
 
-#sconce-info-container {
+.info-container {
     width    : 100%;
     max-width: 750px;
 }
 
-.sconce-info-section {
+.info-section {
     border-bottom: solid 1px var(--secondary);
     padding      : 20px 0;
     position     : relative;
 }
 
-#sconce-info-container .sconce-info-section:first-child {
+.info-container .info-section:first-child {
     padding-top: 0;
 }
 
-#sconce-info-container .sconce-info-section:first-child h3 {
+.info-container .info-section:first-child h3 {
     margin     : 0 0 20px;
     font-size  : 36px;
     font-weight: 500;
 }
 
-#sconce-info-container span[data-base_price] {
+.info-container span[data-base_price] {
     display      : flex;
     align-items  : baseline;
     margin-bottom: 12px;
@@ -794,30 +794,30 @@ html:has(.modal.showing) {
     font-weight  : 500;
 }
 
-#sconce-info-container span[data-base_price] span {
+.info-container span[data-base_price] span {
     margin-right: 8px;
 }
 
-#sconce-info-container span[data-base_price] sub {
+.info-container span[data-base_price] sub {
     font-size: 14px;
 }
 
-#sconce-info-container .sconce-info-section p,
-#sconce-info-container span[data-dimensions]:not(.sconce-spec-pair span[data-dimensions]) {
+.info-container .info-section p,
+.info-container span[data-dimensions]:not(.sconce-spec-pair span[data-dimensions], #oak-modal .info-section span) {
     font-size  : 14px;
     margin     : 0 0 12px;
     display    : block;
     line-height: 24px;
 }
 
-#sconce-info-container .sconce-info-section:first-child p {
+.info-container .info-section:first-child p {
     color      : #B4B4B4;
     font-weight: 500;
     line-height: 26px;
     margin     : 0;
 }
 
-#sconce-info-container .sconce-info-section h5 {
+.info-container .info-section h5 {
     font-size  : 24px;
     margin     : 0 0 4px;
     font-weight: 400;
@@ -826,30 +826,30 @@ html:has(.modal.showing) {
     cursor     : pointer;
 }
 
-#sconce-info-container .sconce-info-section.collapsible.collapsed h5 {
+.info-container .info-section.collapsible.collapsed h5 {
     margin: 0;
 }
 
-#sconce-info-container .sconce-info-section.collapsible h5::before {
+.info-container .info-section.collapsible h5::before {
     margin-right: 12px;
     content     : "-";
 }
 
-#sconce-info-container .sconce-info-section.collapsible.collapsed h5::before {
+.info-container .info-section.collapsible.collapsed h5::before {
     content: "+";
 }
 
-#sconce-info-container .sconce-info-section.collapsible h5~* {
+.info-container .info-section.collapsible h5~* {
     overflow: hidden;
 }
 
-#sconce-info-container .sconce-info-section.collapsible.collapsed h5~* {
+.info-container .info-section.collapsible.collapsed h5~* {
     height : 0;
     margin : 0;
     padding: 0;
 }
 
-#sconce-info-container .sconce-info-section [data-cutout] {
+.info-container .info-section [data-cutout] {
     border         : solid 1px var(--black);
     border-radius  : 16px;
     background     : transparent;
@@ -861,7 +861,7 @@ html:has(.modal.showing) {
     justify-content: space-between;
 }
 
-#sconce-info-container .sconce-info-section [data-quantity] {
+.info-container .info-section [data-quantity] {
     border       : solid 1px var(--black);
     width        : 90px;
     height       : unset;
@@ -871,12 +871,12 @@ html:has(.modal.showing) {
     margin-top   : 20px;
 }
 
-#sconce-info-container .sconce-info-section.final-price>div {
+.info-container .info-section.final-price>div {
     display: flex;
     gap    : 16px;
 }
 
-#sconce-info-container .sconce-info-section [data-total_price] {
+.info-container .info-section [data-total_price] {
     width          : max-content;
     background     : rgba(var(--primary-rgb-vals), 0.1);
     border-radius  : 8px;
@@ -890,22 +890,110 @@ html:has(.modal.showing) {
     margin-top     : 20px;
 }
 
-#sconce-info-container .sconce-info-section [data-total_price] span {
+.info-container .info-section [data-total_price] span {
     margin-right: 4px;
 }
 
-#sconce-info-container .sconce-info-section [data-total_price] sub {
+.info-container .info-section [data-total_price] sub {
     font-size: 14px;
 }
 
-#sconce-info-container .sconce-info-section [data-total_price]+button {
+.info-container .info-section [data-total_price]+button {
     width: 100%;
 }
 
-#sconce-info-container .sconce-info-section [data-total_price]+button:hover {
+.info-container .info-section [data-total_price]+button:hover {
     border-color: var(--secondary);
     background  : var(--white);
     color       : var(--secondary);
+}
+
+#oak-modal .modal-content {
+    padding      : 0;
+    border-radius: 0;
+    border       : none;
+    width        : max-content;
+}
+
+#oak-modal .modal-body {
+    display: flex;
+    padding: 0;
+}
+
+#oak-modal .modal-close {
+    background     : var(--white);
+    border-radius  : 50%;
+    width          : 30px;
+    height         : 30px;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+}
+
+#oak-modal .info-container {
+    display       : flex;
+    flex-direction: column;
+    padding       : 20px;
+}
+
+#oak-modal .info-container h3 {
+    font-weight: 400;
+    font-size  : 24px;
+    line-height: 34px;
+    margin     : 0 0 12px;
+}
+
+#oak-modal .info-section {
+    border     : none;
+    padding    : 0 0 8px;
+    line-height: 24px;
+}
+
+#oak-modal .info-container span:first-child {
+    font-weight: 600;
+}
+
+#enquiry-btn {
+    margin-top: auto;
+}
+
+#oak-modal .img-container {
+    min-width      : 530px;
+    min-height     : 530px;
+    width          : 530px;
+    height         : 530px;
+    position       : relative;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+}
+
+#oak-modal .img-container .prev,
+#oak-modal .img-container .next {
+    position       : absolute;
+    background     : var(--white);
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    border-radius  : 50%;
+    width          : 36px;
+    height         : 36px;
+    cursor         : pointer;
+}
+
+#oak-modal .img-container .prev {
+    left: 12px;
+
+}
+
+#oak-modal .img-container .next {
+    right: 12px;
+}
+
+#oak-modal .img-container .prev svg,
+#oak-modal .img-container .next svg {
+    width : 100%;
+    height: 100%;
 }
 
 .sconce-spec-pair {

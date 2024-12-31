@@ -224,6 +224,24 @@ async function loadCutouts() {
     });
 }
 
+function setActiveOAK(oAK, editingCart = false) {
+    $("#oak-modal").addClass('showing');
+
+    if (oAK.one_of_a_kind_id === STATE.activeOAK?.one_of_a_kind_id && !editingCart) return;
+
+    $("#oak-modal .img-container img").attr("src", oAK.image_url);
+    $("#oak-modal [data-name]").text(oAK.name);
+    $("#oak-modal [data-artist]>span").text(oAK.artist);
+    $("#oak-modal [data-dimensions]").text(oAK.dimensions);
+    $("#oak-modal [data-material]").text(oAK.material);
+    $("#oak-modal [data-created_at]").text(oAK.created_at);
+    $("#oak-modal [data-description]").text(oAK.description);
+    $("#oak-modal [data-base_price]").text(oAK.base_price);
+    $("#oak-modal [data-quantity]").val(oAK.quantity);
+
+    STATE.activeOAK = oAK;
+}
+
 function loadOAKs(getAll = false) {
     const data = getAll ? {
         action: "get_all",
@@ -240,11 +258,12 @@ function loadOAKs(getAll = false) {
         dataType: "json",
         success: res => {
             if (res.status === 200) {
-                res.data.forEach(oAK => {
+                STATE.oAKs = res.data.length ? res.data : [];
+                res.data.forEach((oAK, idx) => {
                     oAK = formatResource(oAK);
                     STATE.oAKsLookup[oAK.one_of_a_kind_id] = oAK;
                     const oAKEl = $(`
-                        <div data-id="${oAK.one_of_a_kind_id}" class="one-of-a-kind-panel">
+                        <div data-idx="${idx}" data-id="${oAK.one_of_a_kind_id}" class="one-of-a-kind-panel">
                             <img src="${oAK.image_url}" alt="Oops">
                             <div class="oak-title">
                                 <h4>${oAK.name}</h4>
@@ -252,7 +271,10 @@ function loadOAKs(getAll = false) {
                         </div>
                     `);
 
-                    oAKEl.on('click', () => setActiveSconce(sconce));
+                    oAKEl.on('click', function () {
+                        STATE.activeOAKIdx = idx;
+                        setActiveOAK(oAK);
+                    });
 
                     $(".gallery").append(oAKEl);
                 });
