@@ -949,6 +949,10 @@ html:has(.modal.showing) {
     line-height: 24px;
 }
 
+#oak-modal .info-section [data-price] {
+    display: inline-flex;
+}
+
 #oak-modal .info-container span:first-child {
     font-weight: 600;
 }

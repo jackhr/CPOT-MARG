@@ -123,6 +123,80 @@ if (isset($data['action'])) {
             $mail_res_admin = handleSendEmail($admin_email_str, $body = "There has been an order request made by {$data['first_name']} {$data['last_name']} on the website.", $data['email']);
         }
     }
+
+    if ($data['action'] === "create_enquiry") {
+        $res = [
+            "status" => 200,
+            "message" => "Enquiry for \"{$data['oak_name']}\" created successfully",
+        ];
+
+        try {
+            // Start a transaction
+            $pdo->beginTransaction();
+
+            // Create contact_info
+            $stmt = $pdo->prepare("
+                INSERT INTO contact_info (first_name, last_name, email, phone, address_1, town_or_city, state, country) VALUES (:first_name, :last_name, :email, :phone, :address_1, :town_or_city, :state, :country);
+            ");
+
+            // Bind contact parameters
+            $stmt->bindParam(':first_name', $data['first_name']);
+            $stmt->bindParam(':last_name', $data['last_name']);
+            $stmt->bindParam(':email', $data['email']);
+            $stmt->bindParam(':phone', $data['phone']);
+            $stmt->bindParam(':address_1', $data['address_1']);
+            $stmt->bindParam(':town_or_city', $data['town_or_city']);
+            $stmt->bindParam(':state', $data['state']);
+            $stmt->bindParam(':country', $data['country']);
+            $stmt->execute();
+
+            // Get the last inserted order ID
+            $contact_id = $pdo->lastInsertId();
+
+            // Create order
+            $stmt = $pdo->prepare("
+                INSERT INTO one_of_a_kind_enquiries (contact_id, one_of_a_kind_id, message, current_status)
+                VALUES (:contact_id, :one_of_a_kind_id, :message, :current_status)
+            ");
+
+            // Bind order parameters
+            $stmt->bindParam(':contact_id', $contact_id);
+            $stmt->bindParam(':one_of_a_kind_id', $data['one_of_a_kind_id']);
+            $stmt->bindParam(':message', $data['message']);
+            $stmt->bindValue(':current_status', "pending");
+            $stmt->execute();
+
+            // Commit transaction
+            $pdo->commit();
+        } catch (Exception $e) {
+            // Roll back the transaction on error
+            $pdo->rollBack();
+            $res['status'] = 500;
+            $res['message'] = $e->getMessage();
+        }
+
+        // Check if the transaction is active (it should not be active if commit or rollback was called)
+        if ($pdo->inTransaction()) {
+            // This means the transaction is still open, which could indicate an issue
+            $res['status'] = 500;
+            $res['message'] = "Transaction was not completed successfully.";
+        } else if ($res['status'] === 200) {
+            // Transaction was successful
+            $mail_res_client = handleSendEmail($data['email'], "Go get them!");
+
+            // determine admin email string
+            if ($debugging) {
+                $admin_email_str = $debugging_email_string;
+            } else if (isset($testing_email_string)) {
+                $admin_email_str = $testing_email_string;
+            } else {
+                $admin_email_str = $email_string;
+            }
+
+            // Send email to admin
+            $mail_res_admin = handleSendEmail($admin_email_str, $body = "There has been an One of a Kind enquiry made by {$data['first_name']} {$data['last_name']} on the website.", $data['email']);
+        }
+    }
 } else {
     $res = ['error' => 'No action provided'];
 }
