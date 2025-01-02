@@ -1515,3 +1515,41 @@ a[href="/cart"]:hover #cart-count,
 a[href="/cart"].current #cart-count {
     background-color: var(--secondary);
 }
+
+section#imo-and-mike div.inner {
+    max-width     : 1400px;
+    margin        : auto;
+    flex-direction: column;
+}
+
+section#imo-and-mike div.inner h2 {
+    color         : var(--primary);
+    font-size     : 52px;
+    font-weight   : 500;
+    letter-spacing: 1px;
+    line-height   : normal;
+}
+
+.about-info-container {
+    display      : flex;
+    gap          : 48px;
+    margin-bottom: 90px;
+    align-items  : center;
+}
+
+.about-info-container.reverse {
+    flex-direction: row-reverse;
+}
+
+.about-info-container p {
+    margin     : 0;
+    line-height: 40px;
+    font-size  : 20px;
+    color      : var(--grey-dark);
+}
+
+.about-info-container img {
+    max-width : 500px;
+    object-fit: contain;
+    max-height: 500px;
+}
