@@ -108,7 +108,8 @@ if (isset($data['action'])) {
             $res['message'] = "Transaction was not completed successfully.";
         } else if ($res['status'] === 200) {
             // Transaction was successful
-            $mail_res_client = handleSendEmail($data['email'], "Go get them!");
+            // Now need to generate a better formatted email body
+            $mail_res_client = handleSendEmail($data['email'], "Your order has been submitted and is now pending review!");
 
             // determine admin email string
             if ($debugging) {
@@ -120,6 +121,7 @@ if (isset($data['action'])) {
             }
 
             // Send email to admin
+            // Now need to generate a better formatted email body
             $mail_res_admin = handleSendEmail($admin_email_str, $body = "There has been an order request made by {$data['first_name']} {$data['last_name']} on the website.", $data['email']);
         }
     }
@@ -182,7 +184,8 @@ if (isset($data['action'])) {
             $res['message'] = "Transaction was not completed successfully.";
         } else if ($res['status'] === 200) {
             // Transaction was successful
-            $mail_res_client = handleSendEmail($data['email'], "Go get them!");
+            // Now need to generate a better formatted email body
+            $mail_res_client = handleSendEmail($data['email'], "Your One of a Kind enquiry has been submitted and is now pending review!");
 
             // determine admin email string
             if ($debugging) {
@@ -194,6 +197,7 @@ if (isset($data['action'])) {
             }
 
             // Send email to admin
+            // Now need to generate a better formatted email body
             $mail_res_admin = handleSendEmail($admin_email_str, $body = "There has been an One of a Kind enquiry made by {$data['first_name']} {$data['last_name']} on the website.", $data['email']);
         }
     }
