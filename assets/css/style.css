@@ -1260,7 +1260,8 @@ html:has(.modal.showing) {
 }
 
 .line-item.cutout .line-item-info>div:first-child h5+div,
-.line-item-quantity>div {
+.line-item-quantity>div,
+.line-item.options .bottom div div {
     display    : flex;
     align-items: baseline;
     font-size  : 28px;
@@ -1341,6 +1342,20 @@ html:has(.modal.showing) {
 
 .line-item-total p {
     margin: 0;
+}
+
+.line-item.options .bottom {
+    margin-bottom: 0 !important;
+    border       : none !important;
+}
+
+.line-item.options .bottom>div {
+    font-size: 18px;
+    color    : var(--black);
+}
+
+.line-item.options .bottom div div {
+    font-size: inherit;
 }
 
 #order-summary {

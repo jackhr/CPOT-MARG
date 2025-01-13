@@ -89,7 +89,6 @@ function setActiveSconce(item, editingCart = false) {
     $("#sconce-modal [data-color]").text(sconce.color);
     $("#sconce-modal [data-quantity]").val(quantity);
     $("#sconce-modal [data-total_price]>span").text(sconce.base_price);
-    $("#sconce-modal [data-finish]").text(sconce.finish || "-");
     $("#sconce-modal [data-mounting_type]").text(sconce.mounting_type || "-");
     $("#sconce-modal [data-fitting_type]").text(sconce.fitting_type || "-");
 

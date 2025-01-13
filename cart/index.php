@@ -95,7 +95,7 @@
                             </div>
                             <div class="sconce-spec-pair">
                                 <span>Finish:</span>
-                                <span data-finish></span>
+                                <span data-is_glazed></span>
                             </div>
                             <div class="sconce-spec-pair">
                                 <span>Mounting Type:</span>
@@ -403,8 +403,12 @@
                                             <span>${item.item.color}</span>
                                         </div>
                                         <div>
+                                            <span>Cover:</span>
+                                            <span>${item?.item?.is_covered ? "Covered" : "Without Cover"}</span>
+                                        </div>
+                                        <div>
                                             <span>Finish:</span>
-                                            <span>${item.item.finish || "-"}</span>
+                                            <span>${item?.item?.is_glazed ? "Glazed Finish" : "Unglazed"}</span>
                                         </div>
                                         <div>
                                             <span>Mounting Type:</span>
@@ -422,39 +426,63 @@
                                 </div>
                             </div>
                         </div>
-                        ${item.type === "sconce" ? (
-                            `<hr>
-                            <div class="line-item cutout" data-type="cutout">
-                                <div>
-                                    <h3>Cutout</h3>
+                        <hr>
+                        <div class="line-item cutout" data-type="cutout">
+                            <div>
+                                <h3>Cutout</h3>
+                            </div>
+                            <div>
+                                <div class="img-container">
+                                    <img src="${item?.item?.cutout?.image_url || ""}" alt="">
                                 </div>
-                                <div>
-                                    <div class="img-container">
-                                        <img src="${item?.item?.cutout?.image_url || ""}" alt="">
-                                    </div>
-                                    <div class="line-item-info">
+                                <div class="line-item-info">
+                                    <div>
+                                        <h5>${item?.item?.cutout?.name || "No Cutout"}</h5>
                                         <div>
-                                            <h5>${item?.item?.cutout?.name || "No Cutout"}</h5>
+                                            <span>$${item?.item?.cutout?.base_price || 0}</span>
+                                            <sub>(usd)</sub>
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        ${item?.item?.cutout?.description ? (
+                                            `<div>
+                                                <span>${item.item.cutout.description}</span>
+                                            </div>`
+                                        ) : ""}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="line-item options" data-type="options">
+                            <div>
+                                <h3>Options</h3>
+                            </div>
+                            <div>
+                                <div class="line-item-info">
+                                    <div class="bottom">
+                                        <div>
+                                            <span>${item?.item?.is_covered ? "Covered" : "Without Cover"}:</span>
                                             <div>
                                                 <span>$${item?.item?.cutout?.base_price || 0}</span>
                                                 <sub>(usd)</sub>
                                             </div>
                                         </div>
-                                        <div class="bottom">
-                                            ${item?.item?.cutout?.description ? (
-                                                `<div>
-                                                    <span>${item.item.cutout.description}</span>
-                                                </div>`
-                                            ) : ""}
+                                        <div>
+                                            <span>${item?.item?.is_glazed ? "Glazed Finish" : "Unglazed"}:</span>
+                                            <div>
+                                                <span>$${item?.item?.cutout?.base_price || 0}</span>
+                                                <sub>(usd)</sub>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="line-item-total">
-                                <p>${item.lineItemDesc}</p>
-                                <span data-price>$${formattedItemSubTotal}</span>
-                            </div>`
-                        ) : ""}
+                        </div>
+                        <div class="line-item-total">
+                            <p>${item.lineItemDesc}</p>
+                            <span data-price>$${formattedItemSubTotal}</span>
+                        </div>
                     </div>
                 `;
 
