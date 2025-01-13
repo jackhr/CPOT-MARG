@@ -61,6 +61,17 @@
                                 <img src="/assets/icons/right-arrow.svg" alt="">
                             </button>
                         </div>
+                        <div class="info-section sconce-options">
+                            <h5>Options</h5>
+                            <div class="input-container">
+                                <input id="is_covered_input" type="checkbox" name="is_covered" required>
+                                <label for="is_covered_input"><span>Cover: </span>Have a cover placed atop your sconce to protect it from the elements.</label>
+                            </div>
+                            <div class="input-container">
+                                <input id="is_glazed_input" type="checkbox" name="is_glazed" required>
+                                <label for="is_glazed_input"><span>Glazed Finish: </span>A clean, sleek, glazed finish to be applied to your cutout.</label>
+                            </div>
+                        </div>
                         <div class="info-section">
                             <h5>Quantity</h5>
                             <input data-quantity type="text" name="" id="">
@@ -209,24 +220,30 @@
 
         $("#add-to-cart").on('click', function() {
             const quantity = Number($("#sconce-modal [data-quantity]").val());
-            const lineItemDesc = getLineItemDescription(quantity);
+            const is_covered = Number($("#is_covered_input").is(':checked'));
+            const is_glazed = Number($("#is_glazed_input").is(':checked'));
+            const lineItemDesc = getLineItemDescription(quantity, !!is_covered, !!is_glazed);
             let title = "Success";
             let text = `${lineItemDesc} successfully added to cart!`;
             try {
                 const cart = getCart();
                 const itemInCartIdx = cart.findIndex(item => {
-                    return item.item.sconce_id === STATE.activeSconce.sconce_id &&
-                        item?.item?.cutout?.cutout_id === STATE?.activeCutout?.cutout_id
+                    return (
+                        item.item.sconce_id === STATE.activeSconce.sconce_id &&
+                        item?.item?.cutout?.cutout_id === STATE?.activeCutout?.cutout_id &&
+                        item?.item?.is_covered === is_covered &&
+                        item?.item?.is_glazed === is_glazed
+                    );
                 });
 
                 if (itemInCartIdx > -1) {
                     const currentQuantity = cart[itemInCartIdx].quantity;
                     const newQuantity = currentQuantity + quantity;
-                    text = `The item (${getLineItemDescription(currentQuantity)}) is already in the cart so we updated the quantity to "${newQuantity}"!`;
+                    text = `The item (${getLineItemDescription(currentQuantity, !!is_covered, !!is_glazed)}) is already in the cart so we updated the quantity to "${newQuantity}"!`;
                     cart[itemInCartIdx] = {
                         ...cart[itemInCartIdx],
                         quantity: newQuantity,
-                        lineItemDesc: getLineItemDescription(newQuantity)
+                        lineItemDesc: getLineItemDescription(newQuantity, !!is_covered, !!is_glazed)
                     }
                 } else {
                     cart.push({
@@ -235,7 +252,9 @@
                             ...STATE.activeSconce,
                             cutout: !STATE.activeCutout ? null : {
                                 ...STATE.activeCutout
-                            }
+                            },
+                            is_covered,
+                            is_glazed,
                         },
                         quantity: Number(quantity),
                         lineItemDesc

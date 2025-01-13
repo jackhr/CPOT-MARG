@@ -54,23 +54,20 @@ function formatResource(resource) {
     }
 }
 
-function getLineItemDescription(quantity) {
-    let desc = `${quantity} x "${STATE.activeSconce.name}" sconce`;
+function getLineItemDescription(quantity, is_covered = false, is_glazed = true) {
+    const cutoutStr = STATE.activeCutout ? `With "${STATE.activeCutout.name} Cutout"` : "Without Cutout";
+    const coveredStr = is_covered ? "With Cover" : "Without Cover";
+    const glazedStr = is_glazed ? "Glazed Finish" : "Unglazed Finish";
 
-    if (STATE.activeCutout) {
-        desc += ` with "${STATE.activeCutout.name}"`;
-    } else {
-        desc += ` without a`;
-    }
-    desc += " cutout";
-
-    return desc;
+    return `${quantity} x "${STATE.activeSconce.name}" sconce, ${cutoutStr}, ${coveredStr}, ${glazedStr}`;
 };
 
 function resetSconceModal() {
     $("#sconce-modal [data-quantity]").val(1);
     $(".cutout-list-item.no-cutout").trigger('click');
     $("#cutout-selection-container button").trigger('click');
+    if ($("#is_covered_input").is(":checked")) $("#is_covered_input").trigger('click');
+    if ($("#is_glazed_input").is(":checked")) $("#is_glazed_input").trigger('click');
 }
 
 function setActiveSconce(item, editingCart = false) {

@@ -754,6 +754,23 @@ html:has(.modal.showing) {
     gap    : 20px;
 }
 
+#sconce-modal .info-section.sconce-options .input-container:first-of-type {
+    margin-top: 16px;
+}
+
+#sconce-modal .info-section.sconce-options .input-container input {
+    width : 20px;
+    height: 24px;
+}
+
+#sconce-modal .info-section.sconce-options .input-container label {
+    line-height: 24px;
+}
+
+#sconce-modal .info-section.sconce-options .input-container label span {
+    font-weight: 600;
+}
+
 .img-container {
     width : clamp(200px, 100%, 750px);
     height: clamp(200px, 40vw, 750px);
