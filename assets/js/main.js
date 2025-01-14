@@ -147,7 +147,7 @@ async function loadAddOns() {
                         $(".info-section.sconce-add-ons").append(`
                             <div class="input-container">
                                 <input id="${addOnIdHTML}" class="sconce-add-on" type="checkbox" value="${addOn.add_on_id}">
-                                <label for="${addOnIdHTML}"><span>${addOn.name}: </span>${addOn.description}</label>
+                                <label for="${addOnIdHTML}"><span>${addOn.name}: </span>${addOn.description} ($${addOn.price})</label>
                             </div>
                         `);
                     }
