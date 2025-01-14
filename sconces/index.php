@@ -151,7 +151,7 @@
         activeSconce: null,
         activeCutout: null
     }
-    $(document).ready(function() {
+    $(document).ready(async function() {
         function setActiveCutout(cutout) {
             STATE.activeCutout = cutout;
             $("[data-cutout] span").text(cutout?.name || "No Cutout Selected");
@@ -159,22 +159,25 @@
 
         function calculateNewTotal() {
             const quantity = Number($("[data-quantity]").val());
-            const basePrice = Number(STATE?.activeSconce?.base_price);
+            const sconcePrice = Number(STATE?.activeSconce?.base_price);
             const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
-            const coveredPrice = $("#is_covered_input").is(':checked') ? 15 : 0;
-            const glazedPrice = $("#is_glazed_input").is(':checked') ? 15 : 0;
-            const newPrice = formatPrice((basePrice + cutoutPrice + coveredPrice + glazedPrice) * quantity);
+            const basePrice = Object.values(getSelectedAddOnsInfo()).reduce((price, addOn) => {
+                if (addOn.checked) price += Number(addOn.price);
+                return price;
+            }, sconcePrice + cutoutPrice);
+
+            const newPrice = formatPrice(basePrice * quantity);
             $("#sconce-modal [data-total_price]>span").text(newPrice);
         }
 
         loadSconces();
-        loadAddOns();
+        await loadAddOns();
 
         $(".load-more-btn").on('click', function() {
             loadSconces();
         });
 
-        $("#is_covered_input, #is_glazed_input").on('change', function() {
+        $(".sconce-add-on").on('change', function() {
             calculateNewTotal();
         });
 
