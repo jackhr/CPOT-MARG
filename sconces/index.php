@@ -216,6 +216,14 @@
 
         $("#add-to-cart").on('click', function() {
             const quantity = Number($("#sconce-modal [data-quantity]").val());
+            if (quantity < 1) {
+                return Swal.fire({
+                    icon: "warning",
+                    title: "No Quantity",
+                    text: "In order to add a sconce to your cart, you must have a quantity of 1 more."
+                });
+            }
+
             const lineItemDesc = getLineItemDescription(quantity);
             const addOnsInfo = getSelectedAddOnsInfo();
             let title = "Success";
