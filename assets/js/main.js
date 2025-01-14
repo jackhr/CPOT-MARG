@@ -125,6 +125,18 @@ function setActiveSconce(item, editingCart = false) {
     STATE.activeSconce = sconce;
 }
 
+function generateOrderItemPrice(item) {
+    const itemPrice = Number(item?.item?.base_price || 0);
+    const cutoutPrice = Number(item?.item?.cutout?.base_price) || 0;
+    const quantity = Number(item.quantity);
+    const basePrice = Object.values(item.item.addOnIds || []).reduce((price, id) => {
+        const addOn = STATE.addOnsLookup[id];
+        return price + Number(addOn.price);
+    }, itemPrice + cutoutPrice);
+
+    return basePrice * quantity;
+}
+
 async function loadAddOns() {
     await $.ajax({
         type: "POST",

@@ -89,6 +89,25 @@ if (isset($data['action'])) {
                     $stmt->bindParam(':price', $item['price']);
                     $stmt->bindParam(':description', $item['description']);
                     $stmt->execute();
+
+                    // Get the last inserted order_item_id
+                    $order_item_id = $pdo->lastInsertId();
+
+                    // Insert add-ons for this order item if they exist
+                    if (!empty($item['add_on_ids']) && is_array($item['add_on_ids'])) {
+                        $addOnStmt = $pdo->prepare("
+                            INSERT INTO order_item_add_ons (order_item_id, add_on_id, add_on_name, add_on_price)
+                            SELECT :order_item_id, ao.add_on_id, ao.name, ao.price
+                            FROM add_ons ao
+                            WHERE ao.add_on_id = :add_on_id;
+                        ");
+
+                        foreach ($item['add_on_ids'] as $add_on_id) {
+                            $addOnStmt->bindParam(':order_item_id', $order_item_id, PDO::PARAM_INT);
+                            $addOnStmt->bindParam(':add_on_id', $add_on_id, PDO::PARAM_INT);
+                            $addOnStmt->execute();
+                        }
+                    }
                 }
             }
 

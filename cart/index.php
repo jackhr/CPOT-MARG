@@ -276,11 +276,7 @@
                 town_or_city: $('input[name="town_or_city"]').val().trim(),
                 state: $('input[name="state"]').val().trim(),
                 country: $('input[name="country"]').val().trim(),
-                total_amount: cart.reduce((total, item) => {
-                    const basePrice = parseFloat(item.item.base_price || 0);
-                    const cutoutPrice = item.item.cutout ? parseFloat(item.item.cutout.base_price || 0) : 0;
-                    return total + (basePrice + cutoutPrice) * item.quantity;
-                }, 0),
+                total_amount: cart.reduce((total, item) => (total + generateOrderItemPrice(item)), 0),
                 order_items: cart.map(item => ({
                     item_type: item.type,
                     sconce_id: item.item.sconce_id || null,
@@ -289,8 +285,9 @@
                     finish_option_id: null,
                     cover_option_id: null,
                     quantity: item.quantity,
-                    price: (parseFloat(item.item.base_price || 0) + (item.item.cutout ? parseFloat(item.item.cutout.base_price || 0) : 0)) * item.quantity,
-                    description: item.lineItemDesc
+                    price: generateOrderItemPrice(item),
+                    description: item.lineItemDesc,
+                    add_on_ids: item.item.addOnIds
                 }))
             };
 
@@ -348,15 +345,8 @@
             let subTotal = cart.reduce((acc, item, idx) => {
                 item.item = formatResource(item.item);
                 item.item.cutout && (item.item.cutout = formatResource(item.item.cutout));
-                const itemPrice = Number(item.item.base_price);
-                const cutoutPrice = Number(item?.item?.cutout?.base_price) || 0;
-                const quantity = Number(item.quantity);
-                const basePrice = Object.values(item?.item?.addOnIds || []).reduce((price, id) => {
-                    const addOn = STATE.addOnsLookup[id];
-                    return price + Number(addOn.price);
-                }, itemPrice + cutoutPrice);
-
-                const itemSubTotal = basePrice * quantity;
+                const quantity = Number(item.quantity);                
+                const itemSubTotal = generateOrderItemPrice(item);
                 const formattedItemSubTotal = formatPrice(itemSubTotal)
                 const idKey = `${item.type}_id`;
 
@@ -472,8 +462,6 @@
                                         ${Object.values(STATE.addOnsLookup).map(addOn => {
                                             const addOnIsApplied = item?.item?.addOnIds.includes(addOn.add_on_id);
                                             const finalAddOnStr = (addOnIsApplied ? "With" : "Without") + ` ${addOn.name}`
-                                            console.log("addOnIsApplied:", addOnIsApplied);
-                                            console.log("finalAddOnStr:", finalAddOnStr);
                                             return `
                                                 <div>
                                                     <span>${finalAddOnStr}:</span>
