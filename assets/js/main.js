@@ -125,8 +125,8 @@ function setActiveSconce(item, editingCart = false) {
     STATE.activeSconce = sconce;
 }
 
-function loadAddOns() {
-    $.ajax({
+async function loadAddOns() {
+    await $.ajax({
         type: "POST",
         url: "/api/add-ons/api.php",
         data: JSON.stringify({
