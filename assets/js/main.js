@@ -48,10 +48,12 @@ function formatPrice(price) {
 }
 
 function formatResource(resource) {
-    return {
-        ...resource,
-        base_price: formatPrice(resource.base_price)
-    }
+    const res = structuredClone(resource);
+
+    if (res.price) res.price = formatPrice(resource.price);
+    if (res.base_price) res.base_price = formatPrice(resource.base_price);
+    
+    return res;
 }
 
 function getLineItemDescription(quantity, is_covered = false, is_glazed = true) {
