@@ -211,6 +211,7 @@
     }
 
     $(document).ready(async function() {
+        await loadAddOns();
         loadCart();
         loadCutouts();
         loadSconces(true);
@@ -403,12 +404,8 @@
                                             <span>${item.item.color}</span>
                                         </div>
                                         <div>
-                                            <span>Cover:</span>
-                                            <span>${item?.item?.is_covered ? "Covered" : "Without Cover"}</span>
-                                        </div>
-                                        <div>
-                                            <span>Finish:</span>
-                                            <span>${item?.item?.is_glazed ? "Glazed Finish" : "Unglazed"}</span>
+                                            <span>Description:</span>
+                                            <span>${item.item.description || "-"}</span>
                                         </div>
                                         <div>
                                             <span>Mounting Type:</span>
@@ -418,10 +415,16 @@
                                             <span>Fitting Type:</span>
                                             <span>${item.item.fitting_type || "-"}</span>
                                         </div>
-                                        <div>
-                                            <span>Description:</span>
-                                            <span>${item.item.description || "-"}</span>
-                                        </div>
+                                        ${Object.values(STATE.addOnsLookup).map(addOn => {
+                                            const addOnIsApplied = item?.item?.addOnIds.includes(addOn.add_on_id);
+                                            const finalAddOnStr = (addOnIsApplied ? "With" : "Without") + ` ${addOn.name}`;
+                                            return `
+                                                <div>
+                                                    <span>${addOn.name}:</span>
+                                                    <span>${finalAddOnStr}</span>
+                                                </div>
+                                            `;
+                                        }).join('')}
                                     </div>
                                 </div>
                             </div>
@@ -454,27 +457,28 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="line-item options" data-type="options">
+                        <div class="line-item add-ons" data-type="add-ons">
                             <div>
-                                <h3>Options</h3>
+                                <h3>Add Ons</h3>
                             </div>
                             <div>
                                 <div class="line-item-info">
                                     <div class="bottom">
-                                        <div>
-                                            <span>${item?.item?.is_covered ? "Covered" : "Without Cover"}:</span>
-                                            <div>
-                                                <span>$${item?.item?.cutout?.base_price || 0}</span>
-                                                <sub>(usd)</sub>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <span>${item?.item?.is_glazed ? "Glazed Finish" : "Unglazed"}:</span>
-                                            <div>
-                                                <span>$${item?.item?.cutout?.base_price || 0}</span>
-                                                <sub>(usd)</sub>
-                                            </div>
-                                        </div>
+                                        ${Object.values(STATE.addOnsLookup).map(addOn => {
+                                            const addOnIsApplied = item?.item?.addOnIds.includes(addOn.add_on_id);
+                                            const finalAddOnStr = (addOnIsApplied ? "With" : "Without") + ` ${addOn.name}`
+                                            console.log("addOnIsApplied:", addOnIsApplied);
+                                            console.log("finalAddOnStr:", finalAddOnStr);
+                                            return `
+                                                <div>
+                                                    <span>${finalAddOnStr}:</span>
+                                                    <div>
+                                                        <span>$${addOnIsApplied ? addOn.price : 0}</span>
+                                                        <sub>(usd)</sub>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }).join('')}
                                     </div>
                                 </div>
                             </div>
@@ -569,9 +573,9 @@
             const newQuantity = $("#sconce-modal [data-quantity]").val();
             STATE.activeCutout = STATE.cutoutsLookup[cutoutId] || null;
             cart[STATE.activeIdx] = {
-                ...cart[STATE.activeIdx],
+                ...structuredClone(cart[STATE.activeIdx]),
                 item: {
-                    ...cart[STATE.activeIdx].item,
+                    ...structuredClone(cart[STATE.activeIdx].item),
                     cutout: STATE.activeCutout
                 },
                 lineItemDesc: getLineItemDescription(newQuantity),
