@@ -52,24 +52,44 @@ function formatResource(resource) {
 
     if (res.price) res.price = formatPrice(resource.price);
     if (res.base_price) res.base_price = formatPrice(resource.base_price);
-    
+
     return res;
 }
 
-function getLineItemDescription(quantity, is_covered = false, is_glazed = true) {
-    const cutoutStr = STATE.activeCutout ? `With "${STATE.activeCutout.name} Cutout"` : "Without Cutout";
-    const coveredStr = is_covered ? "With Cover" : "Without Cover";
-    const glazedStr = is_glazed ? "Glazed Finish" : "Unglazed Finish";
+function arraysAreEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+        return false; // Arrays have different lengths, so not equal
+    }
+    return arr1.every((value, index) => value === arr2[index]);
+}
 
-    return `${quantity} x "${STATE.activeSconce.name}" sconce, ${cutoutStr}, ${coveredStr}, ${glazedStr}`;
+function getLineItemDescription(quantity) {
+    const addOnsInfo = getSelectedAddOnsInfo();
+    const cutoutStr = STATE.activeCutout ? `With "${STATE.activeCutout.name} Cutout"` : "Without Cutout";
+    let initialDesc = `${quantity} x "${STATE.activeSconce.name}" sconce, ${cutoutStr}`;
+
+    return Object.values(addOnsInfo).reduce((lineItemDesc, addOn) => {
+        const addOnStr = (addOn.checked ? `With ` : `Without `) + addOn.name;
+        return `${lineItemDesc}, ${addOnStr}`;
+    }, initialDesc);
 };
+
+function getSelectedAddOnsInfo() {
+    return $(".sconce-add-on").toArray().reduce((lookup, input) => {
+        const id = $(input).val();
+        lookup[id] = {
+            checked: $(input).is(":checked"),
+            ...STATE.addOnsLookup[id]
+        }
+        return lookup;
+    }, {});
+}
 
 function resetSconceModal() {
     $("#sconce-modal [data-quantity]").val(1);
     $(".cutout-list-item.no-cutout").trigger('click');
     $("#cutout-selection-container button").trigger('click');
-    if ($("#is_covered_input").is(":checked")) $("#is_covered_input").trigger('click');
-    if ($("#is_glazed_input").is(":checked")) $("#is_glazed_input").trigger('click');
+    $(".sconce-add-on").each((_, el) => $(el).is(":checked") && $(el).trigger('click'));
 }
 
 function setActiveSconce(item, editingCart = false) {
@@ -103,6 +123,47 @@ function setActiveSconce(item, editingCart = false) {
     }
 
     STATE.activeSconce = sconce;
+}
+
+function loadAddOns() {
+    $.ajax({
+        type: "POST",
+        url: "/api/add-ons/api.php",
+        data: JSON.stringify({
+            action: "get_all_add_ons",
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: res => {
+            if (res.status === 200) {
+                $(".info-section.sconce-add-ons").html("<h5>Add Ons</h5>");
+                STATE.addOnsLookup = {};
+                res.data.forEach(addOn => {
+                    addOn = formatResource(addOn);
+                    STATE.addOnsLookup[addOn.add_on_id] = addOn;
+
+                    if ($(".info-section.sconce-add-ons").length) {
+                        const addOnIdHTML = `${addOn.name.replaceAll(" ", "_").toLowerCase()}_add_on`;
+                        $(".info-section.sconce-add-ons").append(`
+                            <div class="input-container">
+                                <input id="${addOnIdHTML}" class="sconce-add-on" type="checkbox" value="${addOn.add_on_id}">
+                                <label for="${addOnIdHTML}"><span>${addOn.name}: </span>${addOn.description}</label>
+                            </div>
+                        `);
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: res.message
+                });
+            }
+        },
+        error: function () {
+            console.log(arguments);
+        }
+    });
 }
 
 function loadSconces(getAllSconces = false) {

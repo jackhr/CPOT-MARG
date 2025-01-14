@@ -754,20 +754,24 @@ html:has(.modal.showing) {
     gap    : 20px;
 }
 
-#sconce-modal .info-section.sconce-options .input-container:first-of-type {
+#sconce-modal .info-section.sconce-add-ons:empty {
+    display: none;
+}
+
+#sconce-modal .info-section.sconce-add-ons .input-container:first-of-type {
     margin-top: 16px;
 }
 
-#sconce-modal .info-section.sconce-options .input-container input {
+#sconce-modal .info-section.sconce-add-ons .input-container input {
     width : 20px;
     height: 24px;
 }
 
-#sconce-modal .info-section.sconce-options .input-container label {
+#sconce-modal .info-section.sconce-add-ons .input-container label {
     line-height: 24px;
 }
 
-#sconce-modal .info-section.sconce-options .input-container label span {
+#sconce-modal .info-section.sconce-add-ons .input-container label span {
     font-weight: 600;
 }
 
