@@ -171,7 +171,9 @@
             const quantity = Number($("[data-quantity]").val());
             const basePrice = Number(STATE?.activeSconce?.base_price);
             const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
-            const newPrice = formatPrice((basePrice + cutoutPrice) * quantity);
+            const coveredPrice = $("#is_covered_input").is(':checked') ? 15 : 0;
+            const glazedPrice = $("#is_glazed_input").is(':checked') ? 15 : 0;
+            const newPrice = formatPrice((basePrice + cutoutPrice + coveredPrice + glazedPrice) * quantity);
             $("#sconce-modal [data-total_price]>span").text(newPrice);
         }
 
@@ -179,6 +181,10 @@
 
         $(".load-more-btn").on('click', function() {
             loadSconces();
+        });
+
+        $("#is_covered_input, #is_glazed_input").on('change', function() {
+            calculateNewTotal();
         });
 
         $(".info-container .info-section.collapsible h5").on("click", function() {
