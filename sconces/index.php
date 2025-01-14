@@ -228,7 +228,7 @@
             const addOnsInfo = getSelectedAddOnsInfo();
             let title = "Success";
             let text = `${lineItemDesc} successfully added to cart!`;
-            const addOnsIds = Object.values(addOnsInfo).reduce((arr, addOn) => {
+            const addOnIds = Object.values(addOnsInfo).reduce((arr, addOn) => {
                 if (addOn.checked) arr.push(addOn.add_on_id);
                 return arr;
             }, []);
@@ -238,7 +238,7 @@
                     return (
                         item.item.sconce_id === STATE.activeSconce.sconce_id &&
                         item?.item?.cutout?.cutout_id === STATE?.activeCutout?.cutout_id &&
-                        arraysAreEqual(item?.item.addOnsIds, addOnsIds)
+                        arraysAreEqual(item?.item.addOnIds, addOnIds)
                     );
                 });
 
@@ -259,7 +259,7 @@
                             cutout: !STATE.activeCutout ? null : {
                                 ...structuredClone(STATE.activeCutout)
                             },
-                            addOnIds: addOnsIds
+                            addOnIds
                         },
                         quantity: Number(quantity),
                         lineItemDesc

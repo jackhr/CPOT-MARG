@@ -94,10 +94,6 @@
                                 <span data-color></span>
                             </div>
                             <div class="sconce-spec-pair">
-                                <span>Finish:</span>
-                                <span data-is_glazed></span>
-                            </div>
-                            <div class="sconce-spec-pair">
                                 <span>Mounting Type:</span>
                                 <span data-mounting_type></span>
                             </div>
