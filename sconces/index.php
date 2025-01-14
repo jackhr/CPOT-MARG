@@ -248,7 +248,7 @@
                             cutout: !STATE.activeCutout ? null : {
                                 ...structuredClone(STATE.activeCutout)
                             },
-                            addOnIdss: addOnsIds
+                            addOnIds: addOnsIds
                         },
                         quantity: Number(quantity),
                         lineItemDesc
