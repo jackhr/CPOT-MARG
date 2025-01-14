@@ -72,8 +72,8 @@ if (isset($data['action'])) {
             // Create order items
             if (!empty($data['order_items']) && is_array($data['order_items'])) {
                 $stmt = $pdo->prepare("
-                    INSERT INTO order_items (order_id, item_type, sconce_id, cutout_id, ceramic_id, finish_option_id, cover_option_id, quantity, price, description)
-                    VALUES (:order_id, :item_type, :sconce_id, :cutout_id, :ceramic_id, :finish_option_id, :cover_option_id, :quantity, :price, :description)
+                    INSERT INTO order_items (order_id, item_type, sconce_id, cutout_id, quantity, price, description)
+                    VALUES (:order_id, :item_type, :sconce_id, :cutout_id, :quantity, :price, :description)
                 ");
 
                 foreach ($data['order_items'] as $item) {
@@ -82,9 +82,6 @@ if (isset($data['action'])) {
                     $stmt->bindParam(':item_type', $item['item_type']);
                     $stmt->bindParam(':sconce_id', $item['sconce_id'], PDO::PARAM_INT);
                     $stmt->bindParam(':cutout_id', $item['cutout_id'], PDO::PARAM_INT);
-                    $stmt->bindParam(':ceramic_id', $item['ceramic_id'], PDO::PARAM_INT);
-                    $stmt->bindParam(':finish_option_id', $item['finish_option_id'], PDO::PARAM_INT);
-                    $stmt->bindParam(':cover_option_id', $item['cover_option_id'], PDO::PARAM_INT);
                     $stmt->bindParam(':quantity', $item['quantity'], PDO::PARAM_INT);
                     $stmt->bindParam(':price', $item['price']);
                     $stmt->bindParam(':description', $item['description']);
