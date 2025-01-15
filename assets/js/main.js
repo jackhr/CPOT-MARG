@@ -106,7 +106,7 @@ function setActiveSconce(item, editingCart = false) {
     $("#sconce-modal [data-base_price]>span").text(sconce.base_price);
     $("#sconce-modal [data-sku]").text("#" + sconce.sconce_id);
     $("#sconce-modal [data-description]").text(sconce.description);
-    $("#sconce-modal [data-dimensions]").text(sconce.dimensions);
+    $("#sconce-modal [data-dimensions]").text(`${sconce.dimensions} (W/H/D)`);
     $("#sconce-modal [data-material]").text(sconce.material);
     $("#sconce-modal [data-color]").text(sconce.color);
     $("#sconce-modal [data-quantity]").val(quantity);

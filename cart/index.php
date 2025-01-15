@@ -38,11 +38,11 @@
                     <span class="modal-close">×</span>
                 </div>
                 <div class="modal-body">
-                    <div id="sconce-img-container">
+                    <div class="img-container">
                         <img src="/assets/images/sconces/single/IMG_9516.jpg" alt="">
                     </div>
-                    <div id="sconce-info-container">
-                        <div class="sconce-info-section">
+                    <div class="info-container">
+                        <div class="info-section">
                             <h3 data-name></h3>
                             <span data-base_price>
                                 $
@@ -52,7 +52,7 @@
                             <span data-dimensions></span>
                             <p>Made to order<br>Ships in 4 - 6 weeks<br>SKU - <span data-sku></span></p>
                         </div>
-                        <div class="sconce-info-section">
+                        <div class="info-section">
                             <h5>Cutouts</h5>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus asperiores perspiciatis perferendis blanditiis!</p>
                             <button data-cutout="">
@@ -60,11 +60,11 @@
                                 <img src="/assets/icons/right-arrow.svg" alt="">
                             </button>
                         </div>
-                        <div class="sconce-info-section">
+                        <div class="info-section">
                             <h5>Quantity</h5>
                             <input data-quantity type="text" name="" id="">
                         </div>
-                        <div class="sconce-info-section final-price">
+                        <div class="info-section final-price">
                             <h5>Total Price</h5>
                             <div>
                                 <div data-total_price>
@@ -75,11 +75,11 @@
                                 <button id="update-cart">Confirm</button>
                             </div>
                         </div>
-                        <div class="sconce-info-section collapsible">
+                        <div class="info-section collapsible">
                             <h5>Overview</h5>
                             <p data-description>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum ab, consequuntur deserunt nam quasi consequatur corporis?</p>
                         </div>
-                        <div class="sconce-info-section collapsible">
+                        <div class="info-section collapsible">
                             <h5>Specification</h5>
                             <div class="sconce-spec-pair">
                                 <span>Size:</span>
