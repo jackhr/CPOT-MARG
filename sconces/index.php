@@ -7,7 +7,7 @@
         <div class="inner">
             <h1>Sconces</h1>
             <p>Elevate your interiors with refined ceramic sconces, thoughtfully crafted with timeless elegance and sophisticated design.</p>
-            <button>Download Sconce Catalogue</button>
+            <a download href="/assets/files/MH_Light_catalog.pdf">Download Sconce Catalogue</a>
         </div>
     </section>
 

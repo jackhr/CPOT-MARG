@@ -128,7 +128,8 @@ select {
     border-radius: 2px;
 }
 
-button {
+button,
+a[download] {
     background   : var(--secondary);
     border       : solid 1px transparent;
     padding      : 16px;
@@ -140,11 +141,13 @@ button {
     transition   : ease 0.3s all;
 }
 
-button:hover {
+button:hover,
+a[download]:hover {
     border-color: var(--white);
 }
 
-button:active {
+button:active,
+a[download]:active {
     background-color: var(--secondary-darker);
 }
 
