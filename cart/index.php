@@ -95,11 +95,13 @@
                             </div>
                             <div class="sconce-spec-pair">
                                 <span>Mounting Type:</span>
-                                <span data-mounting_type></span>
+                                <span>Wall mounted</span>
+                                <!-- <span data-mounting_type></span> -->
                             </div>
                             <div class="sconce-spec-pair">
                                 <span>Fitting Type:</span>
-                                <span data-fitting_type></span>
+                                <span>X Bracket</span>
+                                <!-- <span data-fitting_type></span> -->
                             </div>
                         </div>
                     </div>
@@ -397,11 +399,13 @@
                                         </div>
                                         <div>
                                             <span>Mounting Type:</span>
-                                            <span>${item.item.mounting_type || "-"}</span>
+                                            <span>Wall mounted</span>
+                                            <!-- <span>${item.item.mounting_type || "-"}</span> -->
                                         </div>
                                         <div>
                                             <span>Fitting Type:</span>
-                                            <span>${item.item.fitting_type || "-"}</span>
+                                            <span>X Bracket</span>
+                                            <!-- <span>${item.item.fitting_type || "-"}</span> -->
                                         </div>
                                         ${Object.values(STATE.addOnsLookup).map(addOn => {
                                             const addOnIsApplied = item?.item?.addOnIds.includes(addOn.add_on_id);

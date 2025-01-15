@@ -97,11 +97,13 @@
                             </div>
                             <div class="sconce-spec-pair">
                                 <span>Mounting Type:</span>
-                                <span data-mounting_type></span>
+                                <span>Wall mounted</span>
+                                <!-- <span data-mounting_type></span> -->
                             </div>
                             <div class="sconce-spec-pair">
                                 <span>Fitting Type:</span>
-                                <span data-fitting_type></span>
+                                <span>X Bracket</span>
+                                <!-- <span data-fitting_type></span> -->
                             </div>
                         </div>
                     </div>
