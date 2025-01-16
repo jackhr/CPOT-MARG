@@ -394,10 +394,6 @@
                                             <span>${item.item.color}</span>
                                         </div>
                                         <div>
-                                            <span>Description:</span>
-                                            <span>${item.item.description || "-"}</span>
-                                        </div>
-                                        <div>
                                             <span>Mounting Type:</span>
                                             <span>Wall mounted</span>
                                             <!-- <span>${item.item.mounting_type || "-"}</span> -->
@@ -417,6 +413,10 @@
                                                 </div>
                                             `;
                                         }).join('')}
+                                        <div>
+                                            <span>Description:</span>
+                                            <span>${item.item.description || "-"}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

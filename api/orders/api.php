@@ -22,6 +22,8 @@ if (json_last_error() !== JSON_ERROR_NONE) {
     exit;
 }
 
+$email_subject = "Order Request at Margrie Hunt";
+
 // Check if action is provided
 if (isset($data['action'])) {
     if ($data['action'] === "create") {
@@ -125,7 +127,12 @@ if (isset($data['action'])) {
         } else if ($res['status'] === 200) {
             // Transaction was successful
             // Now need to generate a better formatted email body
-            $mail_res_client = handleSendEmail($data['email'], "Your order has been submitted and is now pending review!");
+            $mail_res_client = handleSendEmail(
+                "orders",
+                $data['email'],
+                "Your order has been submitted and is now pending review!",
+                $email_subject
+            );
 
             // determine admin email string
             if ($debugging) {
@@ -138,7 +145,13 @@ if (isset($data['action'])) {
 
             // Send email to admin
             // Now need to generate a better formatted email body
-            $mail_res_admin = handleSendEmail($admin_email_str, $body = "There has been an order request made by {$data['first_name']} {$data['last_name']} on the website.", $data['email']);
+            $mail_res_admin = handleSendEmail(
+                "orders",
+                $admin_email_str,
+                "There has been an order request made by {$data['first_name']} {$data['last_name']} on the website.",
+                $email_subject,
+                $data['email']
+            );
         }
     }
 
@@ -201,7 +214,12 @@ if (isset($data['action'])) {
         } else if ($res['status'] === 200) {
             // Transaction was successful
             // Now need to generate a better formatted email body
-            $mail_res_client = handleSendEmail($data['email'], "Your One of a Kind enquiry has been submitted and is now pending review!");
+            $mail_res_client = handleSendEmail(
+                "orders",
+                $data['email'],
+                "Your One of a Kind enquiry has been submitted and is now pending review!",
+                $email_subject
+            );
 
             // determine admin email string
             if ($debugging) {
@@ -214,7 +232,13 @@ if (isset($data['action'])) {
 
             // Send email to admin
             // Now need to generate a better formatted email body
-            $mail_res_admin = handleSendEmail($admin_email_str, $body = "There has been an One of a Kind enquiry made by {$data['first_name']} {$data['last_name']} on the website.", $data['email']);
+            $mail_res_admin = handleSendEmail(
+                "orders",
+                $admin_email_str,
+                "There has been an One of a Kind enquiry made by {$data['first_name']} {$data['last_name']} on the website.",
+                $email_subject,
+                $data['email']
+            );
         }
     }
 } else {
