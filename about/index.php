@@ -1,6 +1,6 @@
 <?php require_once __DIR__ . '/../includes/head.php'; ?>
 
-<body>
+<body id="about">
     <?php require_once __DIR__ . '/../includes/nav.php'; ?>
 
     <section class="header">

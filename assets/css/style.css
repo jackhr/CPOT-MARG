@@ -1594,10 +1594,36 @@ section#imo-and-mike div.inner h2 {
     max-height: 500px;
 }
 
+body#about section.header div.inner {
+    background-image   : url('/assets/images/heros/imogen-and-mike.jpg');
+    background-position: top;
+    background-size    : cover;
+}
+
+body#one-of-a-kind section.header div.inner {
+    background-image   : url('/assets/images/heros/nautilus-fountain-Limestone.jpeg');
+    background-position: center;
+    background-size    : cover;
+}
+
+body#sconces section.header div.inner {
+    background-image   : url('/assets/images/heros/Jumby-Bay-sconces-in-progress-1-of-20.jpeg');
+    background-position: center;
+    background-size    : cover;
+}
+
 body#contact section.header div.inner {
     background-image   : url('/assets/images/heros/lizard-on-an-art-piece.jpeg');
     background-position: top;
     background-size    : cover;
+}
+
+body#sconces section.header h1,
+body#about section.header h1,
+body#one-of-a-kind section.header h1 {
+    font-weight: 600;
+    font-size  : 88px;
+    color      : var(--primary);
 }
 
 body#contact section.header h1 {
@@ -1611,6 +1637,13 @@ body#contact section.header h2,
 body#contact section.header p {
     margin: 0;
     color : var(--white);
+}
+
+body#sconces section.header p,
+body#about section.header p,
+body#one-of-a-kind section.header p,
+body#contact section.header p {
+    text-shadow: 0 1px 3px #000c;
 }
 
 #map-section div.inner {
