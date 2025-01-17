@@ -11,22 +11,17 @@
         </div>
     </section>
 
+    <section id="pricing-section">
+        <div class="inner">
+            <button id="toggle-pricing">Toggle Pricing</button>
+            <img src="/assets/images/pricing/sconce-pricing-table-1.png" alt="">
+            <img src="/assets/images/pricing/sconce-pricing-table-2.png" alt="">
+            <img src="/assets/images/pricing/sconce-pricing-table-3.png" alt="">
+        </div>
+    </section>
+
     <section class="gallery-section">
         <div class="inner">
-            <div>
-                <div class="filter-container">
-                    <span>Filter By:</span>
-                    <select name="" id="">
-                        <option value="Style">Style</option>
-                    </select>
-                </div>
-                <div class="filter-container">
-                    <span>Filter By:</span>
-                    <select name="" id="">
-                        <option value="Mounting">Mounting</option>
-                    </select>
-                </div>
-            </div>
             <div class="gallery"></div>
             <button class="load-more-btn">Load More Sconces</button>
         </div>
@@ -174,6 +169,8 @@
 
         loadSconces();
         await loadAddOns();
+
+        $("#toggle-pricing").on('click', () => $("#pricing-section").toggleClass("viewing-pricing"));
 
         $(".load-more-btn").on('click', function() {
             loadSconces();

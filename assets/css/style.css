@@ -1720,3 +1720,24 @@ body#contact section.header p {
     resize    : vertical;
     min-height: 80px;
 }
+
+#pricing-section div.inner {
+    flex-direction: column;
+    max-width     : var(--max-width);
+    margin        : auto;
+    gap           : 24px;
+}
+
+#pricing-section img {
+    width: 100%;
+}
+
+#pricing-section:not(.viewing-pricing) img {
+    display: none;
+}
+
+#toggle-pricing:hover {
+    border-color    : var(--secondary);
+    color           : var(--secondary);
+    background-color: var(--white);
+}

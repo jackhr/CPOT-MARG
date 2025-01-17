@@ -26,4 +26,7 @@ assets/images/panels/commissions.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/imogen.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/sconces.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/michael.png filter=lfs diff=lfs merge=lfs -text
+assets/images/pricing/sconce-pricing-table-1.png filter=lfs diff=lfs merge=lfs -text
+assets/images/pricing/sconce-pricing-table-2.png filter=lfs diff=lfs merge=lfs -text
+assets/images/pricing/sconce-pricing-table-3.png filter=lfs diff=lfs merge=lfs -text
 assets/files/MH_Light_catalog.pdf filter=lfs diff=lfs merge=lfs -text
