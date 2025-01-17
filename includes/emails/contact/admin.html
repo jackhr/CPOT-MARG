@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #2E4398;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .body {
+            padding: 20px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .body h1 {
+            color: #2E4398;
+        }
+
+        .footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #2E4398;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Someone Has Made Contact!</h1>
+        </div>
+        <div class="body">
+            <p>Hello,</p>
+            <p>We are pleased to inform you that, {{name}}, has make an enquiry from the contact page on the Margrie
+                Hunt
+                website. below is their contact information and message:</p>
+            <p><strong>Email:</strong> <a href="mailto:{{email}}">{{email}}</a></p>
+            <p><strong>Phone#:</strong> <a href="tel:{{phone}}">{{phone}}</a></p>
+            <p><strong>Message:</strong> {{message}}</p>
+        </div>
+        <div class="footer">
+            <p>&copy; {{year}} Margrie Hunt. All rights reserved. | <a href="https://margriehunt.com/contact/">Contact
+                    Us</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -56,6 +56,8 @@ if (empty($data['phone']) || !preg_match('/^[0-9\-+\s()]*$/', $data['phone'])) {
     exit;
 }
 
+$data['year'] = date("Y");
+
 // Proceed with processing
 $res = [
     "status" => 200,
@@ -63,41 +65,48 @@ $res = [
 ];
 
 $email_subject = "Contact Form at Margrie Hunt";
+$from = "contact";
 
-// Send email to the client
-$mail_res_client = handleSendEmail(
-    "contact",
-    $data['email'],
-    "Your enquiry has been submitted and is now pending review!",
-    $email_subject
-);
+try {
+    // Send email to the client
+    $mail_res_client = handleSendEmail(
+        $from,
+        $data['email'],
+        "$from/client.html",
+        $data,
+        $email_subject
+    );
 
-// Determine admin email string
-if ($debugging) {
-    $admin_email_str = $debugging_email_string;
-} elseif (isset($testing_email_string)) {
-    $admin_email_str = $testing_email_string;
-} else {
-    $admin_email_str = $email_string;
-}
+    // Determine admin email string
+    if ($debugging) {
+        $admin_email_str = $debugging_email_string;
+    } elseif (isset($testing_email_string)) {
+        $admin_email_str = $testing_email_string;
+    } else {
+        $admin_email_str = $email_string;
+    }
 
-// Prepare admin email body
-$admin_email_body = "There has been an enquiry submitted by {$data['name']} ({$data['email']}) with the phone number {$data['phone']}. \n\nMessage: {$data['message']}";
+    // Send email to admin
+    $mail_res_client = handleSendEmail(
+        $from,
+        $admin_email_str,
+        "$from/admin.html",
+        $data,
+        $email_subject,
+        $data['email']
+    );
 
-// Send email to admin
-$mail_res_admin = handleSendEmail(
-    "contact",
-    $admin_email_str,
-    $admin_email_body,
-    $email_subject,
-    $data['email']
-);
-
-// Check email results and respond accordingly
-if ($mail_res_client && $mail_res_admin) {
-    $res['message'] = "Enquiry successfully submitted, and emails sent.";
-} else {
-    $res['message'] = "Enquiry submitted, but there was an error sending emails.";
+    // Check email results and respond accordingly
+    if ($mail_res_client && $mail_res_admin) {
+        $res['message'] = "Enquiry successfully submitted, and emails sent.";
+    } else {
+        $res['message'] = "Enquiry submitted, but there was an error sending emails.";
+    }
+} catch (Error $e) {
+    $res = [
+        "status" => 400,
+        "message" => $e->getMessage()
+    ];
 }
 
 echo json_encode($res);
