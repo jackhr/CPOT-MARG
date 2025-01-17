@@ -499,6 +499,17 @@ section#index-header div.inner>div.right {
     height         : 100%;
     backdrop-filter: blur(2px);
     pointer-events : none;
+    text-shadow    : 0 1px 3px #000c;
+    flex-direction : column;
+    justify-content: space-between;
+}
+
+.one-of-a-kind-panel .oak-title h4:first-child {
+    margin: 48px 0 0;
+}
+
+.one-of-a-kind-panel .oak-title h4:last-child {
+    margin: 0 0 48px;
 }
 
 .one-of-a-kind-panel:hover .oak-title {
@@ -626,12 +637,20 @@ div#copyright {
 
 .gallery-section div.inner {
     flex-direction: column;
+    padding       : calc(var(--general-padding) * 4) var(--general-padding);
 }
 
 .gallery-section div.inner>div:has(.filter-container) {
     display: flex;
     margin : 40px auto;
     gap    : 24px;
+}
+
+.gallery-section h1 {
+    font-size     : 48px;
+    color         : var(--primary);
+    letter-spacing: 3px;
+    margin-bottom : 68px;
 }
 
 .filter-container {

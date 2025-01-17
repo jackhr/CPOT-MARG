@@ -12,7 +12,7 @@
 
     <section class="gallery-section">
         <div class="inner">
-            <div>
+            <!-- <div>
                 <div class="filter-container">
                     <span>Filter By:</span>
                     <select name="" id="">
@@ -25,7 +25,8 @@
                         <option value="Mounting">Mounting</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
+            <h1>Gallery</h1>
             <div class="one-of-a-kind gallery"></div>
             <button class="load-more-btn">Load More Artwork</button>
         </div>

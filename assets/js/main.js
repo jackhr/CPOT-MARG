@@ -338,6 +338,7 @@ function loadOAKs(getAll = false) {
                             <img src="${oAK.image_url}" alt="Oops">
                             <div class="oak-title">
                                 <h4>${oAK.name}</h4>
+                                <h4>${oAK.artist}</h4>
                             </div>
                         </div>
                     `);
