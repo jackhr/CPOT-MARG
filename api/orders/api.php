@@ -126,32 +126,46 @@ if (isset($data['action'])) {
             $res['message'] = "Transaction was not completed successfully.";
         } else if ($res['status'] === 200) {
             // Transaction was successful
-            // Now need to generate a better formatted email body
-            $mail_res_client = handleSendEmail(
-                "orders",
-                $data['email'],
-                "Your order has been submitted and is now pending review!",
-                $email_subject
-            );
+            try {
+                $mail_res_client = handleSendEmail(
+                    "orders",
+                    $data['email'],
+                    generateOrdersEmail($pdo, $order_id),
+                    $email_subject
+                );
+                
+                // determine admin email string
+                if ($debugging) {
+                    $admin_email_str = $debugging_email_string;
+                } else if (isset($testing_email_string)) {
+                    $admin_email_str = $testing_email_string;
+                } else {
+                    $admin_email_str = $email_string;
+                }
+                
+                // Send email to admin
+                $mail_res_admin = handleSendEmail(
+                    "orders",
+                    $admin_email_str,
+                    generateOrdersEmail($pdo, $order_id, true),
+                    $email_subject,
+                    $data['email']
+                );
 
-            // determine admin email string
-            if ($debugging) {
-                $admin_email_str = $debugging_email_string;
-            } else if (isset($testing_email_string)) {
-                $admin_email_str = $testing_email_string;
-            } else {
-                $admin_email_str = $email_string;
+                // Check email results and respond accordingly
+                if ($mail_res_client && $mail_res_admin) {
+                    $res['message'] = "Request successfully submitted, and emails sent.";
+                } else {
+                    $res['message'] = "Request submitted, but there was an error sending emails.";
+                }
+                $res['data']['$mail_res_admin'] = $mail_res_admin;
+                $res['data']['$mail_res_client'] = $mail_res_client;
+            } catch (Error $e) {
+                $res = [
+                    "status" => 400,
+                    "message" => $e->getMessage()
+                ];
             }
-
-            // Send email to admin
-            // Now need to generate a better formatted email body
-            $mail_res_admin = handleSendEmail(
-                "orders",
-                $admin_email_str,
-                "There has been an order request made by {$data['first_name']} {$data['last_name']} on the website.",
-                $email_subject,
-                $data['email']
-            );
         }
     }
 

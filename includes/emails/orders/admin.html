@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Order Confirmation</title>
+</head>
+
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9f9f9; line-height: 1.6;">
+    <div
+        style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border: 2px solid #2E4398; border-radius: 8px">
+
+        <!-- Header -->
+        <table width="100%"
+            style="border-collapse: collapse; background-color: #2E4398; color: #ffffff; border-radius: 6px 6px 0 0;">
+            <tr>
+                <td style="padding: 48px 12px; text-align: center;">
+                    <h1 style="margin: 0; font-size: 24px;">Order Confirmation</h1>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Body -->
+        <table width="100%" style="border-collapse: collapse; padding: 48px 20px; background-color: #ffffff;">
+            <tr>
+                <td style="padding: 20px; color: #333333;">
+                    <p style="margin: 0;">Hello, <strong>Imogen & Mike</strong>,</p>
+                    <p style="margin: 0;">An order request has just come in:</p>
+                </td>
+            </tr>
+        </table>
+
+        {{order_info_html}}
+
+        <!-- Client Details -->
+        <table width="100%"
+            style="border-collapse: collapse; background-color: #ffffff; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">
+            <tr>
+                <td style="padding: 12px; text-align: center; font-weight: bold; font-size: 18px;">
+                    Client Details
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 12px;">
+                    <table width="100%" style="border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Name:
+                            </td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">
+                                {{first_name}} {{last_name}}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Email:</td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">{{email}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Phone:</td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">{{phone}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Message:
+                            </td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">
+                                {{message}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Footer -->
+        <table width="100%"
+            style="border-collapse: collapse; background-color: #f1f1f1; text-align: center; padding: 10px; border-radius: 0 0 6px 6px;">
+            <tr>
+                <td style="font-size: 14px; color: #666666; padding: 48px 12px;">
+                    <p style="margin: 0;">&copy; {{year}} Margrie Hunt. All rights reserved. | <a
+                            href="https://margriehunt.com/contact/"
+                            style="color: #2E4398; text-decoration: none;">Contact Us</a></p>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+
+</html>
