@@ -27,6 +27,7 @@ if (isset($data['action'])) {
                 "SELECT cutouts.*, cutout_images.image_url
                     FROM cutouts
                     LEFT JOIN cutout_images ON cutouts.primary_image_id = cutout_images.image_id
+                    ORDER BY cutouts.name ASC
                 WHERE deleted_at IS NULL"
             );
             $stmt->execute();
