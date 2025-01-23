@@ -622,9 +622,8 @@ section#index-header div.inner>div.right {
 }
 
 #about-us-section img {
-    max-width: 420px;
-    height   : fit-content;
-    width    : 100%;
+    width : 420px;
+    height: fit-content;
 }
 
 #about-us-section div.inner p:first-child {
@@ -1920,9 +1919,19 @@ body#contact section.header p {
         grid-template: 1fr / 1fr;
     }
 
+    #about-us-section img {
+        width    : 100%;
+        max-width: 420px;
+    }
+
     #about-us-section div.inner>div {
         flex-direction: column-reverse;
         align-items   : center;
+    }
+
+    #about-us-section div.inner>div>div {
+        text-align: center;
+        max-width : 680px;
     }
 }
 
