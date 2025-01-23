@@ -29,7 +29,39 @@ $(document).ready(function () {
     });
 
     reCalculateCartCount();
+
+    $("#hamburger-btn").on('click', function () {
+        openHamburgerMenu();
+    });
+
+    $("#close-nav").on('click', function () {
+        closeHamburgerMenu();
+    });
+
+    $(document).off('click').on("click", function (event) {
+        if (
+            $("#hamburger-nav").hasClass("showing-nav") && // Check if the nav is open
+            $("#hamburger-nav").is(event.target) // Check if event target is the nav itself
+        ) {
+            closeHamburgerMenu();
+        }
+    });
+
 });
+
+function openHamburgerMenu() {
+    $("#hamburger-nav").addClass('showing-fade');
+    setTimeout(() => {
+        $("#hamburger-nav").addClass('showing-nav');
+    }, 300);
+}
+
+function closeHamburgerMenu() {
+    $("#hamburger-nav").removeClass('showing-nav');
+    setTimeout(() => {
+        $("#hamburger-nav").removeClass('showing-fade');
+    }, 300);
+}
 
 function reCalculateCartCount() {
     $("#cart-count").html(getCart().length || "");
