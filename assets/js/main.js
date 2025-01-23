@@ -301,17 +301,15 @@ async function loadCutouts() {
                         </div>
                     `);
 
-                    $("#cutout-list").append(cutoutEl);
+                    $(".cutout-list").append(cutoutEl);
                 });
                 $(".cutout-list-item").on('click', function () {
                     const selectedCutoutImg = $(this).find(".cutout-list-item-img-container img").attr('src');
+                    const viewingCutout = !$(this).hasClass('no-cutout');
                     $(".cutout-list-item").removeClass('selected');
                     $(this).addClass('selected');
-                    if ($(this).hasClass('no-cutout')) {
-                        $("#cutout-preview-container img").hide();
-                    } else {
-                        $("#cutout-preview-container img").attr('src', selectedCutoutImg).show();
-                    }
+                    $(".cutout-preview-container").toggleClass("viewing-cutout", viewingCutout);
+                    if (viewingCutout) $(".cutout-preview-container img").attr('src', selectedCutoutImg);
                 });
             } else {
                 Swal.fire({

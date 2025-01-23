@@ -119,7 +119,11 @@
                 <div class="modal-body">
                     <div id="cutout-selection-container">
                         <h3>Select a Cutout</h3>
-                        <div id="cutout-list">
+                        <div class="cutout-preview-container">
+                            <div>This is text to enforce that the parent maintains a minimum size. Do not delete.</div>
+                            <img src="" alt="">
+                        </div>
+                        <div class="cutout-list">
                             <div class="cutout-list-item selected no-cutout">
                                 <div class="cutout-list-item-img-container"></div>
                                 <div class="cutout-list-item-info">
@@ -129,8 +133,9 @@
                         </div>
                         <button>Confirm Selection</button>
                     </div>
-                    <div id="cutout-preview-container">
-                        <img style="display: none;" src="" alt="">
+                    <div class="cutout-preview-container">
+                        <div>This is text to enforce that the parent maintains a minimum size. Do not delete.</div>
+                        <img src="" alt="">
                     </div>
                 </div>
             </div>
@@ -340,7 +345,7 @@
             let subTotal = cart.reduce((acc, item, idx) => {
                 item.item = formatResource(item.item);
                 item.item.cutout && (item.item.cutout = formatResource(item.item.cutout));
-                const quantity = Number(item.quantity);                
+                const quantity = Number(item.quantity);
                 const itemSubTotal = generateOrderItemPrice(item);
                 const formattedItemSubTotal = formatPrice(itemSubTotal)
                 const idKey = `${item.type}_id`;

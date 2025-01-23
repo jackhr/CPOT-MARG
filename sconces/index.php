@@ -48,6 +48,11 @@
                             <span data-dimensions></span>
                             <p>Made to order<br>Ships in 4 - 6 weeks<br>SKU - <span data-sku></span></p>
                         </div>
+                        <div class="info-section img">
+                            <div class="img-container">
+                                <img src="/assets/images/sconces/single/IMG_9516.jpg" alt="">
+                            </div>
+                        </div>
                         <div class="info-section">
                             <h5>Cutouts</h5>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus asperiores perspiciatis perferendis blanditiis!</p>
@@ -116,7 +121,11 @@
                 <div class="modal-body">
                     <div id="cutout-selection-container">
                         <h3>Select a Cutout</h3>
-                        <div id="cutout-list">
+                        <div class="cutout-preview-container">
+                            <div>This is text to enforce that the parent maintains a minimum size. Do not delete.</div>
+                            <img src="" alt="">
+                        </div>
+                        <div class="cutout-list">
                             <div class="cutout-list-item selected no-cutout">
                                 <div class="cutout-list-item-img-container"></div>
                                 <div class="cutout-list-item-info">
@@ -126,8 +135,9 @@
                         </div>
                         <button>Confirm Selection</button>
                     </div>
-                    <div id="cutout-preview-container">
-                        <img style="display: none;" src="" alt="">
+                    <div class="cutout-preview-container">
+                        <div>This is text to enforce that the parent maintains a minimum size. Do not delete.</div>
+                        <img src="" alt="">
                     </div>
                 </div>
             </div>
@@ -205,7 +215,7 @@
             $("#cutout-modal").addClass('showing');
         });
 
-        $("#cutout-list + button").on('click', function() {
+        $(".cutout-list + button").on('click', function() {
             const selectedCutout = $(".cutout-list-item.selected");
             const cutoutId = selectedCutout.data('id');
             $("#cutout-modal .modal-close").trigger('click');
