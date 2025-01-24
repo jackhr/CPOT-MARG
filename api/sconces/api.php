@@ -27,8 +27,8 @@ if (isset($data['action'])) {
                 "SELECT sconces.*, sconce_images.image_url
                     FROM sconces
                     LEFT JOIN sconce_images ON sconces.primary_image_id = sconce_images.image_id
-                    ORDER BY CAST(SUBSTRING(sconces.name, 2) AS UNSIGNED) ASC
-                WHERE status = :status"
+                WHERE status = :status
+                ORDER BY CAST(SUBSTRING(sconces.name, 2) AS UNSIGNED) ASC"
             );
             $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
             $stmt->execute();
