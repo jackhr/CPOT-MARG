@@ -133,7 +133,7 @@ function setActiveSconce(item, editingCart = false) {
 
     resetSconceModal();
 
-    $("#sconce-img-container img").attr("src", sconce.image_url);
+    $("#sconce-modal .img-container img").attr("src", sconce.image_url);
     $("#sconce-modal [data-name]").text(sconce.name);
     $("#sconce-modal [data-base_price]>span").text(sconce.base_price);
     $("#sconce-modal [data-sku]").text("#" + sconce.sconce_id);
