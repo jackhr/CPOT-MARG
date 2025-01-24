@@ -1744,8 +1744,9 @@ body#contact section.header div.inner {
 }
 
 body#sconces section.header h1,
+body#one-of-a-kind section.header h1,
 body#about section.header h1,
-body#one-of-a-kind section.header h1 {
+body#contact section.header h1 {
     font-weight: 600;
     font-size  : 88px;
     color      : var(--primary);
@@ -1964,8 +1965,9 @@ body#contact section.header p {
     }
 
     body#sconces section.header h1,
+    body#one-of-a-kind section.header h1,
     body#about section.header h1,
-    body#one-of-a-kind section.header h1 {
+    body#contact section.header h1 {
         font-size: 62px;
     }
 
@@ -1988,6 +1990,30 @@ body#contact section.header p {
 
     .about-info-container img {
         width: 100%;
+    }
+
+    #map-section div.inner,
+    #contact-form-section div.inner {
+        padding: calc(var(--general-padding) * 4) var(--general-padding);
+    }
+
+    #map-section div.inner,
+    #contact-form-section div.inner {
+        flex-direction: column;
+        text-align    : center;
+    }
+
+    #map-container {
+        margin: auto;
+    }
+
+    #contact-form-section div.inner>div {
+        max-height: 450px;
+    }
+
+    #contact-form-section div.inner img {
+        height    : 100%;
+        object-fit: contain;
     }
 }
 
@@ -2178,8 +2204,9 @@ body#contact section.header p {
     }
 
     body#sconces section.header h1,
+    body#one-of-a-kind section.header h1,
     body#about section.header h1,
-    body#one-of-a-kind section.header h1 {
+    body#contact section.header h1 {
         font-size: 52px;
     }
 
@@ -2219,5 +2246,20 @@ body#contact section.header p {
     #oak-modal .img-container {
         height   : 60%;
         min-width: unset;
+    }
+
+    #map-section div.inner>div:first-child h2,
+    #contact-form-section div.inner>div:last-child h2 {
+        font-size: 36px;
+    }
+
+    #contact-form-section div.inner>div:last-child h3 {
+        font-size: 16px;
+    }
+
+    #map-container {
+        width    : 100%;
+        min-width: unset;
+        height   : calc(100vw - (var(--general-padding) * 2));
     }
 }
