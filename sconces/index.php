@@ -285,9 +285,18 @@
             }
 
             Swal.fire({
-                title,
-                text,
-                icon: title.toLocaleLowerCase()
+                title: title,
+                text: text,
+                icon: title.toLocaleLowerCase(),
+                showCancelButton: true,
+                cancelButtonText: "Go To Cart",
+                confirmButtonText: "OK",
+                cancelButtonColor: '#ED6F35', // Optional: Custom color for the "Go To Cart" button
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+                    // Redirect to cart
+                    window.location.href = "/cart"; // Replace "/cart" with your cart URL
+                }
             });
         });
     });
