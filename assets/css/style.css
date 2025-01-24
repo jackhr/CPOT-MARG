@@ -1656,7 +1656,7 @@ a[href="/cart"] {
     position: relative;
 }
 
-#cart-count {
+.cart-count {
     position       : absolute;
     right          : -8px;
     top            : -12px;
@@ -1672,12 +1672,12 @@ a[href="/cart"] {
     transition     : background-color ease 0.2s;
 }
 
-#cart-count:empty {
+.cart-count:empty {
     display: none;
 }
 
-a[href="/cart"]:hover #cart-count,
-a[href="/cart"].current #cart-count {
+a[href="/cart"]:hover .cart-count,
+a[href="/cart"].current .cart-count {
     background-color: var(--secondary);
 }
 
@@ -2068,6 +2068,15 @@ body#contact section.header p {
 
 @media screen and (max-width: 768px) {
 
+    :root {
+        --nav-height: 60px;
+    }
+
+    #hamburger-btn {
+        width : 40px;
+        height: 40px;
+    }
+
     .modal,
     .modal-content {
         padding: 0;
@@ -2184,9 +2193,10 @@ body#contact section.header p {
     }
 
     footer ul {
-        display  : flex;
-        gap      : 12px;
-        flex-wrap: wrap;
+        display        : flex;
+        gap            : 12px;
+        flex-wrap      : wrap;
+        justify-content: center;
     }
 }
 

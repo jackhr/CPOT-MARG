@@ -64,7 +64,7 @@ function closeHamburgerMenu() {
 }
 
 function reCalculateCartCount() {
-    $("#cart-count").html(getCart().length || "");
+    $(".cart-count").html(getCart().length || "");
 }
 
 function getCart() {
