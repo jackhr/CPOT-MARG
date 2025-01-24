@@ -1968,6 +1968,27 @@ body#contact section.header p {
     body#one-of-a-kind section.header h1 {
         font-size: 62px;
     }
+
+    section#imo-and-mike div.inner h2 {
+        font-size : 48px;
+        text-align: center;
+    }
+
+    .about-info-container {
+        text-align: center;
+    }
+
+    .about-info-container:nth-of-type(even) {
+        flex-direction: column;
+    }
+
+    .about-info-container:nth-of-type(odd) {
+        flex-direction: column-reverse;
+    }
+
+    .about-info-container img {
+        width: 100%;
+    }
 }
 
 
@@ -2096,6 +2117,15 @@ body#contact section.header p {
 
     #one-of-a-kind-form .multiple-input-container .input-container:first-child {
         margin: 0;
+    }
+
+    section#imo-and-mike div.inner h2 {
+        font-size: 36px;
+    }
+
+    .about-info-container p {
+        line-height: 32px;
+        font-size  : 16px;
     }
 
     footer div,
