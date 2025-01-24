@@ -12,6 +12,7 @@
 
     <section class="gallery-section">
         <div class="inner">
+            <!-- Might need this filtering later -->
             <!-- <div>
                 <div class="filter-container">
                     <span>Filter By:</span>
@@ -157,7 +158,7 @@
         activeOAK: null,
         activeOAKIdx: 0
     }
-    $(document).ready(function() {
+    $(document).ready(async function() {
 
         function calculateNewTotal() {
             const quantity = Number($("[data-quantity]").val());
@@ -220,7 +221,26 @@
             return !text;
         }
 
-        loadOAKs();
+        await loadOAKs();
+
+        <?php if (isset($_GET['id'])) { ?>
+            const params = new URLSearchParams(location.search)
+            const id = params.get('id');
+            const panel = $(`.one-of-a-kind-panel[data-id="${id}"]`);
+
+            console.log("params:", params);
+            console.log("id:", id);
+            console.log("panel:", panel);
+
+            if (panel.length) {
+                $('html')[0].scrollBy({
+                    top: $(".gallery-section h1")[0].getBoundingClientRect().y - 50,
+                    behavior: 'smooth'
+                });
+
+                setTimeout(() => panel.trigger('click'), 500);
+            }
+        <?php } ?>
 
         $("#one-of-a-kind-form input").on('keyup', function(e) {
             if (e.keyCode === 13) $('button[for="one-of-a-kind-form"]').trigger('click');

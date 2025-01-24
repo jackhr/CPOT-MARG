@@ -112,12 +112,17 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="inner">
             <h1>One Of A Kind</h1>
             <div class="gallery">
-                <?php foreach ($one_of_a_kind_arr as $one_of_a_kind) { ?>
-                    <div class="gallery-panel">
-                        <img src="<?php echo $one_of_a_kind['image_url']; ?>" alt="Oops">
-                        <span><?php echo $one_of_a_kind['name']; ?></span>
-                    </div>
-                <?php } ?>
+                <?php foreach ($one_of_a_kind_arr as $one_of_a_kind) {
+                    echo "
+                        <div class='one-of-a-kind-panel' onclick='goToOAKPage({$one_of_a_kind['one_of_a_kind_id']})'>
+                            <img src='{$one_of_a_kind['image_url']}' alt='Oops'>
+                            <div class='oak-title'>
+                                <h4>{$one_of_a_kind['name']}</h4>
+                                <h4>{$one_of_a_kind['artist']}</h4>
+                            </div>
+                        </div>
+                    ";
+                } ?>
             </div>
         </div>
     </section>
@@ -137,5 +142,11 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
 </body>
+
+<script>
+    function goToOAKPage(id) {
+        location = `/one-of-a-kind/?id=${id}`;
+    }
+</script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

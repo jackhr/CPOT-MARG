@@ -343,7 +343,7 @@ function setActiveOAK(oAK) {
     STATE.activeOAK = oAK;
 }
 
-function loadOAKs(getAll = false) {
+async function loadOAKs(getAll = false) {
     const data = getAll ? {
         action: "get_all",
     } : {
@@ -351,7 +351,7 @@ function loadOAKs(getAll = false) {
         page: STATE?.pagination?.current_page
     };
 
-    $.ajax({
+    await $.ajax({
         type: "POST",
         url: "/api/one-of-a-kind/api.php",
         data: JSON.stringify(data),
