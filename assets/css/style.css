@@ -1971,6 +1971,40 @@ body#contact section.header p {
 }
 
 
+@media screen and (max-width: 840px) {
+    #oak-modal .modal-content {
+        width    : 100%;
+        max-width: 450px;
+    }
+
+    #oak-modal .modal-body {
+        flex-direction: column-reverse;
+    }
+
+    #oak-modal .info-container {
+        text-align: center;
+    }
+
+    #oak-modal .info-section {
+        display        : flex;
+        justify-content: space-between;
+    }
+
+    #oak-modal .img-container {
+        overflow     : hidden;
+        min-width    : 450px;
+        min-height   : unset;
+        height       : 450px;
+        width        : 100%;
+        border-bottom: solid 1px var(--primary);
+    }
+
+    .img-container img {
+        object-fit: contain;
+    }
+}
+
+
 @media screen and (max-width: 768px) {
 
     .modal,
@@ -2039,6 +2073,29 @@ body#contact section.header p {
 
     #cutout-selection-container+.cutout-preview-container {
         display: none;
+    }
+
+    #confirmation-modal .modal-dialog {
+        width : 100%;
+        height: 100%;
+    }
+
+    #confirmation-modal .modal-content {
+        padding: 12px;
+        width  : 100%;
+    }
+
+    #confirmation-modal .modal-options {
+        top  : 0;
+        right: 0;
+    }
+
+    #one-of-a-kind-form .multiple-input-container {
+        flex-direction: column;
+    }
+
+    #one-of-a-kind-form .multiple-input-container .input-container:first-child {
+        margin: 0;
     }
 
     footer div,
@@ -2111,5 +2168,26 @@ body#contact section.header p {
 
     .cutout-list {
         grid-template: 1fr / 1fr;
+    }
+
+    #oak-modal .modal-dialog {
+        width : 100%;
+        height: 100%;
+    }
+
+    #oak-modal .modal-content,
+    #oak-modal .modal-body {
+        height   : 100%;
+        width    : 100%;
+        max-width: unset;
+    }
+
+    #oak-modal .info-container {
+        height: 40%;
+    }
+
+    #oak-modal .img-container {
+        height   : 60%;
+        min-width: unset;
     }
 }
