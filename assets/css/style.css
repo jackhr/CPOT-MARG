@@ -2015,6 +2015,20 @@ body#contact section.header p {
         height    : 100%;
         object-fit: contain;
     }
+
+    #cart-section div.inner {
+        flex-direction: column-reverse;
+    }
+
+    #cart-list {
+        max-width: unset;
+    }
+
+    #order-summary {
+        margin: auto;
+        width : 100%;
+        top   : 0;
+    }
 }
 
 
@@ -2137,11 +2151,11 @@ body#contact section.header p {
         right: 0;
     }
 
-    #one-of-a-kind-form .multiple-input-container {
+    #confirmation-modal .multiple-input-container {
         flex-direction: column;
     }
 
-    #one-of-a-kind-form .multiple-input-container .input-container:first-child {
+    #confirmation-modal .multiple-input-container .input-container:first-child {
         margin: 0;
     }
 
@@ -2261,5 +2275,22 @@ body#contact section.header p {
         width    : 100%;
         min-width: unset;
         height   : calc(100vw - (var(--general-padding) * 2));
+    }
+
+    #cart-section h1 {
+        padding  : calc(var(--general-padding) * 2) 0;
+        font-size: 44px;
+    }
+
+    #cart-section div.inner {
+        padding: 0;
+    }
+
+    .line-item>div:last-child {
+        flex-direction: column;
+    }
+
+    .line-item .img-container {
+        margin: auto;
     }
 }

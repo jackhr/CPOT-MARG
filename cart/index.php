@@ -52,6 +52,11 @@
                             <span data-dimensions></span>
                             <p>Made to order<br>Ships in 4 - 6 weeks<br>SKU - <span data-sku></span></p>
                         </div>
+                        <div class="info-section img">
+                            <div class="img-container">
+                                <img src="/assets/images/sconces/single/IMG_9516.jpg" alt="">
+                            </div>
+                        </div>
                         <div class="info-section">
                             <h5>Cutouts</h5>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus asperiores perspiciatis perferendis blanditiis!</p>
@@ -444,11 +449,12 @@
                                         </div>
                                     </div>
                                     <div class="bottom">
-                                        ${item?.item?.cutout?.description ? (
-                                            `<div>
-                                                <span>${item.item.cutout.description}</span>
-                                            </div>`
-                                        ) : ""}
+                                        <div>
+                                            <span>Description:</span>
+                                            ${item?.item?.cutout?.description ? (
+                                                `<span>${item.item.cutout.description}</span>`
+                                            ) : "-"}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
