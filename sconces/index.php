@@ -55,7 +55,7 @@
                         </div>
                         <div class="info-section">
                             <h5>Cutouts</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus asperiores perspiciatis perferendis blanditiis!</p>
+                            <p>In our ceramic sconces, a "cutout" refers to a design element where specific shapes or patterns are carved into the sconce's surface. These cutouts not only enhance the aesthetic appeal by introducing intricate designs but also allow light to pass through, creating captivating patterns and shadows in your space. You can choose from our existing range of cutout motifs or opt for no cutout for a sleek, minimalist look.</p>
                             <button data-cutout="">
                                 <span>No Cutout Selected</span>
                                 <img src="/assets/icons/right-arrow.svg" alt="">
@@ -79,7 +79,10 @@
                         </div>
                         <div class="info-section collapsible">
                             <h5>Overview</h5>
-                            <p data-description>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum ab, consequuntur deserunt nam quasi consequatur corporis?</p>
+                            <div class="sconce-spec-pair">
+                                <span>Description:</span>
+                                <span data-description></span>
+                            </div>
                         </div>
                         <div class="info-section collapsible">
                             <h5>Specification</h5>
@@ -229,7 +232,7 @@
                 return Swal.fire({
                     icon: "warning",
                     title: "No Quantity",
-                    text: "In order to add a sconce to your cart, you must have a quantity of 1 more."
+                    text: "In order to add a sconce to your cart, you must have a quantity of 1 or more."
                 });
             }
 

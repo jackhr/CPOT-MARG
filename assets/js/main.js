@@ -137,8 +137,8 @@ function setActiveSconce(item, editingCart = false) {
     $("#sconce-modal [data-name]").text(sconce.name);
     $("#sconce-modal [data-base_price]>span").text(sconce.base_price);
     $("#sconce-modal [data-sku]").text("#" + sconce.sconce_id);
-    $("#sconce-modal [data-description]").text(sconce.description);
-    $("#sconce-modal [data-dimensions]").text(`${sconce.dimensions} (W/H/D)`);
+    $("#sconce-modal [data-description]").text(sconce.description || "This item has no description.");
+    $("#sconce-modal [data-dimensions]").text(`${sconce.dimensions} (D/W/H)`);
     $("#sconce-modal [data-material]").text(sconce.material);
     $("#sconce-modal [data-color]").text(sconce.color);
     $("#sconce-modal [data-quantity]").val(quantity);
@@ -234,9 +234,9 @@ function loadSconces(getAllSconces = false) {
                             <img src="${sconce.image_url}" alt="Oops">
                             <div>
                                 <h4>${sconce.name}</h4>
-                                <span>${sconce.dimensions}</span>
+                                <span>${sconce.dimensions} (D/W/H)</span>
                                 <div>
-                                    <span>${sconce.base_price}<sub>(usd)</sub></span>
+                                    <span>$${sconce.base_price}<sub>(usd)</sub></span>
                                     <span>View More...</span>
                                 </div>
                             </div>
@@ -336,7 +336,7 @@ function setActiveOAK(oAK) {
     $("#oak-modal [data-dimensions]").text(oAK.dimensions);
     $("#oak-modal [data-material]").text(oAK.material);
     $("#oak-modal [data-created_at]").text(new Date(oAK.created_at).getFullYear());
-    $("#oak-modal [data-description]").text(oAK.description || "-");
+    $("#oak-modal [data-description]").text(oAK.description || "This item has no description.");
     $("#oak-modal [data-price] span").text(formatPrice(oAK.price));
     $("#oak-modal [data-quantity]").val(oAK.quantity);
 

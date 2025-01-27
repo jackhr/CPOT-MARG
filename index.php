@@ -67,7 +67,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="name-panel imogen">
                     <div class="left">
                         <h2>Imogen</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ad reiciendis aspernatur dignissimos soluta perspiciatis tempore cumque, exercitationem quisquam provident delectus mollitia sed excepturi suscipit odio officia vel voluptatum rerum?</p>
+                        <p>Imogen Margrie-Hunt, hailing from Camden, North London, was immersed in the arts from a young age. With a background enriched by her family's artistic pursuits, she naturally progressed to the Central School of Art. Post-graduation, Imogen established herself in the ceramics community, contributing to esteemed institutions like the Victoria and Albert Museum and the Contemporary Applied Arts Gallery. Her journey reflects a deep commitment to artistic excellence and education.</p>
                         <a href="/one-of-a-kind/">view more...</a>
                     </div>
                     <div class="right">
@@ -77,7 +77,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="name-panel michael">
                     <div class="left">
                         <h2>Michael</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ad reiciendis aspernatur dignissimos soluta perspiciatis tempore cumque, exercitationem quisquam provident delectus mollitia sed excepturi suscipit odio officia vel voluptatum rerum?</p>
+                        <p>Born in Antigua and raised in the UK, Michael Hunt discovered his passion for ceramics at a youth center, leading him to pursue a degree at the Central School of Art in London. His career encompasses teaching roles, Japanese garden construction, and personal ceramic creations. Michael's work often delves into themes of island history and ancestry, showcasing his diverse talents in stone, wood, and ceramics.</p>
                         <a href="/one-of-a-kind/">view more...</a>
                     </div>
                     <div class="right">
@@ -87,7 +87,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="name-panel sconces">
                     <div class="left">
                         <h2>Sconces</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ad reiciendis aspernatur dignissimos soluta perspiciatis tempore cumque, exercitationem quisquam provident delectus mollitia sed excepturi suscipit odio officia vel voluptatum rerum?</p>
+                        <p>Our ceramic wall sconces are meticulously crafted to elevate any interior space. Combining timeless elegance with sophisticated design, each piece reflects our dedication to quality and aesthetic appeal. Explore our collection to find the perfect sconce that resonates with your style.</p>
                         <a href="/sconces/">view more...</a>
                     </div>
                     <div class="right">
@@ -97,7 +97,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="name-panel commissions">
                     <div class="left">
                         <h2>Commissions</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ad reiciendis aspernatur dignissimos soluta perspiciatis tempore cumque, exercitationem quisquam provident delectus mollitia sed excepturi suscipit odio officia vel voluptatum rerum?</p>
+                        <p>We offer bespoke ceramic creations tailored to your unique vision. Collaborating closely with clients and architects, we develop one-of-a-kind pieces that enhance and personalize spaces. From conceptualization to completion, our commissioned works are a testament to our commitment to individualized artistry.</p>
                         <a href="/one-of-a-kind/">view more...</a>
                     </div>
                     <div class="right">

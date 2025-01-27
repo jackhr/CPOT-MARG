@@ -28,7 +28,9 @@ if (isset($data['action'])) {
                     FROM sconces
                     LEFT JOIN sconce_images ON sconces.primary_image_id = sconce_images.image_id
                 WHERE status = :status
-                ORDER BY CAST(SUBSTRING(sconces.name, 2) AS UNSIGNED) ASC"
+                ORDER BY
+                    SUBSTRING(sconces.name, 1, 1) ASC,  -- Order by the first letter (e.g., J, P)
+                    CAST(SUBSTRING(sconces.name, 2) AS UNSIGNED) ASC;  -- Then order numerically by the rest of the name"
             );
             $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
             $stmt->execute();
@@ -61,7 +63,9 @@ if (isset($data['action'])) {
                     FROM sconces
                     LEFT JOIN sconce_images ON sconces.primary_image_id = sconce_images.image_id
                 WHERE status = :status
-                ORDER BY CAST(SUBSTRING(sconces.name, 2) AS UNSIGNED) ASC
+                ORDER BY
+                    SUBSTRING(sconces.name, 1, 1) ASC,  -- Order by the first letter (e.g., J, P)
+                    CAST(SUBSTRING(sconces.name, 2) AS UNSIGNED) ASC  -- Then order numerically by the rest of the name
                 LIMIT :limit
                 OFFSET :offset"
             );
