@@ -2113,7 +2113,7 @@ body#contact section.header p {
         padding: 60px 0;
     }
 
-    .modal-body>.img-container {
+    #sconce-modal .modal-body>.img-container {
         display: none;
     }
 
