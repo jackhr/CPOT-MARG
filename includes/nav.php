@@ -3,6 +3,9 @@ $current_url = $_SERVER['REQUEST_URI'];
 ?>
 
 <nav id="desktop-nav">
+    <a class="logo-link" href="/">
+        <img src="/assets/images/logos/logo-primary.png" alt="Logo">
+    </a>
     <ul>
         <a class="logo-link" href="/">
             <img src="/assets/images/logos/logo-primary.png" alt="Logo">

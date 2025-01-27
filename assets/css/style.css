@@ -198,14 +198,18 @@ nav ul a.current {
     color: var(--secondary);
 }
 
-nav ul a.logo-link {
+nav a.logo-link {
     height      : 65%;
     margin-right: auto;
 }
 
-nav ul a.logo-link img {
+nav a.logo-link img {
     height: 100%;
     width : auto;
+}
+
+nav>a.logo-link {
+    display: none;
 }
 
 nav ul svg {
@@ -248,7 +252,7 @@ nav ul svg {
     justify-content: flex-start;
     padding        : calc(var(--general-padding) * 4) var(--general-padding);
     left           : 400px;
-    transition     : left ease 0.2s;
+    transition     : left ease 0.4s;
 }
 
 #hamburger-nav ul a.logo-link {
@@ -1914,6 +1918,10 @@ body#contact section.header p {
 
 
 @media screen and (max-width: 991px) {
+    nav>a.logo-link {
+        display: block;
+    }
+
     #desktop-nav {
         display    : flex;
         align-items: center;
@@ -2318,5 +2326,12 @@ body#contact section.header p {
 
     .line-item .img-container {
         margin: auto;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    #hamburger-nav ul {
+        left     : 100vw;
+        max-width: 100%;
     }
 }
