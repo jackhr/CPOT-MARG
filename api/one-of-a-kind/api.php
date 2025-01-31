@@ -23,13 +23,18 @@ if (isset($data['action'])) {
 
         try {
             // Fetch data
-            $stmt = $pdo->prepare(
-                "SELECT one_of_a_kind.*, one_of_a_kind_images.image_url
-                    FROM one_of_a_kind
-                    LEFT JOIN one_of_a_kind_images ON one_of_a_kind.primary_image_id = one_of_a_kind_images.image_id
-                WHERE status = :status"
-            );
+            $query = "SELECT one_of_a_kind.*, one_of_a_kind_images.image_url
+                FROM one_of_a_kind
+                LEFT JOIN one_of_a_kind_images ON one_of_a_kind.primary_image_id = one_of_a_kind_images.image_id
+            WHERE status = :status";
+            if (isset($data['artist'])) {
+                $query .= " AND artist = :artist";
+            }
+            $stmt = $pdo->prepare($query);
             $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
+            if (isset($data['artist'])) {
+                $stmt->bindValue(':artist', $data['artist'], PDO::PARAM_STR);
+            }
             $stmt->execute();
             $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {

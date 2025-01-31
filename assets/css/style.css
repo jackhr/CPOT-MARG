@@ -186,7 +186,40 @@ nav ul {
 }
 
 nav ul li {
-    list-style: none;
+    list-style     : none;
+    list-style     : none;
+    position       : relative;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+}
+
+nav ul li:has(ul.subnav):not(#hamburger-nav ul li) {
+    padding-bottom: 12px;
+    margin-top    : 12px;
+}
+
+nav ul.subnav {
+    position      : absolute !important;
+    min-width     : 100%;
+    flex-direction: column !important;
+    height        : fit-content;
+    z-index       : 100;
+    border        : solid 1px var(--primary);
+    background    : var(--white) !important;
+    padding       : 12px !important;
+    gap           : 24px;
+    top           : 0;
+    opacity       : 0;
+    transition    : opacity ease 0.5s, top ease 0.5s !important;
+    pointer-events: none;
+    width         : max-content !important;
+}
+
+nav ul li:has(ul.subnav):hover ul.subnav {
+    opacity       : 1;
+    top           : 100%;
+    pointer-events: all;
 }
 
 nav ul a {
@@ -233,17 +266,8 @@ nav ul svg {
     pointer-events         : none;
 }
 
-#hamburger-nav.showing-fade {
-    opacity       : 1;
-    pointer-events: all;
-}
-
-#hamburger-nav.showing-nav ul {
-    left: 0;
-}
-
-#hamburger-nav ul {
-    position       : relative;
+#hamburger-nav>ul {
+    position       : absolute;
     flex-direction : column;
     max-width      : 400px;
     width          : 100%;
@@ -251,8 +275,8 @@ nav ul svg {
     background     : var(--white);
     justify-content: flex-start;
     padding        : calc(var(--general-padding) * 4) var(--general-padding);
-    left           : 400px;
-    transition     : left ease 0.4s;
+    right          : -400px;
+    transition     : right ease 0.4s;
 }
 
 #hamburger-nav ul a.logo-link {
@@ -260,7 +284,8 @@ nav ul svg {
     margin-left: auto;
 }
 
-#close-nav {
+#close-nav,
+#back-nav {
     position: absolute;
     top     : 12px;
     right   : 12px;
@@ -269,7 +294,13 @@ nav ul svg {
     cursor  : pointer;
 }
 
-#close-nav svg {
+#back-nav {
+    left : 12px;
+    right: unset;
+}
+
+#close-nav svg,
+#back-nav svg {
     width : 100%;
     height: 100%;
 }
@@ -1744,7 +1775,13 @@ body#about section.header div.inner {
 }
 
 body#one-of-a-kind section.header div.inner {
-    background-image   : url('/assets/images/heros/nautilus-fountain-Limestone.jpeg');
+    background-image   : url('/assets/images/heros/one-of-a-kind/michael.jpeg');
+    background-position: center;
+    background-size    : cover;
+}
+
+body#one-of-a-kind.imogen section.header div.inner {
+    background-image   : url('/assets/images/heros/one-of-a-kind/imogen.png');
     background-position: center;
     background-size    : cover;
 }
@@ -1922,6 +1959,19 @@ body#contact section.header p {
 
 
 @media screen and (max-width: 991px) {
+    #hamburger-nav.showing-fade {
+        opacity       : 1;
+        pointer-events: all;
+    }
+
+    #hamburger-nav.showing-nav>ul.main-nav {
+        right: 0;
+    }
+
+    #hamburger-nav.showing-oak-nav>ul.oak-nav {
+        right: 0;
+    }
+
     nav>a.logo-link {
         display: block;
     }
@@ -2098,6 +2148,10 @@ body#contact section.header p {
 
     :root {
         --nav-height: 60px;
+    }
+
+    body#one-of-a-kind.imogen section.header div.inner {
+        background-image: url('/assets/images/heros/one-of-a-kind/imogen-mobile.png');
     }
 
     #hamburger-btn {

@@ -38,6 +38,15 @@ $(document).ready(function () {
         closeHamburgerMenu();
     });
 
+    $('#hamburger-nav li a[href="/one-of-a-kind"]').on('click', function (e) {
+        e.preventDefault();
+        openOAKNav();
+    });
+
+    $("#back-nav").on('click', function () {
+        closeOAKNav();
+    });
+
     $(document).off('click').on("click", function (event) {
         if (
             $("#hamburger-nav").hasClass("showing-nav") && // Check if the nav is open
@@ -48,6 +57,14 @@ $(document).ready(function () {
     });
 
 });
+
+function openOAKNav() {
+    $("#hamburger-nav").addClass('showing-oak-nav');
+}
+
+function closeOAKNav() {
+    $("#hamburger-nav").removeClass('showing-oak-nav');
+}
 
 function openHamburgerMenu() {
     $("#hamburger-nav").addClass('showing-fade');
@@ -343,12 +360,15 @@ function setActiveOAK(oAK) {
     STATE.activeOAK = oAK;
 }
 
-async function loadOAKs(getAll = false) {
-    const data = getAll ? {
-        action: "get_all",
-    } : {
-        action: "get_more",
-        page: STATE?.pagination?.current_page
+async function loadOAKs(options = {
+    getAll: true
+}) {
+    const { getAll, artist } = options;
+
+    const data = {
+        action: !!getAll ? "get_all" : "get_more",
+        page: !!getAll ? undefined : STATE?.pagination?.current_page,
+        artist: !!artist ? artist : undefined
     };
 
     await $.ajax({
