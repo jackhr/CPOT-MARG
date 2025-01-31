@@ -1967,14 +1967,6 @@ body#contact section.header p {
         width: 0%;
     }
 
-    .carousel-cell {
-        width: 100%;
-    }
-
-    .carousel-cell img {
-        object-position: center !important;
-    }
-
     #name-panel-container {
         grid-template: 1fr / 1fr;
     }
@@ -2202,6 +2194,14 @@ body#contact section.header p {
 
     #confirmation-modal .multiple-input-container .input-container:first-child {
         margin: 0;
+    }
+
+    .carousel-cell {
+        width: 100%;
+    }
+
+    .carousel-cell img {
+        object-position: center !important;
     }
 
     section#imo-and-mike div.inner h2 {
