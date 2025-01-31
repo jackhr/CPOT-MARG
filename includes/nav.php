@@ -17,7 +17,18 @@ $current_url = $_SERVER['REQUEST_URI'];
             <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
         </li>
         <li>
-            <a href="/one-of-a-kind" class="<?php echo ($current_url == '/one-of-a-kind/') ? 'current' : ''; ?>">One of a Kind</a>
+            <a href="/one-of-a-kind" class="<?php echo strpos($current_url, '/one-of-a-kind/') !== false ? 'current' : ''; ?>">One of a Kind</a>
+            <ul class="subnav">
+                <li>
+                    <a href="/one-of-a-kind/imogen/" class="<?php echo ($current_url == '/one-of-a-kind/imogen/') ? 'current' : ''; ?>">Imogen</a>
+                </li>
+                <li>
+                    <a href="/one-of-a-kind/michael/" class="<?php echo ($current_url == '/one-of-a-kind/michael/') ? 'current' : ''; ?>">Michael</a>
+                </li>
+                <li>
+                    <a href="/one-of-a-kind/commissions/" class="<?php echo ($current_url == '/one-of-a-kind/commissions/') ? 'current' : ''; ?>">Commissions</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="/about" class="<?php echo ($current_url == '/about/') ? 'current' : ''; ?>">Our Story</a>
@@ -47,7 +58,7 @@ $current_url = $_SERVER['REQUEST_URI'];
 </nav>
 
 <nav id="hamburger-nav">
-    <ul>
+    <ul class="main-nav">
         <div id="close-nav">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6 6 18" />
@@ -64,7 +75,7 @@ $current_url = $_SERVER['REQUEST_URI'];
             <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
         </li>
         <li>
-            <a href="/one-of-a-kind" class="<?php echo ($current_url == '/one-of-a-kind/') ? 'current' : ''; ?>">One of a Kind</a>
+            <a href="/one-of-a-kind" class="<?php echo strpos($current_url, '/one-of-a-kind/') !== false ? 'current' : ''; ?>">One of a Kind</a>
         </li>
         <li>
             <a href="/about" class="<?php echo ($current_url == '/about/') ? 'current' : ''; ?>">Our Story</a>
@@ -82,6 +93,31 @@ $current_url = $_SERVER['REQUEST_URI'];
                     <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
                 </svg>
             </a>
+        </li>
+    </ul>
+    <ul class="oak-nav">
+        <div id="back-nav">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+        </div>
+        <div id="close-nav">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+            </svg>
+        </div>
+        <a class="logo-link" href="/">
+            <img src="/assets/images/logos/logo-primary.png" alt="Logo">
+        </a>
+        <li>
+            <a href="/one-of-a-kind/imogen/" class="<?php echo ($current_url == '/one-of-a-kind/imogen/') ? 'current' : ''; ?>">Imogen</a>
+        </li>
+        <li>
+            <a href="/one-of-a-kind/michael/" class="<?php echo ($current_url == '/one-of-a-kind/michael/') ? 'current' : ''; ?>">Michael</a>
+        </li>
+        <li>
+            <a href="/one-of-a-kind/commissions/" class="<?php echo ($current_url == '/one-of-a-kind/commissions/') ? 'current' : ''; ?>">Commissions</a>
         </li>
     </ul>
 </nav>
