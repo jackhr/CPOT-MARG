@@ -284,7 +284,7 @@ nav ul svg {
     margin-left: auto;
 }
 
-#close-nav,
+.close-nav,
 #back-nav {
     position: absolute;
     top     : 12px;
@@ -299,7 +299,7 @@ nav ul svg {
     right: unset;
 }
 
-#close-nav svg,
+.close-nav svg,
 #back-nav svg {
     width : 100%;
     height: 100%;

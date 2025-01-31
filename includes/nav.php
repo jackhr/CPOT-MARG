@@ -59,7 +59,7 @@ $current_url = $_SERVER['REQUEST_URI'];
 
 <nav id="hamburger-nav">
     <ul class="main-nav">
-        <div id="close-nav">
+        <div class="close-nav">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6 6 18" />
                 <path d="m6 6 12 12" />
@@ -101,7 +101,7 @@ $current_url = $_SERVER['REQUEST_URI'];
                 <path d="m15 18-6-6 6-6" />
             </svg>
         </div>
-        <div id="close-nav">
+        <div class="close-nav">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6 6 18" />
                 <path d="m6 6 12 12" />

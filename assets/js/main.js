@@ -34,7 +34,7 @@ $(document).ready(function () {
         openHamburgerMenu();
     });
 
-    $("#close-nav").on('click', function () {
+    $(".close-nav").on('click', function () {
         closeHamburgerMenu();
     });
 
