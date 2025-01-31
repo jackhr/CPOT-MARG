@@ -33,28 +33,40 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="right">
                 <div class="carousel">
                     <div class="carousel-cell">
-                        <img src="/assets/images/heros/index/hero-1.png" alt="">
+                        <img
+                        
+                        srcset="/assets/images/heros/index/mobile/hero-1.png 640w, /assets/images/heros/index/hero-1.png"
+                        src="" alt="">
                     </div>
                     <div class="carousel-cell">
-                        <img src="/assets/images/heros/index/hero-2.png" alt="">
+                        <img
+                        class="right" 
+                        srcset="/assets/images/heros/index/mobile/hero-2.jpg 640w, /assets/images/heros/index/hero-2.jpg"
+                        src="" alt="">
                     </div>
                     <div class="carousel-cell">
-                        <img src="/assets/images/heros/index/hero-3.png" alt="">
+                        <img
+                        class="right" 
+                        srcset="/assets/images/heros/index/mobile/hero-3.jpg 640w, /assets/images/heros/index/hero-3.jpg"
+                        src="" alt="">
                     </div>
                     <div class="carousel-cell">
-                        <img src="/assets/images/heros/index/hero-4.png" alt="">
+                        <img
+                        class="right" 
+                        srcset="/assets/images/heros/index/mobile/hero-4.png 640w, /assets/images/heros/index/hero-4.png"
+                        src="" alt="">
                     </div>
                     <div class="carousel-cell">
-                        <img src="/assets/images/heros/index/hero-5.png" alt="">
+                        <img
+                        
+                        srcset="/assets/images/heros/index/mobile/hero-5.png 640w, /assets/images/heros/index/hero-5.png"
+                        src="" alt="">
                     </div>
                     <div class="carousel-cell">
-                        <img src="/assets/images/heros/index/hero-6.png" alt="">
-                    </div>
-                    <div class="carousel-cell">
-                        <img src="/assets/images/heros/index/hero-7.png" alt="">
-                    </div>
-                    <div class="carousel-cell">
-                        <img src="/assets/images/heros/index/hero-8.png" alt="">
+                        <img
+                        class="right" 
+                        srcset="/assets/images/heros/index/mobile/hero-6.jpg 640w, /assets/images/heros/index/hero-6.jpg"
+                        src="" alt="">
                     </div>
                 </div>
             </div>

@@ -346,6 +346,10 @@ section#index-header div.inner>div.right {
     object-fit: cover;
 }
 
+.carousel-cell img.right {
+    object-position: right;
+}
+
 #landing-title-container {
     margin     : 0;
     color      : var(--primary);
@@ -1936,6 +1940,10 @@ body#contact section.header p {
         display: block;
     }
 
+    section#index-header {
+        border-bottom: solid 1px var(--primary);
+    }
+
     section#index-header div.inner {
         height: 500px;
     }
@@ -1959,8 +1967,12 @@ body#contact section.header p {
         width: 0%;
     }
 
+    .carousel-cell {
+        width: 100%;
+    }
+
     .carousel-cell img {
-        object-position: right;
+        object-position: center !important;
     }
 
     #name-panel-container {
