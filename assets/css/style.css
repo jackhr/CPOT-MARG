@@ -1135,7 +1135,7 @@ html:has(.modal.showing) {
     font-weight: 600;
 }
 
-#enquiry-btn {
+.enquiry-btn:not(div.inner .enquiry-btn) {
     margin-top: auto;
 }
 
@@ -1769,8 +1769,8 @@ section#imo-and-mike div.inner h2 {
 }
 
 body#about section.header div.inner {
-    background-image   : url('/assets/images/heros/imogen-and-mike.jpg');
-    background-position: top;
+    background-image   : url('/assets/images/heros/fluted-fountain.jpeg');
+    background-position: center;
     background-size    : cover;
 }
 

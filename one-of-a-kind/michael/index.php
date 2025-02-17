@@ -6,7 +6,8 @@
     <section class="header">
         <div class="inner">
             <h1>Michael</h1>
-            <p>Elevate your interiors with refined unique ceramics, thoughtfully crafted with timeless elegance and sophisticated design.</p>
+            <p>Michael's thrown and altered ceramic work continues to be admired for its sense of design, consummate craft skill and attention to detail. He continues to explore working in stone.</p>
+            <button class="enquiry-btn">Make An Enquiry</button>
         </div>
     </section>
 
@@ -70,7 +71,7 @@
                                 <sub>(usd)</sub>
                             </span>
                         </div>
-                        <button id="enquiry-btn">Make Enquiry</button>
+                        <button class="enquiry-btn">Make Enquiry</button>
                     </div>
                     <div class="img-container">
                         <div class="prev">
@@ -156,7 +157,8 @@
         },
         oAKsLookup: {},
         activeOAK: null,
-        activeOAKIdx: 0
+        activeOAKIdx: 0,
+        goBackToDetailsModal: false
     }
     $(document).ready(async function() {
 
@@ -271,14 +273,17 @@
             setActiveOAK(newOAK);
         });
 
-        $("#enquiry-btn").on('click', function(e) {
+        $(".enquiry-btn").on('click', function(e) {
             e.preventDefault();
+            STATE.goBackToDetailsModal = !!$(this).closest('.modal').length;
             $("#oak-modal").removeClass("showing");
             $("#confirmation-modal").addClass("showing");
         });
 
         $("#confirmation-modal .modal-close").on('click', function() {
-            $("#oak-modal").addClass("showing");
+            if (STATE.goBackToDetailsModal) {
+                $("#oak-modal").addClass("showing");
+            }
             $("#confirmation-modal").removeClass("showing");
         });
 
