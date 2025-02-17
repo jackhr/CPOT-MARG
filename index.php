@@ -21,12 +21,12 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="inner">
             <div class="left">
                 <div id="landing-title-container">
-                    <span>Signature</span>
-                    <div>
+                    <span>Signature, Ceramics,<br>Stone and Wood</span>
+                    <!-- <div>
                         <span class="showing">Ceramics</span>
                         <span>Stone</span>
                         <span>Wood</span>
-                    </div>
+                    </div> -->
                 </div>
                 <p>Caribbean maker of finely crafted production and bespoke ceramic wall sconces, signature pieces in ceramic, stone, and wood.</p>
             </div>
@@ -62,7 +62,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="left">
                         <h2>Imogen</h2>
                         <p>Imogen Margrie-Hunt, hailing from Camden, North London, was immersed in the arts from a young age. With a background enriched by her family's artistic pursuits, she naturally progressed to the Central School of Art. Post-graduation, Imogen established herself in the ceramics community, contributing to esteemed institutions like the Victoria and Albert Museum and the Contemporary Applied Arts Gallery. Her journey reflects a deep commitment to artistic excellence and education.</p>
-                        <a href="/one-of-a-kind/">view more...</a>
+                        <a href="/one-of-a-kind/imogen">view more...</a>
                     </div>
                     <div class="right">
                         <img src="/assets/images/panels/imogen.png" alt="">
@@ -72,7 +72,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="left">
                         <h2>Michael</h2>
                         <p>Born in Antigua and raised in the UK, Michael Hunt discovered his passion for ceramics at a youth center, leading him to pursue a degree at the Central School of Art in London. His career encompasses teaching roles, Japanese garden construction, and personal ceramic creations. Michael's work often delves into themes of island history and ancestry, showcasing his diverse talents in stone, wood, and ceramics.</p>
-                        <a href="/one-of-a-kind/">view more...</a>
+                        <a href="/one-of-a-kind/michael">view more...</a>
                     </div>
                     <div class="right">
                         <img src="/assets/images/panels/michael.jpeg" alt="">

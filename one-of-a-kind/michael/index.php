@@ -223,7 +223,7 @@
 
         await loadOAKs({
             getAll: true,
-            artist: "Michael Margrie-Hunt"
+            artist: "Michael Hunt"
         });
 
         <?php if (isset($_GET['id'])) { ?>
