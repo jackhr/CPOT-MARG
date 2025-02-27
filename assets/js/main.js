@@ -4,7 +4,7 @@ $(document).ready(function () {
         fade: true,
         wrapAround: true,
         draggable: false,
-        autoPlay: 3000,
+        autoPlay: 5000,
         lazyLoad: 1,
         imagesLoaded: true, // re-positions cells once their images have loaded.
         cellSelector: '.carousel-cell',
