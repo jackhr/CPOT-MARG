@@ -70,10 +70,28 @@ if (isset($data['action'])) {
                 OFFSET :offset"
             );
             $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
-            $stmt->bindValue(':limit', $itemsPerPage, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', (int) $itemsPerPage, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
             $stmt->execute();
-            $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $sconces = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $stmt = $pdo->prepare("SELECT cutout_id, sconce_id FROM rel_sconces_cutouts");
+            $stmt->execute();
+            $cutoutRelations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Initialize each sconce with an empty array of cutouts
+            foreach ($sconces as &$sconce) $sconce['cutout_ids'] = [];
+
+            foreach ($cutoutRelations as $relation) {
+                // Find the index of the sconce in the sconces array
+                $index = array_search($relation['sconce_id'], array_column($sconces, 'sconce_id'));
+
+                if ($index !== false) {
+                    $sconces[$index]['cutout_ids'][] = $relation['cutout_id'];
+                }
+            }
+
+            $res['data'] = $sconces;
 
             // Fetch total items count
             $count_query = "SELECT COUNT(*) FROM sconces WHERE status = :status";

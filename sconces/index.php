@@ -215,6 +215,20 @@
             } else {
                 $(`.cutout-list-item.no-cutout`).trigger('click');
             }
+            // Convert cutout_ids to a Set for faster lookups
+            const cutoutSet = new Set(STATE.activeSconce.cutout_ids);
+
+            // Select all elements that have the "data-id" attribute
+            $('#cutout-modal').find('.cutout-list-item').each((_, el) => {
+                const dataId = parseInt($(el).data('id'), 10); // Get the data-id as an integer
+                if (cutoutSet.has(dataId) || $(el).hasClass("no-cutout")) {
+                    console.log("here");
+                    $(el).show();
+                } else {
+                    console.log("naaah");
+                    $(el).hide();
+                }
+            });
             $("#cutout-modal").addClass('showing');
         });
 
