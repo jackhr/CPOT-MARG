@@ -486,6 +486,11 @@ section#index-header div.inner>div.right {
     margin     : 0 0 52px;
 }
 
+section.catalogue-section div.inner {
+    max-width: var(--max-width);
+    margin   : auto;
+}
+
 .gallery {
     display        : flex;
     gap            : 24px;
@@ -1771,6 +1776,11 @@ section#imo-and-mike div.inner h2 {
     line-height: 40px;
     font-size  : 20px;
     color      : var(--grey-dark);
+}
+
+.about-info-container p .intro-words {
+    font-size  : 24px;
+    font-weight: 600;
 }
 
 .about-info-container img {

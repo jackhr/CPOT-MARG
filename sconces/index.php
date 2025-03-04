@@ -7,7 +7,7 @@
         <div class="inner">
             <h1>Sconces</h1>
             <p>Elevate your interiors with refined ceramic sconces, thoughtfully crafted with timeless elegance and sophisticated design.</p>
-            <a download href="/assets/files/MH_Light_catalog.pdf">Download Sconce Catalogue</a>
+            <button id="view-catalogue">View Sconces Catalogue</button>
         </div>
     </section>
 
@@ -24,6 +24,14 @@
         <div class="inner">
             <div class="gallery"></div>
             <button class="load-more-btn">Load More Sconces</button>
+        </div>
+    </section>
+
+    <section class="catalogue-section">
+        <div class="inner">
+            <div style="position:relative;padding-top:max(60%,326px);height:0;width:100%">
+                <iframe allow="clipboard-write" sandbox="allow-top-navigation allow-top-navigation-by-user-activation allow-downloads allow-scripts allow-same-origin allow-popups allow-modals allow-popups-to-escape-sandbox allow-forms" allowfullscreen="true" style="position:absolute;border:none;width:100%;height:100%;left:0;right:0;top:0;bottom:0;" src="https://e.issuu.com/embed.html?d=margrie_hunt_light_catalog_-_old&u=tropicalstudios"></iframe>
+            </div>
         </div>
     </section>
 
@@ -182,6 +190,13 @@
 
         loadSconces();
         await loadAddOns();
+
+        $("#view-catalogue").on('click', function() {
+            scrollTo({
+                top: $("section.catalogue-section").position().top,
+                behavior: "smooth"
+            });
+        });
 
         $("#toggle-pricing").on('click', () => $("#pricing-section").toggleClass("viewing-pricing"));
 
