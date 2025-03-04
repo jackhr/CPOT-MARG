@@ -4,6 +4,22 @@
 
     <div class="inner">
         <div>
+            <div class="footer-contact">
+                <h6>Contact</h6>
+                <div class="contact-link">
+                    <span>Phone:</span>
+                    <a href="tel:+1 (268) 460-5293">+1 (268) 460-5293</a>
+                </div>
+                <div class="contact-link">
+                    <span>Email:</span>
+                    <a href="mailto:info@<?php echo $domain; ?>">info@<?php echo $domain; ?></a>
+                </div>
+            </div>
+            <div class="footer-logo">
+                <div>
+                    <img src="/assets/images/logos/logo-primary.png" alt="Logo">
+                </div>
+            </div>
             <div class="footer-nav">
                 <h6>Navigation</h6>
                 <ul>
@@ -29,22 +45,6 @@
                         <a href="/cart" class="<?php echo ($current_url == '/cart/') ? 'current' : ''; ?>">Cart</a>
                     </li>
                 </ul>
-            </div>
-            <div class="footer-logo">
-                <div>
-                    <img src="/assets/images/logos/logo-primary.png" alt="Logo">
-                </div>
-            </div>
-            <div class="footer-contact">
-                <h6>Contact</h6>
-                <div class="contact-link">
-                    <span>Phone:</span>
-                    <a href="tel:+1 (268) 460-5293">+1 (268) 460-5293</a>
-                </div>
-                <div class="contact-link">
-                    <span>Email:</span>
-                    <a href="mailto:info@<?php echo $domain; ?>">info@<?php echo $domain; ?></a>
-                </div>
             </div>
         </div>
 
