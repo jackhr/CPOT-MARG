@@ -5,7 +5,7 @@
 
     <section class="header">
         <div class="inner">
-            <h1>One Of A Kind</h1>
+            <h1>Commissions</h1>
             <p>Elevate your interiors with refined unique ceramics, thoughtfully crafted with timeless elegance and sophisticated design.</p>
         </div>
     </section>
@@ -62,14 +62,14 @@
                             <span>Description:</span>
                             <span data-description></span>
                         </div>
-                        <div class="info-section">
+                        <!-- <div class="info-section">
                             <span>Price:</span>
                             <span data-price>
                                 $
                                 <span></span>
                                 <sub>(usd)</sub>
                             </span>
-                        </div>
+                        </div> -->
                         <button id="enquiry-btn">Make Enquiry</button>
                     </div>
                     <div class="img-container">

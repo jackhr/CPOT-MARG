@@ -28,7 +28,7 @@
                     </select>
                 </div>
             </div> -->
-            <h1>Gallery</h1>
+            <h1>Portfolio</h1>
             <div class="one-of-a-kind gallery"></div>
             <button class="load-more-btn">Load More Artwork</button>
         </div>
@@ -63,14 +63,14 @@
                             <span>Description:</span>
                             <span data-description></span>
                         </div>
-                        <div class="info-section">
+                        <!-- <div class="info-section">
                             <span>Price:</span>
                             <span data-price>
                                 $
                                 <span></span>
                                 <sub>(usd)</sub>
                             </span>
-                        </div>
+                        </div> -->
                         <button class="enquiry-btn">Make Enquiry</button>
                     </div>
                     <div class="img-container">
