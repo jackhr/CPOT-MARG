@@ -50,6 +50,9 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="carousel-cell">
                         <img class="right" srcset="/assets/images/heros/index/mobile/hero-6.jpg 768w, /assets/images/heros/index/hero-6.jpg" src="" alt="">
                     </div>
+                    <div class="carousel-cell">
+                        <img class="right" srcset="/assets/images/heros/index/mobile/hero-7.png 768w, /assets/images/heros/index/hero-7.png" src="" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,7 +98,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <a href="/one-of-a-kind/">view more...</a>
                     </div>
                     <div class="right">
-                        <img src="/assets/images/panels/commissions.png" alt="">
+                        <img src="/assets/images/panels/delilah.jpg" alt="">
                     </div>
                 </div>
             </div>

@@ -4,12 +4,13 @@ assets/images/heros/index/hero-3.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/index/hero-4.png filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/index/hero-5.png filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/index/hero-6.jpg filter=lfs diff=lfs merge=lfs -text
+assets/images/heros/index/hero-7.png filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/index/mobile/hero-1.png filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/index/mobile/hero-2.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/index/mobile/hero-3.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/index/mobile/hero-4.png filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/index/mobile/hero-5.png filter=lfs diff=lfs merge=lfs -text
-assets/images/heros/index/mobile/hero-6.jpg filter=lfs diff=lfs merge=lfs -text
+assets/images/heros/index/mobile/hero-7.png filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/lizard-on-an-art-piece.jpeg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/imogen-and-mike.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/fluted-fountain.jpeg filter=lfs diff=lfs merge=lfs -text
@@ -36,6 +37,7 @@ assets/images/panels/commissions.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/imogen.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/sconces.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/michael.png filter=lfs diff=lfs merge=lfs -text
+assets/images/panels/delilah.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/pricing/sconce-pricing-table-1.png filter=lfs diff=lfs merge=lfs -text
 assets/images/pricing/sconce-pricing-table-2.png filter=lfs diff=lfs merge=lfs -text
 assets/images/pricing/sconce-pricing-table-3.png filter=lfs diff=lfs merge=lfs -text
