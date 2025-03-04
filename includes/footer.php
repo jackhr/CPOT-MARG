@@ -14,7 +14,10 @@
                         <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
                     </li>
                     <li>
-                        <a href="/one-of-a-kind" class="<?php echo ($current_url == '/one-of-a-kind/') ? 'current' : ''; ?>">One of a Kind</a>
+                        <a href="/portfolios/imogen" class="<?php echo strpos($current_url, '/portfolios/imogen/') !== false ? 'current' : ''; ?>">Imogen</a>
+                    </li>
+                    <li>
+                        <a href="/portfolios/michael" class="<?php echo strpos($current_url, '/portfolios/michael/') !== false ? 'current' : ''; ?>">Michael</a>
                     </li>
                     <li>
                         <a href="/about" class="<?php echo ($current_url == '/about/') ? 'current' : ''; ?>">Our Story</a>

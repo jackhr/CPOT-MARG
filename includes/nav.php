@@ -17,16 +17,13 @@ $current_url = $_SERVER['REQUEST_URI'];
             <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
         </li>
         <li>
-            <a href="/one-of-a-kind" class="<?php echo strpos($current_url, '/one-of-a-kind/') !== false ? 'current' : ''; ?>">One of a Kind</a>
+            <a href="#" class="<?php echo strpos($current_url, '/portfolios/') !== false ? 'current' : ''; ?>">Portfolios</a>
             <ul class="subnav">
                 <li>
-                    <a href="/one-of-a-kind/imogen/" class="<?php echo ($current_url == '/one-of-a-kind/imogen/') ? 'current' : ''; ?>">Imogen</a>
+                    <a href="/portfolios/imogen/" class="<?php echo ($current_url == '/portfolios/imogen/') ? 'current' : ''; ?>">Imogen</a>
                 </li>
                 <li>
-                    <a href="/one-of-a-kind/michael/" class="<?php echo ($current_url == '/one-of-a-kind/michael/') ? 'current' : ''; ?>">Michael</a>
-                </li>
-                <li>
-                    <a href="/one-of-a-kind/commissions/" class="<?php echo ($current_url == '/one-of-a-kind/commissions/') ? 'current' : ''; ?>">Commissions</a>
+                    <a href="/portfolios/michael/" class="<?php echo ($current_url == '/portfolios/michael/') ? 'current' : ''; ?>">Michael</a>
                 </li>
             </ul>
         </li>
@@ -75,7 +72,7 @@ $current_url = $_SERVER['REQUEST_URI'];
             <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
         </li>
         <li>
-            <a href="/one-of-a-kind" class="<?php echo strpos($current_url, '/one-of-a-kind/') !== false ? 'current' : ''; ?>">One of a Kind</a>
+            <a href="#" class="<?php echo strpos($current_url, '/portfolios/') !== false ? 'current' : ''; ?>">Portfolios</a>
         </li>
         <li>
             <a href="/about" class="<?php echo ($current_url == '/about/') ? 'current' : ''; ?>">Our Story</a>
@@ -111,13 +108,10 @@ $current_url = $_SERVER['REQUEST_URI'];
             <img src="/assets/images/logos/logo-primary.png" alt="Logo">
         </a>
         <li>
-            <a href="/one-of-a-kind/imogen/" class="<?php echo ($current_url == '/one-of-a-kind/imogen/') ? 'current' : ''; ?>">Imogen</a>
+            <a href="/portfolios/imogen/" class="<?php echo ($current_url == '/portfolios/imogen/') ? 'current' : ''; ?>">Imogen</a>
         </li>
         <li>
-            <a href="/one-of-a-kind/michael/" class="<?php echo ($current_url == '/one-of-a-kind/michael/') ? 'current' : ''; ?>">Michael</a>
-        </li>
-        <li>
-            <a href="/one-of-a-kind/commissions/" class="<?php echo ($current_url == '/one-of-a-kind/commissions/') ? 'current' : ''; ?>">Commissions</a>
+            <a href="/portfolios/michael/" class="<?php echo ($current_url == '/portfolios/michael/') ? 'current' : ''; ?>">Michael</a>
         </li>
     </ul>
 </nav>
