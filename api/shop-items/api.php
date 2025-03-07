@@ -68,8 +68,9 @@ if (isset($data['action'])) {
             $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             // Fetch total items count
-            $count_query = "SELECT COUNT(*) FROM shop_items";
+            $count_query = "SELECT COUNT(*) FROM shop_items WHERE status <> :status";
             $count_stmt = $pdo->prepare($count_query);
+            $count_stmt->execute(['status' => 'archived']);
             $total_items = $count_stmt->fetchColumn();
 
             // Add pagination metadata
