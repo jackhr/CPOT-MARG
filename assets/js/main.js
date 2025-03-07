@@ -156,6 +156,8 @@ function setActiveItem(item) {
     modal.find("[data-total_price]>span").text(item.price);
 
     STATE.activeItem = item;
+
+    $("#make-enquiry-btn").toggle(STATE.activeItem.status == "available");
 }
 
 function setActiveSconce(item, editingCart = false) {
@@ -329,6 +331,7 @@ function loadShopItems(getAllItems = false) {
                                 <h4>${item.name}</h4>
                                 <span>${item.dimensions} (D/W/H)</span>
                                 <div>
+                                    <span class="shop-item-status ${item.status}">${item.status}</span>
                                     <span>$${item.price}<sub>(usd)</sub></span>
                                     <span>View More...</span>
                                 </div>

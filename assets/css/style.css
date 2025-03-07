@@ -575,6 +575,7 @@ section.catalogue-section div.inner {
     height          : 25%;
     flex-direction  : column;
     justify-content : center;
+    position        : relative;
 }
 
 .sconce-panel>div:last-child h4,
@@ -2021,6 +2022,27 @@ body#one-of-a-kind.imogen section.header p {
     background-color: var(--white);
 }
 
+.shop-item-status {
+    position      : absolute;
+    top           : 12px;
+    right         : 12px;
+    background    : var(--grey-x-light);
+    padding       : 6px 10px;
+    border-radius : 4px;
+    font-size     : 12px !important;
+    text-transform: uppercase;
+    font-weight   : 500;
+    color         : var(--white);
+}
+
+.shop-item-status.available {
+    background-color: var(--primary);
+}
+
+.shop-item-status.sold,
+.shop-item-status.reserved {
+    background-color: var(--secondary);
+}
 
 @media screen and (max-width: 991px) {
     #hamburger-nav.showing-fade {
