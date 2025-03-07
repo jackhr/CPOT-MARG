@@ -38,7 +38,7 @@ $(document).ready(function () {
         closeHamburgerMenu();
     });
 
-    $('#hamburger-nav li a[href="/one-of-a-kind"]').on('click', function (e) {
+    $('#hamburger-nav li a[href="/portfolios"]').on('click', function (e) {
         e.preventDefault();
         openOAKNav();
     });
@@ -139,6 +139,23 @@ function resetSconceModal() {
     $(".cutout-list-item.no-cutout").trigger('click');
     $("#cutout-selection-container button").trigger('click');
     $(".sconce-add-on").each((_, el) => $(el).is(":checked") && $(el).trigger('click'));
+}
+
+function setActiveItem(item) {
+    const modal = $("#item-modal");
+    
+    modal.addClass('showing');
+    modal.find(".img-container img").attr("src", item.image_url);
+    modal.find("[data-name]").text(item.name);
+    modal.find("[data-base_price]>span").text(item.price);
+    modal.find("[data-sku]").text("#" + item.shop_item_id);
+    modal.find("[data-description]").text(item.description || "This item has no description.");
+    modal.find("[data-dimensions]").text(`${item.dimensions} (D/W/H)`);
+    modal.find("[data-material]").text(item.material);
+    modal.find("[data-color]").text(item.color);
+    modal.find("[data-total_price]>span").text(item.price);
+
+    STATE.activeItem = item;
 }
 
 function setActiveSconce(item, editingCart = false) {
@@ -263,6 +280,65 @@ function loadSconces(getAllSconces = false) {
                     sconceEl.on('click', () => setActiveSconce(sconce));
 
                     $(".gallery").append(sconceEl);
+                });
+
+                STATE.pagination = {
+                    ...res.pagination
+                };
+
+                if (STATE.pagination.current_page === STATE.pagination.total_pages) {
+                    $(".load-more-btn").remove();
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: res.message
+                });
+            }
+        },
+        error: function () {
+            console.log(arguments);
+        }
+    });
+}
+
+function loadShopItems(getAllItems = false) {
+    const data = getAllItems ? {
+        action: "get_all",
+    } : {
+        action: "get_more",
+        page: STATE?.pagination?.current_page
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/api/shop-items/api.php",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: "json",
+        success: res => {
+            if (res.status === 200) {
+                res.data.forEach(item => {
+                    item = formatResource(item);
+                    STATE.shopItemsLookup[item.shop_item_id] = item;
+                    const itemEl = $(`
+                        <div data-id="${item.shop_item_id}" class="item-panel">
+                            <img src="${item.image_url}" alt="Oops">
+                            <div>
+                                <h4>${item.name}</h4>
+                                <span>${item.dimensions} (D/W/H)</span>
+                                <div>
+                                    <span>$${item.price}<sub>(usd)</sub></span>
+                                    <span>View More...</span>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+
+                    itemEl.on('click', () => setActiveItem(item));
+
+                    $(".gallery").append(itemEl);
                 });
 
                 STATE.pagination = {

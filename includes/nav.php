@@ -28,6 +28,9 @@ $current_url = $_SERVER['REQUEST_URI'];
             </ul>
         </li>
         <li>
+            <a href="/shop" class="<?php echo ($current_url == '/shop/') ? 'current' : ''; ?>">Shop</a>
+        </li>
+        <li>
             <a href="/about" class="<?php echo ($current_url == '/about/') ? 'current' : ''; ?>">Our Story</a>
         </li>
         <li>
@@ -72,7 +75,10 @@ $current_url = $_SERVER['REQUEST_URI'];
             <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
         </li>
         <li>
-            <a href="#" class="<?php echo strpos($current_url, '/portfolios/') !== false ? 'current' : ''; ?>">Portfolios</a>
+            <a href="/portfolios" class="<?php echo strpos($current_url, '/portfolios/') !== false ? 'current' : ''; ?>">Portfolios</a>
+        </li>
+        <li>
+            <a href="/shop" class="<?php echo ($current_url == '/shop/') ? 'current' : ''; ?>">Shop</a>
         </li>
         <li>
             <a href="/about" class="<?php echo ($current_url == '/about/') ? 'current' : ''; ?>">Our Story</a>
