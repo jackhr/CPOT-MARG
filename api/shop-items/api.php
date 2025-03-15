@@ -58,6 +58,7 @@ if (isset($data['action'])) {
                 "SELECT shop_items.*, shop_item_images.image_url
                     FROM shop_items
                     LEFT JOIN shop_item_images ON shop_items.primary_image_id = shop_item_images.image_id
+                WHERE shop_items.showing_on_site = 1
                 ORDER BY shop_items.name
                 LIMIT :limit
                 OFFSET :offset;"

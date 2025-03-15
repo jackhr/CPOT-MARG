@@ -172,7 +172,7 @@ if (isset($data['action'])) {
     if ($data['action'] === "create_enquiry") {
         $res = [
             "status" => 200,
-            "message" => "Enquiry for \"{$data['oak_name']}\" created successfully",
+            "message" => "Enquiry for \"{$data['portfolio_item_name']}\" created successfully",
         ];
 
         try {
@@ -200,13 +200,13 @@ if (isset($data['action'])) {
 
             // Create order
             $stmt = $pdo->prepare("
-                INSERT INTO one_of_a_kind_enquiries (contact_id, one_of_a_kind_id, message, current_status)
-                VALUES (:contact_id, :one_of_a_kind_id, :message, :current_status)
+                INSERT INTO portfolio_item_enquiries (contact_id, portfolio_item_id, message, current_status)
+                VALUES (:contact_id, :portfolio_item_id, :message, :current_status)
             ");
 
             // Bind order parameters
             $stmt->bindParam(':contact_id', $contact_id);
-            $stmt->bindParam(':one_of_a_kind_id', $data['one_of_a_kind_id']);
+            $stmt->bindParam(':portfolio_item_id', $data['portfolio_item_id']);
             $stmt->bindParam(':message', $data['message']);
             $stmt->bindValue(':current_status', "pending");
             $stmt->execute();
@@ -231,7 +231,7 @@ if (isset($data['action'])) {
             $mail_res_client = handleSendEmail(
                 "orders",
                 $data['email'],
-                "Your One of a Kind enquiry has been submitted and is now pending review!",
+                "Your Portfolio Item enquiry has been submitted and is now pending review!",
                 $email_subject
             );
 
@@ -249,7 +249,7 @@ if (isset($data['action'])) {
             $mail_res_admin = handleSendEmail(
                 "orders",
                 $admin_email_str,
-                "There has been an One of a Kind enquiry made by {$data['first_name']} {$data['last_name']} on the website.",
+                "There has been an Portfolio Item enquiry made by {$data['first_name']} {$data['last_name']} on the website.",
                 $email_subject,
                 $data['email']
             );
@@ -318,7 +318,7 @@ if (isset($data['action'])) {
             $mail_res_client = handleSendEmail(
                 "orders",
                 $data['email'],
-                "Your One of a Kind enquiry has been submitted and is now pending review!",
+                "Your Portfolio Item enquiry has been submitted and is now pending review!",
                 $email_subject
             );
 
@@ -336,7 +336,7 @@ if (isset($data['action'])) {
             $mail_res_admin = handleSendEmail(
                 "orders",
                 $admin_email_str,
-                "There has been an One of a Kind enquiry made by {$data['first_name']} {$data['last_name']} on the website.",
+                "There has been an Portfolio Item enquiry made by {$data['first_name']} {$data['last_name']} on the website.",
                 $email_subject,
                 $data['email']
             );

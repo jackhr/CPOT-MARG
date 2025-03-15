@@ -471,15 +471,15 @@ section#index-header div.inner>div.right {
     object-position: top;
 }
 
-#one-of-a-kind-section {
+#portfolio-section {
     padding: 120px 0;
 }
 
-#one-of-a-kind-section div.inner {
+#portfolio-section div.inner {
     flex-direction: column;
 }
 
-#one-of-a-kind-section div.inner h1 {
+#portfolio-section div.inner h1 {
     font-size  : 52px;
     color      : var(--primary);
     font-weight: 400;
@@ -515,7 +515,7 @@ section.catalogue-section div.inner {
 .gallery-panel,
 .sconce-panel,
 .item-panel,
-.one-of-a-kind-panel {
+.portfolio-item-panel {
     display        : flex;
     align-items    : center;
     justify-content: center;
@@ -618,13 +618,13 @@ section.catalogue-section div.inner {
     color    : var(--secondary);
 }
 
-.one-of-a-kind-panel img {
+.portfolio-item-panel img {
     width     : 100%;
     height    : 100%;
     object-fit: cover;
 }
 
-.one-of-a-kind-panel .oak-title {
+.portfolio-item-panel .portfolio-item-title {
     position               : absolute;
     color                  : var(--white);
     transition             : opacity ease 0.4s;
@@ -641,17 +641,18 @@ section.catalogue-section div.inner {
     flex-direction         : column;
     justify-content        : space-between;
     font-size              : 20px;
+    text-align             : center;
 }
 
-.one-of-a-kind-panel .oak-title h4:first-child {
+.portfolio-item-panel .portfolio-item-title h4:first-child {
     margin: 48px 0 0;
 }
 
-.one-of-a-kind-panel .oak-title h4:last-child {
+.portfolio-item-panel .portfolio-item-title h4:last-child {
     margin: 0 0 48px;
 }
 
-.one-of-a-kind-panel:hover .oak-title {
+.portfolio-item-panel:hover .portfolio-item-title {
     opacity       : 1;
     pointer-events: all;
 }
@@ -1031,7 +1032,7 @@ html:has(.modal.showing) {
 }
 
 .info-container .info-section p,
-.info-container span[data-dimensions]:not(.sconce-spec-pair span[data-dimensions], #oak-modal .info-section span) {
+.info-container span[data-dimensions]:not(.sconce-spec-pair span[data-dimensions], #portfolio-item-modal .info-section span) {
     font-size  : 14px;
     margin     : 0 0 12px;
     display    : block;
@@ -1136,19 +1137,19 @@ html:has(.modal.showing) {
     color       : var(--secondary);
 }
 
-#oak-modal .modal-content {
+#portfolio-item-modal .modal-content {
     padding      : 0;
     border-radius: 0;
     border       : none;
     width        : max-content;
 }
 
-#oak-modal .modal-body {
+#portfolio-item-modal .modal-body {
     display: flex;
     padding: 0;
 }
 
-#oak-modal .modal-close {
+#portfolio-item-modal .modal-close {
     background     : var(--white);
     border-radius  : 50%;
     width          : 30px;
@@ -1158,35 +1159,35 @@ html:has(.modal.showing) {
     justify-content: center;
 }
 
-#oak-modal .info-container {
+#portfolio-item-modal .info-container {
     display       : flex;
     flex-direction: column;
     padding       : 20px;
     border-right  : 1px solid var(--grey-x-light);
 }
 
-#oak-modal .img-container img {
+#portfolio-item-modal .img-container img {
     object-fit: contain !important;
 }
 
-#oak-modal .info-container h3 {
+#portfolio-item-modal .info-container h3 {
     font-weight: 400;
     font-size  : 24px;
     line-height: 34px;
     margin     : 0 0 12px;
 }
 
-#oak-modal .info-section {
+#portfolio-item-modal .info-section {
     border     : none;
     padding    : 0 0 8px;
     line-height: 24px;
 }
 
-#oak-modal .info-section [data-price] {
+#portfolio-item-modal .info-section [data-price] {
     display: inline-flex;
 }
 
-#oak-modal .info-container span:first-child {
+#portfolio-item-modal .info-container span:first-child {
     font-weight: 600;
 }
 
@@ -1194,7 +1195,7 @@ html:has(.modal.showing) {
     margin-top: auto;
 }
 
-#oak-modal .img-container {
+#portfolio-item-modal .img-container {
     min-width      : 530px;
     min-height     : 530px;
     width          : 530px;
@@ -1205,8 +1206,8 @@ html:has(.modal.showing) {
     justify-content: center;
 }
 
-#oak-modal .img-container .prev,
-#oak-modal .img-container .next {
+#portfolio-item-modal .img-container .prev,
+#portfolio-item-modal .img-container .next {
     position       : absolute;
     background     : var(--white);
     display        : flex;
@@ -1218,17 +1219,17 @@ html:has(.modal.showing) {
     cursor         : pointer;
 }
 
-#oak-modal .img-container .prev {
+#portfolio-item-modal .img-container .prev {
     left: 12px;
 
 }
 
-#oak-modal .img-container .next {
+#portfolio-item-modal .img-container .next {
     right: 12px;
 }
 
-#oak-modal .img-container .prev svg,
-#oak-modal .img-container .next svg {
+#portfolio-item-modal .img-container .prev svg,
+#portfolio-item-modal .img-container .next svg {
     width : 100%;
     height: 100%;
 }
@@ -1834,14 +1835,14 @@ body#about section.header div.inner {
     background-size    : cover;
 }
 
-body#one-of-a-kind section.header div.inner {
-    background-image   : url('/assets/images/heros/one-of-a-kind/michael.jpeg');
+body#portfolio section.header div.inner {
+    background-image   : url('/assets/images/heros/portfolios/michael.jpeg');
     background-position: center;
     background-size    : cover;
 }
 
-body#one-of-a-kind.imogen section.header div.inner {
-    background-image   : url('/assets/images/heros/one-of-a-kind/imogen.png');
+body#portfolio.imogen section.header div.inner {
+    background-image   : url('/assets/images/heros/portfolios/imogen.png');
     background-position: center;
     background-size    : cover;
 }
@@ -1859,7 +1860,7 @@ body#contact section.header div.inner {
 }
 
 body#sconces section.header h1,
-body#one-of-a-kind section.header h1,
+body#portfolio section.header h1,
 body#about section.header h1,
 body#contact section.header h1 {
     font-weight: 600;
@@ -1882,13 +1883,13 @@ body#contact section.header p {
 
 body#sconces section.header p,
 body#about section.header p,
-body#one-of-a-kind section.header p,
+body#portfolio section.header p,
 body#contact section.header p {
     text-shadow: 1px 1px 1px #000c, 1px 1px 1px #000c, 1px 1px 1px #000c, 1px 1px 24px #000c, 1px 1px 24px #000c;
     font-weight: 600;
 }
 
-body#one-of-a-kind.imogen section.header p {
+body#portfolio.imogen section.header p {
     text-shadow: 1px 1px 1px #000c, 1px 1px 1px #000c, 1px 1px 1px #000c;
 }
 
@@ -2054,7 +2055,7 @@ body#one-of-a-kind.imogen section.header p {
         right: 0;
     }
 
-    #hamburger-nav.showing-oak-nav>ul.oak-nav {
+    #hamburger-nav.showing-portfolio-nav>ul.portfolio-nav {
         right: 0;
     }
 
@@ -2123,7 +2124,7 @@ body#one-of-a-kind.imogen section.header p {
     }
 
     body#sconces section.header h1,
-    body#one-of-a-kind section.header h1,
+    body#portfolio section.header h1,
     body#about section.header h1,
     body#contact section.header h1 {
         font-size: 62px;
@@ -2197,25 +2198,25 @@ body#one-of-a-kind.imogen section.header p {
 }
 
 @media screen and (max-width: 840px) {
-    #oak-modal .modal-content {
+    #portfolio-item-modal .modal-content {
         width    : 100%;
         max-width: 450px;
     }
 
-    #oak-modal .modal-body {
+    #portfolio-item-modal .modal-body {
         flex-direction: column-reverse;
     }
 
-    #oak-modal .info-container {
+    #portfolio-item-modal .info-container {
         text-align: center;
     }
 
-    #oak-modal .info-section {
+    #portfolio-item-modal .info-section {
         display        : flex;
         justify-content: space-between;
     }
 
-    #oak-modal .img-container {
+    #portfolio-item-modal .img-container {
         overflow     : hidden;
         min-width    : 450px;
         min-height   : unset;
@@ -2236,8 +2237,8 @@ body#one-of-a-kind.imogen section.header p {
         --nav-height: 60px;
     }
 
-    body#one-of-a-kind.imogen section.header div.inner {
-        background-image: url('/assets/images/heros/one-of-a-kind/imogen-mobile.png');
+    body#portfolio.imogen section.header div.inner {
+        background-image: url('/assets/images/heros/portfolios/imogen-mobile.png');
     }
 
     #hamburger-btn {
@@ -2262,7 +2263,7 @@ body#one-of-a-kind.imogen section.header p {
     }
 
     #panel-section,
-    #one-of-a-kind-section,
+    #portfolio-section,
     #about-us-section {
         padding: 60px 0;
     }
@@ -2416,7 +2417,7 @@ body#one-of-a-kind.imogen section.header p {
     }
 
     body#sconces section.header h1,
-    body#one-of-a-kind section.header h1,
+    body#portfolio section.header h1,
     body#about section.header h1,
     body#contact section.header h1 {
         font-size: 52px;
@@ -2440,23 +2441,23 @@ body#one-of-a-kind.imogen section.header p {
         grid-template: 1fr / 1fr;
     }
 
-    #oak-modal .modal-dialog {
+    #portfolio-item-modal .modal-dialog {
         width : 100%;
         height: 100%;
     }
 
-    #oak-modal .modal-content,
-    #oak-modal .modal-body {
+    #portfolio-item-modal .modal-content,
+    #portfolio-item-modal .modal-body {
         height   : 100%;
         width    : 100%;
         max-width: unset;
     }
 
-    #oak-modal .info-container {
+    #portfolio-item-modal .info-container {
         height: 40%;
     }
 
-    #oak-modal .img-container {
+    #portfolio-item-modal .img-container {
         height   : 60%;
         min-width: unset;
     }

@@ -17,15 +17,15 @@ if (isset($data['action'])) {
     if ($data['action'] === "get_all") {
         $res = [
             "status" => 200,
-            "message" => "Successfully fetched one of a kinds",
+            "message" => "Successfully fetched portfolio items",
             "data" => [],
         ];
 
         try {
             // Fetch data
-            $query = "SELECT one_of_a_kind.*, one_of_a_kind_images.image_url
-                FROM one_of_a_kind
-                LEFT JOIN one_of_a_kind_images ON one_of_a_kind.primary_image_id = one_of_a_kind_images.image_id
+            $query = "SELECT portfolio_items.*, portfolio_item_images.image_url
+                FROM portfolio_items
+                LEFT JOIN portfolio_item_images ON portfolio_items.primary_image_id = portfolio_item_images.image_id
             WHERE status = :status";
             if (isset($data['artist'])) {
                 $query .= " AND artist = :artist";
@@ -48,7 +48,7 @@ if (isset($data['action'])) {
 
         $res = [
             "status" => 200,
-            "message" => "Successfully fetched one of a kinds",
+            "message" => "Successfully fetched portfolio items",
             "data" => [],
             "pagination" => [
                 "current_page" => $page + 1,
@@ -61,9 +61,9 @@ if (isset($data['action'])) {
         try {
             // Fetch data
             $stmt = $pdo->prepare(
-                "SELECT one_of_a_kind.*, one_of_a_kind_images.image_url
-                    FROM one_of_a_kind
-                    LEFT JOIN one_of_a_kind_images ON one_of_a_kind.primary_image_id = one_of_a_kind_images.image_id
+                "SELECT portfolio_items.*, portfolio_item_images.image_url
+                    FROM portfolio_items
+                    LEFT JOIN portfolio_item_images ON portfolio_items.primary_image_id = portfolio_item_images.image_id
                 WHERE status = :status
                 LIMIT :limit
                 OFFSET :offset"
@@ -75,7 +75,7 @@ if (isset($data['action'])) {
             $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             // Fetch total items count
-            $count_query = "SELECT COUNT(*) FROM one_of_a_kind WHERE status = :status";
+            $count_query = "SELECT COUNT(*) FROM portfolio_items WHERE status = :status";
             $count_stmt = $pdo->prepare($count_query);
             $count_stmt->execute(['status' => 'active']);
             $total_items = $count_stmt->fetchColumn();

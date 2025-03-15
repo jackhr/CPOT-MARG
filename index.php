@@ -3,14 +3,14 @@
 require_once __DIR__ . '/includes/head.php';
 
 $stmt = $pdo->prepare(
-    "SELECT one_of_a_kind.*, one_of_a_kind_images.image_url
-        FROM one_of_a_kind
-        LEFT JOIN one_of_a_kind_images ON one_of_a_kind.primary_image_id = one_of_a_kind_images.image_id
+    "SELECT portfolio_items.*, portfolio_item_images.image_url
+        FROM portfolio_items
+        LEFT JOIN portfolio_item_images ON portfolio_items.primary_image_id = portfolio_item_images.image_id
     WHERE status = :status"
 );
 $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
 $stmt->execute();
-$one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$portfolio_item_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -65,7 +65,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="left">
                         <h2>Imogen</h2>
                         <p>Imogen Margrie-Hunt, hailing from Camden, North London, was immersed in the arts from a young age. With a background enriched by her family's artistic pursuits, she naturally progressed to the Central School of Art. Post-graduation, Imogen established herself in the ceramics community, contributing to esteemed institutions like the Victoria and Albert Museum and the Contemporary Applied Arts Gallery. Her journey reflects a deep commitment to artistic excellence and education.</p>
-                        <a href="/one-of-a-kind/imogen">view more...</a>
+                        <a href="/portfolios/imogen">view more...</a>
                     </div>
                     <div class="right">
                         <img src="/assets/images/panels/imogen.png" alt="">
@@ -75,7 +75,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="left">
                         <h2>Michael</h2>
                         <p>Born in Antigua and raised in the UK, Michael Hunt discovered his passion for ceramics at a youth center, leading him to pursue a degree at the Central School of Art in London. His career encompasses teaching roles, Japanese garden construction, and personal ceramic creations. Michael's work often delves into themes of island history and ancestry, showcasing his diverse talents in stone, wood, and ceramics.</p>
-                        <a href="/one-of-a-kind/michael">view more...</a>
+                        <a href="/portfolios/michael">view more...</a>
                     </div>
                     <div class="right">
                         <img src="/assets/images/panels/michael.jpeg" alt="">
@@ -95,7 +95,7 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="left">
                         <h2>Commissions</h2>
                         <p>We offer bespoke ceramic creations tailored to your unique vision. Collaborating closely with clients and architects, we develop one-of-a-kind pieces that enhance and personalize spaces. From conceptualization to completion, our commissioned works are a testament to our commitment to individualized artistry.</p>
-                        <a href="/one-of-a-kind/">view more...</a>
+                        <a href="/portfolios/">view more...</a>
                     </div>
                     <div class="right">
                         <img src="/assets/images/panels/delilah.jpg" alt="">
@@ -105,17 +105,17 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
-    <section id="one-of-a-kind-section">
+    <section id="portfolio-section">
         <div class="inner">
-            <h1>One Of A Kind</h1>
+            <h1>Portfolio Items</h1>
             <div class="gallery">
-                <?php foreach ($one_of_a_kind_arr as $one_of_a_kind) {
+                <?php foreach ($portfolio_item_arr as $portfolio_item) {
                     echo "
-                        <div class='one-of-a-kind-panel' onclick='goToOAKPage({$one_of_a_kind['one_of_a_kind_id']})'>
-                            <img src='{$one_of_a_kind['image_url']}' alt='Oops'>
-                            <div class='oak-title'>
-                                <h4>{$one_of_a_kind['name']}</h4>
-                                <h4>{$one_of_a_kind['artist']}</h4>
+                        <div class='portfolio-item-panel' onclick='goToPortfolioItemPage({$portfolio_item['artist']}, {$portfolio_item['portfolio_item_id']})'>
+                            <img src='{$portfolio_item['image_url']}' alt='Oops'>
+                            <div class='portfolio-item-title'>
+                                <h4>{$portfolio_item['name']}</h4>
+                                <h4>{$portfolio_item['artist']}</h4>
                             </div>
                         </div>
                     ";
@@ -141,8 +141,8 @@ $one_of_a_kind_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 <script>
-    function goToOAKPage(id) {
-        location = `/one-of-a-kind/?id=${id}`;
+    function goToPortfolioItemPage(artist, id) {
+        location = `/portfolios/${artist}/?id=${id}`;
     }
 </script>
 

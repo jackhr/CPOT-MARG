@@ -40,11 +40,11 @@ $(document).ready(function () {
 
     $('#hamburger-nav li a[href="/portfolios"]').on('click', function (e) {
         e.preventDefault();
-        openOAKNav();
+        openPortfolioNav();
     });
 
     $("#back-nav").on('click', function () {
-        closeOAKNav();
+        closePortfolioNav();
     });
 
     $(document).off('click').on("click", function (event) {
@@ -58,12 +58,12 @@ $(document).ready(function () {
 
 });
 
-function openOAKNav() {
-    $("#hamburger-nav").addClass('showing-oak-nav');
+function openPortfolioNav() {
+    $("#hamburger-nav").addClass('showing-portfolio-nav');
 }
 
-function closeOAKNav() {
-    $("#hamburger-nav").removeClass('showing-oak-nav');
+function closePortfolioNav() {
+    $("#hamburger-nav").removeClass('showing-portfolio-nav');
 }
 
 function openHamburgerMenu() {
@@ -421,25 +421,25 @@ async function loadCutouts() {
     });
 }
 
-function setActiveOAK(oAK) {
-    $("#oak-modal").addClass('showing');
+function setActivePortfolioItem(portfolioItem) {
+    $("#portfolio-item-modal").addClass('showing');
 
-    if (oAK.one_of_a_kind_id === STATE.activeOAK?.one_of_a_kind_id) return;
+    if (portfolioItem.portfolio_item_id === STATE.activePortfolioItem?.portfolio_item_id) return;
 
-    $("#oak-modal .img-container img").attr("src", oAK.image_url);
-    $("#oak-modal [data-name]").text(oAK.name);
-    $("#oak-modal [data-artist]").text(oAK.artist);
-    $("#oak-modal [data-dimensions]").text(oAK.dimensions);
-    $("#oak-modal [data-material]").text(oAK.material);
-    $("#oak-modal [data-created_at]").text(new Date(oAK.created_at).getFullYear());
-    $("#oak-modal [data-description]").text(oAK.description || "This item has no description.");
-    $("#oak-modal [data-price] span").text(formatPrice(oAK.price));
-    $("#oak-modal [data-quantity]").val(oAK.quantity);
+    $("#portfolio-item-modal .img-container img").attr("src", portfolioItem.image_url);
+    $("#portfolio-item-modal [data-name]").text(portfolioItem.name);
+    $("#portfolio-item-modal [data-artist]").text(portfolioItem.artist);
+    $("#portfolio-item-modal [data-dimensions]").text(portfolioItem.dimensions);
+    $("#portfolio-item-modal [data-material]").text(portfolioItem.material);
+    $("#portfolio-item-modal [data-created_at]").text(new Date(portfolioItem.created_at).getFullYear());
+    $("#portfolio-item-modal [data-description]").text(portfolioItem.description || "This item has no description.");
+    $("#portfolio-item-modal [data-price] span").text(formatPrice(portfolioItem.price));
+    $("#portfolio-item-modal [data-quantity]").val(portfolioItem.quantity);
 
-    STATE.activeOAK = oAK;
+    STATE.activePortfolioItem = portfolioItem;
 }
 
-async function loadOAKs(options = {
+async function loadPortfolioItems(options = {
     getAll: true
 }) {
     const { getAll, artist } = options;
@@ -452,32 +452,32 @@ async function loadOAKs(options = {
 
     await $.ajax({
         type: "POST",
-        url: "/api/one-of-a-kind/api.php",
+        url: "/api/portfolios/api.php",
         data: JSON.stringify(data),
         contentType: "application/json",
         dataType: "json",
         success: res => {
             if (res.status === 200) {
-                STATE.oAKs = res.data.length ? res.data : [];
-                res.data.forEach((oAK, idx) => {
-                    oAK = formatResource(oAK);
-                    STATE.oAKsLookup[oAK.one_of_a_kind_id] = oAK;
-                    const oAKEl = $(`
-                        <div data-idx="${idx}" data-id="${oAK.one_of_a_kind_id}" class="one-of-a-kind-panel">
-                            <img src="${oAK.image_url}" alt="Oops">
-                            <div class="oak-title">
-                                <h4>${oAK.name}</h4>
-                                <h4>${oAK.artist}</h4>
+                STATE.portfolioItems = res.data.length ? res.data : [];
+                res.data.forEach((portfolioItem, idx) => {
+                    portfolioItem = formatResource(portfolioItem);
+                    STATE.portfolioItemsLookup[portfolioItem.portfolio_item_id] = portfolioItem;
+                    const portfolioItemEl = $(`
+                        <div data-idx="${idx}" data-id="${portfolioItem.portfolio_item_id}" class="portfolio-item-panel">
+                            <img src="${portfolioItem.image_url}" alt="Oops">
+                            <div class="portfolio-item-title">
+                                <h4>${portfolioItem.name}</h4>
+                                <h4>${portfolioItem.artist}</h4>
                             </div>
                         </div>
                     `);
 
-                    oAKEl.on('click', function () {
-                        STATE.activeOAKIdx = idx;
-                        setActiveOAK(oAK);
+                    portfolioItemEl.on('click', function () {
+                        STATE.activePortfolioItemIdx = idx;
+                        setActivePortfolioItem(portfolioItem);
                     });
 
-                    $(".gallery").append(oAKEl);
+                    $(".gallery").append(portfolioItemEl);
                 });
 
                 STATE.pagination = {

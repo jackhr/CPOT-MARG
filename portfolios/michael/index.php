@@ -1,6 +1,6 @@
 <?php require_once __DIR__ . '/../../includes/head.php'; ?>
 
-<body id="one-of-a-kind">
+<body id="portfolio">
     <?php require_once __DIR__ . '/../../includes/nav.php'; ?>
 
     <section class="header">
@@ -29,12 +29,12 @@
                 </div>
             </div> -->
             <h1>Portfolio</h1>
-            <div class="one-of-a-kind gallery"></div>
+            <div class="portfolio gallery"></div>
             <button class="load-more-btn">Load More Artwork</button>
         </div>
     </section>
 
-    <div id="oak-modal" class="modal">
+    <div id="portfolio-item-modal" class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-options">
@@ -102,7 +102,7 @@
                     <p>Provide your contact details below, and we will get in touch to finalize your request.</p>
                 </div>
                 <div class="modal-body">
-                    <form id="one-of-a-kind-form">
+                    <form id="portfolio-item-form">
                         <h3>Contact Info</h3>
                         <div class="multiple-input-container">
                             <div class="input-container">
@@ -139,7 +139,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button for="one-of-a-kind-form">Send Request</button>
+                    <button for="portfolio-item-form">Send Request</button>
                 </div>
             </div>
         </div>
@@ -155,22 +155,22 @@
             total_items: null,
             total_pages: null
         },
-        oAKsLookup: {},
-        activeOAK: null,
-        activeOAKIdx: 0,
+        portfolioItemsLookup: {},
+        activePortfolioItem: null,
+        activePortfolioItemIdx: 0,
         goBackToDetailsModal: false
     }
     $(document).ready(async function() {
 
         function calculateNewTotal() {
             const quantity = Number($("[data-quantity]").val());
-            const basePrice = Number(STATE?.activeOAK?.base_price);
+            const basePrice = Number(STATE?.activePortfolioItem?.base_price);
             const newPrice = formatPrice(basePrice * quantity);
             $("#sconce-modal [data-total_price]>span").text(newPrice);
         }
 
         function handleInvalidFormData() {
-            const data = $("#one-of-a-kind-form").serializeObject();
+            const data = $("#portfolio-item-form").serializeObject();
             let text;
 
             if (data.first_name === '') {
@@ -223,7 +223,7 @@
             return !text;
         }
 
-        await loadOAKs({
+        await loadPortfolioItems({
             getAll: true,
             artist: "Michael Hunt"
         });
@@ -231,7 +231,7 @@
         <?php if (isset($_GET['id'])) { ?>
             const params = new URLSearchParams(location.search)
             const id = params.get('id');
-            const panel = $(`.one-of-a-kind-panel[data-id="${id}"]`);
+            const panel = $(`.portfolio-item-panel[data-id="${id}"]`);
 
             console.log("params:", params);
             console.log("id:", id);
@@ -247,42 +247,42 @@
             }
         <?php } ?>
 
-        $("#one-of-a-kind-form input").on('keyup', function(e) {
-            if (e.keyCode === 13) $('button[for="one-of-a-kind-form"]').trigger('click');
+        $("#portfolio-item-form input").on('keyup', function(e) {
+            if (e.keyCode === 13) $('button[for="portfolio-item-form"]').trigger('click');
         });
 
         $(".load-more-btn").on('click', function() {
-            loadOAKs();
+            loadPortfolioItems();
         });
 
-        $("#oak-modal .img-container .prev").on('click', function() {
-            if (--STATE.activeOAKIdx < 0) {
-                STATE.activeOAKIdx = STATE.oAKs.length - 1;
+        $("#portfolio-item-modal .img-container .prev").on('click', function() {
+            if (--STATE.activePortfolioItemIdx < 0) {
+                STATE.activePortfolioItemIdx = STATE.portfolioItems.length - 1;
             }
 
-            const newOAK = STATE.oAKs[STATE.activeOAKIdx];
-            setActiveOAK(newOAK);
+            const newPortfolioItem = STATE.portfolioItems[STATE.activePortfolioItemIdx];
+            setActivePortfolioItem(newPortfolioItem);
         });
 
-        $("#oak-modal .img-container .next").on('click', function() {
-            if (!STATE.oAKs[++STATE.activeOAKIdx]) {
-                STATE.activeOAKIdx = 0;
+        $("#portfolio-item-modal .img-container .next").on('click', function() {
+            if (!STATE.portfolioItems[++STATE.activePortfolioItemIdx]) {
+                STATE.activePortfolioItemIdx = 0;
             }
 
-            const newOAK = STATE.oAKs[STATE.activeOAKIdx];
-            setActiveOAK(newOAK);
+            const newPortfolioItem = STATE.portfolioItems[STATE.activePortfolioItemIdx];
+            setActivePortfolioItem(newPortfolioItem);
         });
 
         $(".enquiry-btn").on('click', function(e) {
             e.preventDefault();
             STATE.goBackToDetailsModal = !!$(this).closest('.modal').length;
-            $("#oak-modal").removeClass("showing");
+            $("#portfolio-item-modal").removeClass("showing");
             $("#confirmation-modal").addClass("showing");
         });
 
         $("#confirmation-modal .modal-close").on('click', function() {
             if (STATE.goBackToDetailsModal) {
-                $("#oak-modal").addClass("showing");
+                $("#portfolio-item-modal").addClass("showing");
             }
             $("#confirmation-modal").removeClass("showing");
         });
@@ -291,14 +291,14 @@
             $(this).removeClass('form-error');
         });
 
-        $('button[for="one-of-a-kind-form"]').off('click').on('click', function(e) {
+        $('button[for="portfolio-item-form"]').off('click').on('click', function(e) {
             e.preventDefault();
             if (!handleInvalidFormData()) return;
 
             const data = {
-                ...$("#one-of-a-kind-form").serializeObject(),
-                one_of_a_kind_id: STATE.activeOAK.one_of_a_kind_id,
-                oak_name: STATE.activeOAK.name,
+                ...$("#portfolio-item-form").serializeObject(),
+                portfolio_item_id: STATE.activePortfolioItem.portfolio_item_id,
+                portfolio_item_name: STATE.activePortfolioItem.name,
                 action: "create_enquiry"
             };
 
@@ -328,7 +328,7 @@
                     });
 
                     if (res.status === 200) {
-                        $("#one-of-a-kind-form")[0].reset();
+                        $("#portfolio-item-form")[0].reset();
                         $("#confirmation-modal .modal-close").trigger('click');
                     }
                 },

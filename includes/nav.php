@@ -98,7 +98,7 @@ $current_url = $_SERVER['REQUEST_URI'];
             </a>
         </li>
     </ul>
-    <ul class="oak-nav">
+    <ul class="portfolio-nav">
         <div id="back-nav">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6" />
