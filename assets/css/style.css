@@ -1859,9 +1859,16 @@ body#contact section.header div.inner {
     background-size    : cover;
 }
 
+body#shop section.header div.inner {
+    background-image   : url('/assets/images/heros/gellery.jpg');
+    background-position: center;
+    background-size    : cover;
+}
+
 body#sconces section.header h1,
 body#portfolio section.header h1,
 body#about section.header h1,
+body#shop section.header h1,
 body#contact section.header h1 {
     font-weight: 600;
     font-size  : 88px;
@@ -1884,6 +1891,7 @@ body#contact section.header p {
 body#sconces section.header p,
 body#about section.header p,
 body#portfolio section.header p,
+body#shop section.header p,
 body#contact section.header p {
     text-shadow: 1px 1px 1px #000c, 1px 1px 1px #000c, 1px 1px 1px #000c, 1px 1px 24px #000c, 1px 1px 24px #000c;
     font-weight: 600;
