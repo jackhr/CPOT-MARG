@@ -146,13 +146,13 @@ a[download] {
 }
 
 button:hover,
-a.continue-btn,
+a.continue-btn:hover,
 a[download]:hover {
     border-color: var(--white);
 }
 
 button:active,
-a.continue-btn,
+a.continue-btn:active,
 a[download]:active {
     background-color: var(--secondary-darker);
 }
@@ -1851,7 +1851,8 @@ section#close-up-section div.inner {
 }
 
 body#sconces section,
-body#sconces section div.inner {
+body#sconces section div.inner,
+section#cutout-selection-section p:first-of-type {
     background-color: var(--white-soft-tainted) !important;
 }
 
@@ -2040,13 +2041,30 @@ section#close-up-section div.inner div.right {
     display    : flex;
 }
 
-section#close-up-section div.inner p {
-    font-weight: 400;
-    background : var(--secondary);
-    height     : 70%;
-    padding    : var(--general-padding) 100px var(--general-padding) 45%;
-    display    : flex;
-    align-items: center;
+section#close-up-section div.inner>div.right>div {
+    font-weight    : 400;
+    background     : var(--secondary);
+    height         : 70%;
+    padding        : var(--general-padding) 100px var(--general-padding) 45%;
+    display        : flex;
+    flex-direction : column;
+    align-items    : center;
+    justify-content: center;
+}
+
+body#sconces a.continue-btn {
+    border-color: var(--white-soft-tainted);
+    margin-top  : 24px;
+}
+
+body#sconces a.continue-btn:hover {
+    background-color: var(--white-soft-tainted);
+    color           : var(--secondary);
+    border-color    : var(--secondary);
+}
+
+body#sconces a.continue-btn:active {
+    background-color: var(--white-soft);
 }
 
 section#cutout-selection-section div.inner div.left {
@@ -2077,14 +2095,41 @@ div.mini-gallery {
 }
 
 div.mini-gallery .item {
-    width : 85px;
-    height: 85px;
-    border: solid 1px var(--secondary);
+    width     : 85px;
+    height    : 85px;
+    border    : solid 1px var(--secondary);
+    transition: transform 0.75s var(--animation-func);
+    position  : relative;
+}
+
+div.mini-gallery .item:hover {
+    transform: scale(1.5);
+    z-index  : 10;
+}
+
+/* Disable hover effect on touch screens */
+@media (hover: none) {
+    div.mini-gallery .item:hover {
+        transform: none;
+        z-index  : auto;
+    }
 }
 
 div.mini-gallery .item img {
     width : 100%;
     height: 100%;
+}
+
+body#sconces section.catalogue-section div.inner {
+    flex-direction: column;
+    padding-bottom: calc(var(--general-padding) * 8);
+}
+
+body#sconces section.catalogue-section div.inner h1 {
+    font-size  : 62px;
+    font-weight: 400;
+    color      : var(--primary);
+    margin     : 0 0 88px;
 }
 
 body#sconces-shop section.header h1,

@@ -36,7 +36,10 @@
                 <img class="animation-start" src="/assets/images/sconces/P8-lizard-cutout.png" alt="">
             </div>
             <div class="right">
-                <p>The wide range of sconces also comes with an expanding choice of customised cut out motifs. The team continue to welcome customized briefs, working along with clients to specifically answer their needs with designs that are manufactured on an individual basis.</p>
+                <div>
+                    <p>The wide range of sconces also comes with an expanding choice of customised cut out motifs. The team continue to welcome customized briefs, working along with clients to specifically answer their needs with designs that are manufactured on an individual basis.</p>
+                    <a href="/sconces/shop.php" class="continue-btn">Shop Sconces</a>
+                </div>
             </div>
         </div>
     </section>
@@ -57,8 +60,12 @@
         </div>
     </section>
 
-    <section id="product-catalogue-section">
+    <section class="catalogue-section">
         <div class="inner">
+            <h1>Product Catalogue</h1>
+            <div style="position:relative;padding-top:max(60%,326px);height:0;width:100%">
+                <iframe allow="clipboard-write" sandbox="allow-top-navigation allow-top-navigation-by-user-activation allow-downloads allow-scripts allow-same-origin allow-popups allow-modals allow-popups-to-escape-sandbox allow-forms" allowfullscreen="true" style="position:absolute;border:none;width:100%;height:100%;left:0;right:0;top:0;bottom:0;" src="https://e.issuu.com/embed.html?d=margrie_hunt_light_catalog_-_old&u=tropicalstudios"></iframe>
+            </div>
         </div>
     </section>
 
