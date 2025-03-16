@@ -43,6 +43,17 @@
 
     <section id="cutout-selection-section">
         <div class="inner">
+            <div class="left">
+                <h1 class="animation-start">Cutout Selection</h1>
+                <p>Margrie Hunt’s growing range of classic bisqued finish sconces can also be complemented and personalized by the addition of their expanding choice of cut-out motifs. All patterns are individually cut into the leather hard-cast clay and incur additional charges based on their complexity.</p>
+                <p>It has to be noted that not all patterns may be adapted to all sconce styles. Indications will be given as to the appropriateness or otherwise of certain styles to various patterns.</p>
+                <p>Combinations of patterns may be requested on any sconce style where compatible and the cutout price is adjusted accordingly.</p>
+                <p>The team at Margerie Hunt also offers the option of originating custom designs based on client briefs. Enquire for pricing.</p>
+                <p>Unless specified (below/with) all cutout designs should be adaptable across most sconce designs.</p>
+            </div>
+            <div class="right">
+                <div class="mini-gallery"></div>
+            </div>
         </div>
     </section>
 
@@ -55,10 +66,42 @@
 
 <script>
     const STATE = {
-        completedSections: {}
+        completedSections: {},
+        cutouts: []
     };
 
+    function renderCutouts() {
+        $.ajax({
+            type: "POST",
+            url: "/api/cutouts/api.php",
+            data: JSON.stringify({
+                action: "get_all_cutouts",
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: res => {
+                console.log(res);
+                if (res.status === 200) {
+                    STATE.cutouts = res.data.slice(0, Math.max(res.data.length, 49));
+
+                    STATE.cutouts.forEach(cutout => {
+                        $(".mini-gallery").append(`
+                            <div class="item">
+                                <img src="${cutout.image_url}" />
+                            </div>
+                        `);
+                    })
+                }
+            },
+            error: function() {
+                console.log(arguments);
+            }
+        });
+    }
+
     $(document).ready(function() {
+        renderCutouts();
+
         $('body#sconces section.header').waypoint({
             offset: "10%",
             handler: function() {

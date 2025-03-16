@@ -1855,6 +1855,12 @@ body#sconces section div.inner {
     background-color: var(--white-soft-tainted) !important;
 }
 
+section#cutout-selection-section div.inner {
+    padding    : calc(var(--general-padding) * 10) calc(var(--general-padding) * 6);
+    gap        : 88px;
+    align-items: flex-start;
+}
+
 body#about section.header div.inner {
     background-image   : url('/assets/images/heros/fluted-fountain.jpeg');
     background-position: center;
@@ -2041,6 +2047,44 @@ section#close-up-section div.inner p {
     padding    : var(--general-padding) 100px var(--general-padding) 45%;
     display    : flex;
     align-items: center;
+}
+
+section#cutout-selection-section div.inner div.left {
+    display       : flex;
+    flex-direction: column;
+    gap           : 24px;
+}
+
+section#cutout-selection-section div.inner div.left h1 {
+    font-size  : 52px;
+    font-weight: 400;
+    color      : var(--secondary);
+    margin     : 0 0 24px;
+    transform  : translateY(0);
+    opacity    : 1;
+    transition : opacity var(--animation-func) 1.25s, transform var(--animation-func) 1.25s;
+}
+
+section#cutout-selection-section div.inner div.left h1.animation-start {
+    transform: translateY(200px);
+    opacity  : 0;
+}
+
+div.mini-gallery {
+    display      : grid;
+    grid-template: repeat(7, 1fr) / repeat(7, 1fr);
+    grid-gap     : 6px;
+}
+
+div.mini-gallery .item {
+    width : 85px;
+    height: 85px;
+    border: solid 1px var(--secondary);
+}
+
+div.mini-gallery .item img {
+    width : 100%;
+    height: 100%;
 }
 
 body#sconces-shop section.header h1,
