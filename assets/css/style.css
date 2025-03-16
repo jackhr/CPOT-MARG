@@ -2326,6 +2326,39 @@ body#portfolio.imogen section.header p {
     background-color: var(--secondary);
 }
 
+@media screen and (max-width: 1400px) {
+    section#cutout-selection-section div.inner {
+        flex-direction: column;
+    }
+
+    section#cutout-selection-section div.inner div.left h1,
+    section#cutout-selection-section div.inner div.left p {
+        text-align: center;
+    }
+
+    div.mini-gallery {
+        display        : flex;
+        flex-wrap      : wrap;
+        justify-content: center;
+        gap            : 12px;
+    }
+
+}
+
+@media screen and (max-width: 1400px) and (min-width: 991.1px) {
+    div.mini-gallery .item {
+        width : 120px;
+        height: 120px;
+    }
+}
+
+@media screen and (max-width: 991px) and (min-width: 768.1px) {
+    div.mini-gallery .item {
+        width : 100px;
+        height: 100px;
+    }
+}
+
 @media screen and (max-width: 991px) {
     #hamburger-nav.showing-fade {
         opacity       : 1;
@@ -2524,21 +2557,14 @@ body#portfolio.imogen section.header p {
     }
 
     section#cutout-selection-section div.inner {
-        padding       : calc(var(--general-padding) * 4);
-        flex-direction: column;
+        padding: calc(var(--general-padding) * 4);
     }
 
-    section#cutout-selection-section div.inner div.left h1,
+    /* section#cutout-selection-section div.inner div.left h1,
     section#cutout-selection-section div.inner div.left p {
         text-align: center;
-    }
+    } */
 
-    div.mini-gallery {
-        display        : flex;
-        flex-wrap      : wrap;
-        justify-content: center;
-        gap            : 12px;
-    }
 }
 
 
