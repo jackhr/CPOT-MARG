@@ -37,6 +37,7 @@
     <script src="/assets/js/Flickity/js/flickity-fade.js"></script>
     <script src="/assets/js/Flickity/js/flickity-imagesloaded.js"></script>
     <script src="/assets/js/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <script src="/assets/js/waypoints/lib/jquery.waypoints.min.js"></script>
     <!-- END PLUGINS JS -->
 
     <!-- END PLUGINS -->
