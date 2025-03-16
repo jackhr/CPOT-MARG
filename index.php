@@ -112,7 +112,7 @@ $portfolio_item_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($portfolio_item_arr as $portfolio_item) {
                     echo "
                         <div class='portfolio-item-panel' onclick='goToPortfolioItemPage({$portfolio_item['artist']}, {$portfolio_item['portfolio_item_id']})'>
-                            <img src='{$portfolio_item['image_url']}' alt='Oops'>
+                            <img src='{$portfolio_item['image_url']}' alt='Sconce'>
                             <div class='portfolio-item-title'>
                                 <h4>{$portfolio_item['name']}</h4>
                                 <h4>{$portfolio_item['artist']}</h4>

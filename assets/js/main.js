@@ -267,7 +267,7 @@ function loadSconces(getAllSconces = false) {
                     STATE.sconcesLookup[sconce.sconce_id] = sconce;
                     const sconceEl = $(`
                         <div data-id="${sconce.sconce_id}" class="sconce-panel">
-                            <img src="${sconce.image_url}" alt="Oops">
+                            <img src="${sconce.image_url}" alt="Sconce">
                             <div>
                                 <h4>${sconce.name}</h4>
                                 <span>${sconce.dimensions} (D/W/H)</span>
@@ -326,7 +326,7 @@ function loadShopItems(getAllItems = false) {
                     STATE.shopItemsLookup[item.shop_item_id] = item;
                     const itemEl = $(`
                         <div data-id="${item.shop_item_id}" class="item-panel">
-                            <img src="${item.image_url}" alt="Oops">
+                            <img src="${item.image_url}" alt="Shop Item">
                             <div>
                                 <h4>${item.name}</h4>
                                 <span>${item.dimensions} (D/W/H)</span>
@@ -464,7 +464,7 @@ async function loadPortfolioItems(options = {
                     STATE.portfolioItemsLookup[portfolioItem.portfolio_item_id] = portfolioItem;
                     const portfolioItemEl = $(`
                         <div data-idx="${idx}" data-id="${portfolioItem.portfolio_item_id}" class="portfolio-item-panel">
-                            <img src="${portfolioItem.image_url}" alt="Oops">
+                            <img src="${portfolioItem.image_url}" alt="Portfolio Item">
                             <div class="portfolio-item-title">
                                 <h4>${portfolioItem.name}</h4>
                                 <h4>${portfolioItem.artist}</h4>
