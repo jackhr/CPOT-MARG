@@ -16,6 +16,8 @@ assets/images/heros/imogen-and-mike.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/fluted-fountain.jpeg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/gallery.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/Jumby-Bay-sconces-in-progress-1-of-20.jpeg filter=lfs diff=lfs merge=lfs -text
+assets/images/heros/Jumby-Bay-sconces-in-progress-3-of-20.jpeg filter=lfs diff=lfs merge=lfs -text
+assets/images/heros/Jumby-Bay-sconces-in-progress-20-of-20-768x1024.jpeg filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/portfolios/imogen-mobile.png filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/portfolios/imogen.png filter=lfs diff=lfs merge=lfs -text
 assets/images/heros/portfolios/michael.jpeg filter=lfs diff=lfs merge=lfs -text
