@@ -74,7 +74,8 @@
 <script>
     const STATE = {
         completedSections: {},
-        cutouts: []
+        cutouts: [],
+        randomCutoutIndexes: []
     };
 
     function renderCutouts() {
@@ -82,26 +83,37 @@
             type: "POST",
             url: "/api/cutouts/api.php",
             data: JSON.stringify({
-                action: "get_all_cutouts",
+                action: "get_all_cutouts"
             }),
             contentType: "application/json",
             dataType: "json",
             success: res => {
                 console.log(res);
                 if (res.status === 200) {
-                    STATE.cutouts = res.data.slice(0, Math.max(res.data.length, 49));
+                    STATE.cutouts = res.data.slice(0, Math.min(res.data.length, 49));
 
                     STATE.cutouts.forEach(cutout => {
                         $(".mini-gallery").append(`
-                            <div class="item">
-                                <img src="${cutout.image_url}" />
-                            </div>
-                        `);
-                    })
+                        <div class="item animation-start">
+                            <img src="${cutout.image_url}" />
+                        </div>
+                    `);
+                    });
+
+                    // Shuffle indexes
+                    const indexes = [...STATE.cutouts.keys()];
+                    for (let i = indexes.length - 1; i > 0; i--) {
+                        let j = Math.floor(Math.random() * (i + 1));
+                        [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
+                    }
+
+                    STATE.randomCutoutIndexes = indexes;
                 }
             },
             error: function() {
                 console.log(arguments);
+                STATE.cutouts = [];
+                STATE.randomCutoutIndexes = [];
             }
         });
     }
@@ -123,6 +135,8 @@
                         $(`${selector} > div.right p`).removeClass('animation-start');
                     }, 100);
                 }, 100);
+
+                this.destroy(); // Ensure waypoint only runs once
             }
         });
 
@@ -137,6 +151,8 @@
                 setTimeout(() => {
                     $(`section#${id} div.inner p:last-child`).removeClass('animation-start');
                 }, 100);
+
+                this.destroy(); // Ensure waypoint only runs once
             }
         });
 
@@ -148,6 +164,8 @@
 
                 STATE.completedSections[id] = true;
                 $(`section#${id} div.inner div.left img`).removeClass('animation-start');
+
+                this.destroy(); // Ensure waypoint only runs once
             }
         });
 
@@ -159,6 +177,28 @@
 
                 STATE.completedSections[id] = true;
                 $(`section#${id} div.inner div.left h1`).removeClass('animation-start');
+
+                // Start checking every 500ms for populated random indexes
+                const cutoutAnimationInterval = setInterval(() => {
+                    const selector = ".mini-gallery .item";
+                    if (STATE.completedSections[selector]) return;
+                    if (STATE.randomCutoutIndexes.length === 0) return; // Keep waiting
+
+                    clearInterval(cutoutAnimationInterval); // Stop checking
+                    STATE.completedSections[selector] = true;
+
+                    let intervalCount = 0;
+                    const intervalFreq = 75;
+                    STATE.randomCutoutIndexes.forEach(idx => {
+                        intervalCount += intervalFreq;
+                        setTimeout(() => {
+                            $(selector).eq(idx).removeClass('animation-start');
+                        }, intervalCount);
+                    });
+
+                }, 500);
+
+                this.destroy(); // Ensure waypoint only runs once
             }
         });
     });

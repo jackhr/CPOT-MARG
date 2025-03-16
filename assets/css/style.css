@@ -2098,8 +2098,13 @@ div.mini-gallery .item {
     width     : 85px;
     height    : 85px;
     border    : solid 1px var(--secondary);
-    transition: transform 0.75s var(--animation-func);
+    transition: transform 0.75s var(--animation-func), opacity 0.75s ease-out;
     position  : relative;
+    opacity   : 1;
+}
+
+div.mini-gallery .item.animation-start {
+    opacity: 0;
 }
 
 div.mini-gallery .item:hover {
