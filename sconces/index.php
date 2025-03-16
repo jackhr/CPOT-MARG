@@ -143,6 +143,17 @@
                 $(`section#${id} div.inner div.left img`).removeClass('animation-start');
             }
         });
+
+        $('#cutout-selection-section').waypoint({
+            offset: '80%',
+            handler: function() {
+                const id = "cutout-selection-section";
+                if (STATE.completedSections[id]) return;
+
+                STATE.completedSections[id] = true;
+                $(`section#${id} div.inner div.left h1`).removeClass('animation-start');
+            }
+        });
     });
 </script>
 
