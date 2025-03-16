@@ -1845,6 +1845,11 @@ section#significantly-enhance-section {
     height: 80vh;
 }
 
+section#close-up-section div.inner {
+    padding: 0;
+    height : 795px;
+}
+
 body#sconces section,
 body#sconces section div.inner {
     background-color: var(--white-soft-tainted) !important;
@@ -1999,6 +2004,43 @@ section#significantly-enhance-section div.right img {
     width          : 100%;
     object-fit     : cover;
     object-position: right;
+}
+
+section#close-up-section div.inner div.left {
+    width   : 40%;
+    height  : 795px;
+    position: absolute;
+    left    : 0;
+    z-index : 10;
+}
+
+section#close-up-section div.inner div.left img {
+    width     : 100%;
+    height    : 100%;
+    object-fit: cover;
+    transform : translateX(0);
+    transition: transform var(--animation-func) 1.75s, opacity var(--animation-func) 1.75s;
+}
+
+section#close-up-section div.inner div.left img.animation-start {
+    transform: translateX(-120%);
+}
+
+section#close-up-section div.inner div.right {
+    width      : 100%;
+    height     : 100%;
+    align-items: center;
+    color      : var(--white);
+    display    : flex;
+}
+
+section#close-up-section div.inner p {
+    font-weight: 400;
+    background : var(--secondary);
+    height     : 70%;
+    padding    : var(--general-padding) 100px var(--general-padding) 45%;
+    display    : flex;
+    align-items: center;
 }
 
 body#sconces-shop section.header h1,

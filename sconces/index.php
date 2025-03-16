@@ -32,6 +32,12 @@
 
     <section id="close-up-section">
         <div class="inner">
+            <div class="left">
+                <img class="animation-start" src="/assets/images/sconces/P8-lizard-cutout.png" alt="">
+            </div>
+            <div class="right">
+                <p>The wide range of sconces also comes with an expanding choice of customised cut out motifs. The team continue to welcome customized briefs, working along with clients to specifically answer their needs with designs that are manufactured on an individual basis.</p>
+            </div>
         </div>
     </section>
 
@@ -81,6 +87,17 @@
                 setTimeout(() => {
                     $(`section#${id} div.inner p:last-child`).removeClass('animation-start');
                 }, 100);
+            }
+        });
+
+        $('#close-up-section').waypoint({
+            offset: '50%',
+            handler: function() {
+                const id = "close-up-section";
+                if (STATE.completedSections[id]) return;
+
+                STATE.completedSections[id] = true;
+                $(`section#${id} div.inner div.left img`).removeClass('animation-start');
             }
         });
     });
