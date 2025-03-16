@@ -1,5 +1,10 @@
 <?php
 $current_url = $_SERVER['REQUEST_URI'];
+if (($current_url == '/sconces/') || ($current_url == '/sconces/shop.php')) {
+    $on_sconce_page = true;
+} else {
+    $on_sconce_page = false;
+}
 ?>
 
 <nav id="desktop-nav">
@@ -14,7 +19,7 @@ $current_url = $_SERVER['REQUEST_URI'];
             <a href="/" class="<?php echo ($current_url == '/') ? 'current' : ''; ?>">Home</a>
         </li>
         <li>
-            <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
+            <a href="/sconces" class="<?php echo $on_sconce_page ? 'current' : ''; ?>">Sconces</a>
         </li>
         <li>
             <a href="#" class="<?php echo strpos($current_url, '/portfolios/') !== false ? 'current' : ''; ?>">Portfolios</a>
@@ -72,7 +77,7 @@ $current_url = $_SERVER['REQUEST_URI'];
             <a href="/" class="<?php echo ($current_url == '/') ? 'current' : ''; ?>">Home</a>
         </li>
         <li>
-            <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
+            <a href="/sconces" class="<?php echo $on_sconce_page ? 'current' : ''; ?>">Sconces</a>
         </li>
         <li>
             <a href="/portfolios" class="<?php echo strpos($current_url, '/portfolios/') !== false ? 'current' : ''; ?>">Portfolios</a>

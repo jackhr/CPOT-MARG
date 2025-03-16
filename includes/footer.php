@@ -1,3 +1,11 @@
+<?php
+if (($current_url == '/sconces/') || ($current_url == '/sconces/shop.php')) {
+    $on_sconce_page = true;
+} else {
+    $on_sconce_page = false;
+}
+?>
+
 <footer>
 
     <section id="contact-banner"></section>
@@ -27,7 +35,7 @@
                         <a href="/" class="<?php echo ($current_url == '/') ? 'current' : ''; ?>">Home</a>
                     </li>
                     <li>
-                        <a href="/sconces" class="<?php echo ($current_url == '/sconces/') ? 'current' : ''; ?>">Sconces</a>
+                        <a href="/sconces" class="<?php echo $on_sconce_page ? 'current' : ''; ?>">Sconces</a>
                     </li>
                     <li>
                         <a href="/portfolios/imogen" class="<?php echo strpos($current_url, '/portfolios/imogen/') !== false ? 'current' : ''; ?>">Imogen</a>

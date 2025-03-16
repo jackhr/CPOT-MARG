@@ -10,7 +10,7 @@
                 <img class="animation-start" src="/assets/images/heros/Jumby-Bay-sconces-in-progress-20-of-20-768x1024.jpeg" alt="">
             </div>
             <div class="right">
-                <h1 class="animation-start">Lights Portfolio</h1>
+                <h1 class="animation-start">Sconces Portfolio</h1>
                 <p class="animation-start">Margie Hunt is the Eastern Caribbean’s leading manufacturer of custom, handmade ceramic wall sconces. We invite you to view our creative and growing collection of ceramic lighting options.</p>
                 <p class="animation-start">Designed by husband and wife, Michael Hunt and Imogen Margrie, the evolving range combines characteristics of regional motifs, Arts and Crafts and contemporary styles in beautiful versatile forms.</p>
                 <a href="/sconces/shop.php" class="continue-btn">Shop Sconces</a>
