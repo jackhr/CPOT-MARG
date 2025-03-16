@@ -1841,6 +1841,15 @@ body#sconces section.header {
     height: calc(100vh - var(--nav-height));
 }
 
+section#significantly-enhance-section {
+    height: 80vh;
+}
+
+body#sconces section,
+body#sconces section div.inner {
+    background-color: var(--white-soft-tainted) !important;
+}
+
 body#about section.header div.inner {
     background-image   : url('/assets/images/heros/fluted-fountain.jpeg');
     background-position: center;
@@ -1859,16 +1868,16 @@ body#portfolio.imogen section.header div.inner {
     background-size    : cover;
 }
 
-body#sconces section.header div.inner {
-    background-color: var(--white-soft-tainted);
-    padding         : 0;
-    flex-direction  : row;
-    height          : 100%;
-    gap             : 0;
+body#sconces section.header div.inner,
+section#significantly-enhance-section div.inner {
+    padding       : 0;
+    flex-direction: row;
+    height        : 100%;
+    gap           : 0;
 }
 
 body#sconces-shop section.header div.inner {
-    background-image   : url('/assets/images/heros/Jumby-Bay-sconces-in-progress-1-of-20.jpeg');
+    background-image   : url('/assets/images/sconces/Jumby-Bay-sconces-in-progress-1-of-20.jpeg');
     background-position: center;
     background-size    : cover;
 }
@@ -1935,34 +1944,61 @@ body#sconces section.header div.inner>div.right h1 {
     line-height: 70px;
 }
 
-body#sconces section.header div.inner>div.right p {
+body#sconces p {
     text-align : left;
     margin     : 0;
     font-weight: 300;
     line-height: 30px;
     max-width  : unset;
+    font-size  : 20px;
 }
 
 body#sconces section.header div.inner>div.right h1,
-body#sconces section.header div.inner>div.right p {
+body#sconces p {
     transform : translateY(0);
     opacity   : 1;
     transition: opacity var(--animation-func) 1.75s, transform var(--animation-func) 1.75s;
 }
 
 body#sconces section.header div.inner>div.right h1.animation-start,
-body#sconces section.header div.inner>div.right p.animation-start {
+body#sconces p.animation-start {
     transform: translateY(200px);
     opacity  : 0;
 }
 
-body#sconces section.header div.inner>div.right p:first-of-type {
+body#sconces section.header div.inner>div.right p:first-of-type,
+section#significantly-enhance-section div.inner p:first-of-type {
     margin-bottom: 40px;
 }
 
 body#sconces section.header div.inner>div.right a.continue-btn {
     width : 300px;
     margin: 40px auto 0;
+}
+
+section#significantly-enhance-section div.left {
+    flex-grow     : 1;
+    display       : flex;
+    flex-direction: column;
+    gap           : 24px;
+}
+
+section#significantly-enhance-section div.left p {
+    width : 550px;
+    margin: auto !important;
+}
+
+section#significantly-enhance-section div.right {
+    min-width: 39%;
+    width    : 39%;
+    height   : 100%;
+}
+
+section#significantly-enhance-section div.right img {
+    height         : 100%;
+    width          : 100%;
+    object-fit     : cover;
+    object-position: right;
 }
 
 body#sconces-shop section.header h1,

@@ -6,8 +6,8 @@
     <section class="header">
         <div class="inner">
             <div class="left">
-                <img src="/assets/images/heros/Jumby-Bay-sconces-in-progress-3-of-20.jpeg" alt="">
-                <img class="animation-start" src="/assets/images/heros/Jumby-Bay-sconces-in-progress-20-of-20-768x1024.jpeg" alt="">
+                <img src="/assets/images/sconces/Jumby-Bay-sconces-in-progress-3-of-20.jpeg" alt="">
+                <img class="animation-start" src="/assets/images/sconces/Jumby-Bay-sconces-in-progress-20-of-20-768x1024.jpeg" alt="">
             </div>
             <div class="right">
                 <h1 class="animation-start">Sconces Portfolio</h1>
@@ -20,6 +20,13 @@
 
     <section id="significantly-enhance-section">
         <div class="inner">
+            <div class="left">
+                <p class="animation-start">Margrie Hunt lights aim to significantly enhance the decorative and architectural character of a space.</p>
+                <p class="animation-start">All Margie Hunt lights are individually hand made at our studio in Antigua. The white earthenware clay we use produces a classic off-white bisque finish. However, this bisque surface readily accepts all types of treatments.</p>
+            </div>
+            <div class="right">
+                <img src="/assets/images/sconces/suite44.jpeg" alt="">
+            </div>
         </div>
     </section>
 
@@ -41,16 +48,41 @@
 </body>
 
 <script>
+    const STATE = {
+        completedSections: {}
+    };
+
     $(document).ready(function() {
-        setTimeout(() => {
-            $("body#sconces section.header div.inner > div.left img:last-child").removeClass('animation-start');
-            setTimeout(() => {
-                $("body#sconces section.header div.inner > div.right h1").removeClass('animation-start');
+        $('body#sconces section.header').waypoint({
+            offset: "10%",
+            handler: function() {
+                const selector = "body#sconces section.header div.inner";
+                if (STATE.completedSections[selector]) return;
+
+                STATE.completedSections[selector] = true;
+                $(`${selector} > div.left img:last-child`).removeClass('animation-start');
                 setTimeout(() => {
-                    $("body#sconces section.header div.inner > div.right p").removeClass('animation-start');
+                    $(`${selector} > div.right h1`).removeClass('animation-start');
+                    setTimeout(() => {
+                        $(`${selector} > div.right p`).removeClass('animation-start');
+                    }, 100);
                 }, 100);
-            }, 100);
-        }, 250);
+            }
+        });
+
+        $('#significantly-enhance-section').waypoint({
+            offset: '50%',
+            handler: function() {
+                const id = "significantly-enhance-section";
+                if (STATE.completedSections[id]) return;
+
+                STATE.completedSections[id] = true;
+                $(`section#${id} div.inner p:first-child`).removeClass('animation-start');
+                setTimeout(() => {
+                    $(`section#${id} div.inner p:last-child`).removeClass('animation-start');
+                }, 100);
+            }
+        });
     });
 </script>
 
