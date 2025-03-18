@@ -118,7 +118,7 @@ function renderAddOnsInEmail($add_ons, $order_item)
     return $str;
 }
 
-function generateOrdersEmail($pdo, $order_id, $is_admin = false)
+function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
 {
     $add_ons_stmt = $pdo->prepare("SELECT * FROM `add_ons`;");
     $add_ons_stmt->execute();
@@ -198,7 +198,7 @@ function generateOrdersEmail($pdo, $order_id, $is_admin = false)
                             <tr>
                                 <td style="width: 150px; text-align: center; vertical-align: top;">
                                     ' . (isset($item['sconce_image_url']) ? '
-                                        <img src="https://www.marg.tropicalstudios.com' . $item['sconce_image_url'] . '"
+                                        <img src="https://www.marg.tropicalstudios.com' . str_replace(" ", "%20", $item['sconce_image_url']) . '"
                                             alt="' . $item['sconce_name'] . ' Sconce" width="150" style="display: block; border: 1px solid #ddd;">
                                     ' : '
                                         <div style="display: block; border: 1px solid #ddd;width:150px;height:150px;"></div>
@@ -232,7 +232,7 @@ function generateOrdersEmail($pdo, $order_id, $is_admin = false)
                             <tr>
                                 <td style="width: 150px; text-align: center; vertical-align: top;">
                                     ' . (isset($item['cutout_image_url']) ? '
-                                        <img src="https://www.marg.tropicalstudios.com' . $item['cutout_image_url'] . '"
+                                        <img src="https://www.marg.tropicalstudios.com' . str_replace(" ", "%20", $item['cutout_image_url']) . '"
                                             alt="' . $item['cutout_name'] . ' Cutout" width="150" style="display: block; border: 1px solid #ddd;">
                                     ' : '
                                         <div style="display: block; border: 1px solid #ddd;width:150px;height:150px;"></div>
@@ -310,6 +310,139 @@ function generateOrdersEmail($pdo, $order_id, $is_admin = false)
         $template_path = __DIR__ . "/emails/orders/admin.html";
     } else {
         $template_path = __DIR__ . "/emails/orders/client.html";
+    }
+
+    if (!file_exists($template_path)) {
+        throw new Error("Email template file not found: $template_path");
+    }
+
+    $email_body = file_get_contents($template_path);
+
+    // Replace placeholders with actual data
+    foreach ($html_data as $key => $value) {
+        if ($key === "order_info_html") {
+            $email_body = str_replace("{{{$key}}}", $value, $email_body);
+        } else {
+            $email_body = str_replace("{{{$key}}}", htmlspecialchars($value, ENT_QUOTES, 'UTF-8'), $email_body);
+        }
+    }
+
+    return $email_body;
+}
+
+function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
+{
+    $enquiry_stmt = $pdo->prepare("SELECT
+        e.*,
+        si.*,
+        si_image.image_url AS shop_item_image_url,
+        c.first_name,
+        c.last_name,
+        c.email,
+        c.phone
+    FROM
+        shop_item_enquiries e
+    LEFT JOIN
+        contact_info c ON e.contact_id = c.contact_id
+    LEFT JOIN
+        shop_items si ON e.shop_item_id = si.shop_item_id
+    LEFT JOIN
+        shop_item_images si_image ON si.primary_image_id = si_image.image_id
+    WHERE
+        e.enquiry_id = :enquiry_id;
+    ");
+    $enquiry_stmt->bindParam(':enquiry_id', $enquiry_id, PDO::PARAM_INT);
+    $enquiry_stmt->execute();
+    $enquiry = $enquiry_stmt->fetch(PDO::FETCH_ASSOC);
+
+    $order_info_html = '
+        <!-- Product Listing -->
+        <table width="100%"
+            style="border-collapse: collapse; background-color: #ffffff; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">
+            <tr>
+                <td style="padding: 12px;">
+                    <h3 style="margin: 0; font-size: 18px; text-transform: capitalize;">Shop Item "' . $enquiry['name'] . '"</h3>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 12px;">
+                    <table width="100%" style="border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 150px; text-align: center; vertical-align: top;">
+                                ' . (isset($enquiry['shop_item_image_url']) ? '
+                                    <img src="https://www.marg.tropicalstudios.com' . str_replace(" ", "%20", $enquiry['shop_item_image_url']) . '"
+                                        alt="' . $enquiry['name'] . ' Sconce" width="150" style="display: block; border: 1px solid #ddd;">
+                                ' : '
+                                    <div style="display: block; border: 1px solid #ddd;width:150px;height:150px;"></div>
+                                ') . '
+                            </td>
+                            <td style="padding-left: 12px; vertical-align: top;">
+                                <p style="margin: 5px 0;">Price: <strong>$' . $enquiry['price'] . ' (USD)</strong></p>
+                                <p style="margin: 5px 0;">Size: <strong>' . $enquiry['dimensions'] . '</strong></p>
+                                <p style="margin: 5px 0;">Material: <strong>' . $enquiry['material'] . '</strong></p>
+                                <p style="margin: 5px 0;">Color: <strong>' . $enquiry['color'] . '</strong></p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+        <!-- Sub total section -->
+        <table width="100%"
+            style="border-collapse: collapse; border-bottom: 1px solid #dcdcdc; font-size: 16px; margin-bottom: 20px;">
+            <tr>
+                <td style="padding: 12px; text-align: left; font-weight: bold;">
+                    ' . $enquiry['description'] . '
+                </td>
+                <td style="padding: 12px; text-align: right; font-weight: bold;">
+                    $' . $enquiry['price'] . '
+                </td>
+            </tr>
+        </table>
+        <!-- Order Summary -->
+        <table width="100%"
+            style="border-collapse: collapse; background-color: #ffffff; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">
+            <tr>
+                <td style="padding: 12px; text-align: center; font-weight: bold; font-size: 18px;">
+                    Order Summary
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 12px;">
+                    <table width="100%" style="border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Subtotal:</td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">$' . $enquiry['price'] . '</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Delivery Fee:</td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">FREE</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px solid #ddd; padding-top: 12px; font-weight: bold;font-size:16px;">Total: $' . $enquiry['price'] . '</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>';
+
+    $html_data = [
+        "first_name" => $enquiry['first_name'],
+        "last_name" => $enquiry['last_name'],
+        "email" => $enquiry['email'],
+        "phone" => $enquiry['phone'],
+        "message" => $enquiry['message'],
+        "year" => date("Y"),
+        "order_info_html" => $order_info_html
+    ];
+
+    if ($is_admin) {
+        $template_path = __DIR__ . "/emails/enquiries/admin.html";
+    } else {
+        $template_path = __DIR__ . "/emails/enquiries/client.html";
     }
 
     if (!file_exists($template_path)) {

@@ -299,6 +299,18 @@
                 }))
             };
 
+            Swal.fire({
+                icon: "info",
+                title: "Loading...",
+                text: "Submitting your request.",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showCancelButton: false,
+                showDenyButton: false,
+                showCloseButton: false,
+                didOpen: () => Swal.showLoading()
+            });
+
             $.ajax({
                 type: "POST",
                 url: "/api/orders/api.php",

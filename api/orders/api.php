@@ -130,10 +130,10 @@ if (isset($data['action'])) {
                 $mail_res_client = handleSendEmail(
                     "orders",
                     $data['email'],
-                    generateOrdersEmail($pdo, $order_id),
+                    generateSconceOrderEmail($pdo, $order_id),
                     $email_subject
                 );
-                
+
                 // determine admin email string
                 if ($debugging) {
                     $admin_email_str = $debugging_email_string;
@@ -142,12 +142,12 @@ if (isset($data['action'])) {
                 } else {
                     $admin_email_str = $email_string;
                 }
-                
+
                 // Send email to admin
                 $mail_res_admin = handleSendEmail(
                     "orders",
                     $admin_email_str,
-                    generateOrdersEmail($pdo, $order_id, true),
+                    generateSconceOrderEmail($pdo, $order_id, true),
                     $email_subject,
                     $data['email']
                 );
@@ -290,13 +290,16 @@ if (isset($data['action'])) {
                 INSERT INTO shop_item_enquiries (contact_id, shop_item_id, message, current_status)
                 VALUES (:contact_id, :shop_item_id, :message, :current_status)
             ");
-
+            
             // Bind order parameters
             $stmt->bindParam(':contact_id', $contact_id);
             $stmt->bindParam(':shop_item_id', $data['shop_item_id']);
             $stmt->bindParam(':message', $data['message']);
             $stmt->bindValue(':current_status', "pending");
             $stmt->execute();
+
+            // Get the last inserted order ID
+            $enquiry_id = $pdo->lastInsertId();
 
             // Commit transaction
             $pdo->commit();
@@ -316,9 +319,9 @@ if (isset($data['action'])) {
             // Transaction was successful
             // Now need to generate a better formatted email body
             $mail_res_client = handleSendEmail(
-                "orders",
+                "enquiries",
                 $data['email'],
-                "Your Portfolio Item enquiry has been submitted and is now pending review!",
+                generateShopItemEnquiryEmail($pdo, $enquiry_id),
                 $email_subject
             );
 
@@ -334,9 +337,9 @@ if (isset($data['action'])) {
             // Send email to admin
             // Now need to generate a better formatted email body
             $mail_res_admin = handleSendEmail(
-                "orders",
+                "enquiries",
                 $admin_email_str,
-                "There has been an Portfolio Item enquiry made by {$data['first_name']} {$data['last_name']} on the website.",
+                generateShopItemEnquiryEmail($pdo, $enquiry_id, true),
                 $email_subject,
                 $data['email']
             );
