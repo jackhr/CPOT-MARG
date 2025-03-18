@@ -83,9 +83,13 @@
                 </div>
                 <div class="modal-body">
                     <form id="shop-item-form">
-                        <h3>Item Info</h3>
-                        <div>
-
+                        <h3>Item Summary</h3>
+                        <div id="shop-item-info">
+                            <p><strong>Name:</strong> <span data-name="name"></span></p>
+                            <p><strong>Price:</strong> $<span data-name="price"></span> (USD)</p>
+                            <p><strong>Size:</strong> <span data-name="dimensions"></span></p>
+                            <p><strong>Material:</strong> <span data-name="material"></span></p>
+                            <p><strong>Color:</strong> <span data-name="color"></span></p>
                         </div>
                         <h3>Contact Info</h3>
                         <div class="multiple-input-container">
@@ -216,6 +220,12 @@
             e.preventDefault();
             $("#item-modal").removeClass("showing");
             $("#confirmation-modal").addClass("showing");
+
+            $('#shop-item-info span[data-name="name"]').text(STATE.activeItem.name);
+            $('#shop-item-info span[data-name="price"]').text(STATE.activeItem.price);
+            $('#shop-item-info span[data-name="dimensions"]').text(STATE.activeItem.dimensions);
+            $('#shop-item-info span[data-name="material"]').text(STATE.activeItem.material);
+            $('#shop-item-info span[data-name="color"]').text(STATE.activeItem.color);
         });
 
         $('button[for="shop-item-form"]').off('click').on('click', function(e) {

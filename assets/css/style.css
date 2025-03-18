@@ -2326,6 +2326,17 @@ body#portfolio.imogen section.header p {
     background-color: var(--secondary);
 }
 
+#shop-item-info {
+    display      : grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    grid-gap     : 12px;
+}
+
+#shop-item-info p {
+    margin: auto;
+    width : 100%;
+}
+
 @media screen and (max-width: 1400px) {
     section#cutout-selection-section div.inner {
         flex-direction: column;
