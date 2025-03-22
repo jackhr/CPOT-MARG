@@ -45,6 +45,10 @@
                         <div class="info-section collapsible">
                             <h5>Overview</h5>
                             <div class="sconce-spec-pair">
+                                <span>Artist:</span>
+                                <span data-artist></span>
+                            </div>
+                            <div class="sconce-spec-pair">
                                 <span>Description:</span>
                                 <span data-description></span>
                             </div>
@@ -86,6 +90,7 @@
                         <h3>Item Summary</h3>
                         <div id="shop-item-info">
                             <p><strong>Name:</strong> <span data-name="name"></span></p>
+                            <p><strong>Artist:</strong> <span data-name="artist"></span></p>
                             <p><strong>Price:</strong> $<span data-name="price"></span> (USD)</p>
                             <p><strong>Size:</strong> <span data-name="dimensions"></span></p>
                             <p><strong>Material:</strong> <span data-name="material"></span></p>
@@ -222,6 +227,7 @@
             $("#confirmation-modal").addClass("showing");
 
             $('#shop-item-info span[data-name="name"]').text(STATE.activeItem.name);
+            $('#shop-item-info span[data-name="artist"]').text(STATE.activeItem.artist);
             $('#shop-item-info span[data-name="price"]').text(STATE.activeItem.price);
             $('#shop-item-info span[data-name="dimensions"]').text(STATE.activeItem.dimensions);
             $('#shop-item-info span[data-name="material"]').text(STATE.activeItem.material);

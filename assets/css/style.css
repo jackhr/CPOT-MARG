@@ -600,6 +600,15 @@ section.catalogue-section div.inner {
     display  : block;
 }
 
+.item-panel>div:last-child>span[data-name="artist"] {
+    font-size    : 16px;
+    margin-bottom: 4px;
+}
+
+.item-panel>div:last-child>div>span>span {
+    font-size: 12px;
+}
+
 .sconce-panel>div:last-child>div,
 .item-panel>div:last-child>div {
     display        : flex;
@@ -608,7 +617,7 @@ section.catalogue-section div.inner {
 }
 
 .sconce-panel>div:last-child>div span:first-child,
-.item-panel>div:last-child>div span:first-child {
+.item-panel>div:last-child>div>span:first-child {
     font-size  : 22px;
     display    : flex;
     align-items: baseline;
@@ -621,7 +630,7 @@ section.catalogue-section div.inner {
 }
 
 .sconce-panel>div:last-child>div span:last-child,
-.item-panel>div:last-child>div span:last-child {
+.item-panel>div:last-child>div>span:last-child {
     font-size: 14px;
     color    : var(--secondary);
 }

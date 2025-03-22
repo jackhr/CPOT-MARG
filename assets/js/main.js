@@ -147,6 +147,7 @@ function setActiveItem(item) {
     modal.addClass('showing');
     modal.find(".img-container img").attr("src", item.image_url);
     modal.find("[data-name]").text(item.name);
+    modal.find("[data-artist]").text(item.artist);
     modal.find("[data-base_price]>span").text(item.price);
     modal.find("[data-sku]").text("#" + item.shop_item_id);
     modal.find("[data-description]").text(item.description || "This item has no description.");
@@ -329,10 +330,11 @@ function loadShopItems(getAllItems = false) {
                             <img src="${item.image_url}" alt="Shop Item">
                             <div>
                                 <h4>${item.name}</h4>
+                                <span data-name="artist">${item.artist}</span>
                                 <span>${item.dimensions} (D/W/H)</span>
                                 <div>
                                     <span class="shop-item-status ${item.status}">${item.status}</span>
-                                    <span>$${item.price}<sub>(usd)</sub></span>
+                                    <span>$${item.price}<span>(usd)</span></span>
                                     <span>View More...</span>
                                 </div>
                             </div>
