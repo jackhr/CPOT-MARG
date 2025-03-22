@@ -1069,7 +1069,10 @@ html:has(.modal.showing) {
     font-weight: 400;
     line-height: 34px;
     display    : flex;
-    cursor     : pointer;
+}
+
+.info-container .info-section.collapsible h5 {
+    cursor: pointer;
 }
 
 .info-container .info-section.collapsible.collapsed h5 {
@@ -1105,6 +1108,16 @@ html:has(.modal.showing) {
     align-items    : center;
     width          : 100%;
     justify-content: space-between;
+}
+
+.info-container .info-section [data-cutout][disabled] {
+    border-color: var(--grey-x-light);
+    color       : var(--grey-light);
+    cursor      : not-allowed;
+}
+
+.info-container .info-section [data-cutout][disabled] img {
+    display: none;
 }
 
 .info-container .info-section [data-quantity] {

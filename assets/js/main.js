@@ -134,16 +134,26 @@ function getSelectedAddOnsInfo() {
     }, {});
 }
 
-function resetSconceModal() {
+function resetSconceModal(sconce = STATE.activeSconce) {
+    const sconceHasCutouts = sconce.cutout_ids.length;
+    if (sconceHasCutouts) {
+        $("[data-cutout]").prop('disabled', false);
+        $(".cutout-list-item.no-cutout").trigger('click');
+        $("#cutout-selection-container button").trigger('click');
+    } else {
+        // no cutouts
+        $("[data-cutout]")
+            .prop('disabled', true)
+            .find("span")
+            .text("No Cutouts Available For This Sconce");
+    }
     $("#sconce-modal [data-quantity]").val(1);
-    $(".cutout-list-item.no-cutout").trigger('click');
-    $("#cutout-selection-container button").trigger('click');
     $(".sconce-add-on").each((_, el) => $(el).is(":checked") && $(el).trigger('click'));
 }
 
 function setActiveItem(item) {
     const modal = $("#item-modal");
-    
+
     modal.addClass('showing');
     modal.find(".img-container img").attr("src", item.image_url);
     modal.find("[data-name]").text(item.name);
@@ -168,7 +178,7 @@ function setActiveSconce(item, editingCart = false) {
 
     if (sconce.sconce_id === STATE.activeSconce?.sconce_id && !editingCart) return;
 
-    resetSconceModal();
+    resetSconceModal(sconce);
 
     $("#sconce-modal .img-container img").attr("src", sconce.image_url);
     $("#sconce-modal [data-name]").text(sconce.name);
@@ -184,11 +194,18 @@ function setActiveSconce(item, editingCart = false) {
     $("#sconce-modal [data-fitting_type]").text(sconce.fitting_type || "-");
 
     if (editingCart) {
-        $("[data-cutout] span").text(sconce.cutout?.name || "No Cutout Selected");
-        const cutoutId = sconce.cutout?.cutout_id;
-        const cutoutEl = cutoutId ? $(`.cutout-list-item[data-id="${cutoutId}"]`) : $(".cutout-list-item.no-cutout");
-        cutoutEl.trigger('click');
-        $("[data-cutout] span").text(STATE.cutoutsLookup[cutoutId]?.name || "No Cutout Selected");
+        if (sconce.cutout_ids.length) {
+            const cutoutId = sconce.cutout?.cutout_id;
+            const cutoutEl = cutoutId ? $(`.cutout-list-item[data-id="${cutoutId}"]`) : $(".cutout-list-item.no-cutout");
+            cutoutEl.trigger('click');
+            $("[data-cutout]").prop('disabled', false);
+            $("[data-cutout] span").text(STATE.cutoutsLookup[cutoutId]?.name || "No Cutout Selected");
+        } else {
+            $("[data-cutout]")
+                .prop('disabled', true)
+                .find("span")
+                .text("No Cutouts Available For This Sconce");
+        }
     }
 
     STATE.activeSconce = sconce;

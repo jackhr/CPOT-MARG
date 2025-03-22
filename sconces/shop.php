@@ -308,7 +308,7 @@
                 }
 
                 localStorage.setItem('cart', JSON.stringify(cart));
-                resetSconceModal();
+                resetSconceModal(STATE.activeSconce);
                 reCalculateCartCount();
             } catch (err) {
                 title = "Error";
