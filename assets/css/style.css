@@ -1187,6 +1187,8 @@ html:has(.modal.showing) {
     display        : flex;
     align-items    : center;
     justify-content: center;
+    border         : solid 1px var(--grey-x-light);
+    font-size      : 48px;
 }
 
 #portfolio-item-modal .info-container {
@@ -1247,11 +1249,12 @@ html:has(.modal.showing) {
     width          : 36px;
     height         : 36px;
     cursor         : pointer;
+    bottom         : 12px;
+    border         : solid 1px var(--grey-x-light);
 }
 
 #portfolio-item-modal .img-container .prev {
     left: 12px;
-
 }
 
 #portfolio-item-modal .img-container .next {

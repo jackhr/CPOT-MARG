@@ -32,13 +32,13 @@
             </div>
             <h2>Gallery</h2>
             <div class="about-info-container">
-                <p><span class="intro-words">Michael and Imogen</span> designed a residential property within the grounds of the family estate but with both their children attending schools in the UK and unlikely to return it became apparent that a rethink was required. The pair went on to redesign the property to become a gallery with an Air Band B above. The property includes signature pieces such as hand carved stone sinks. A sculpture garden is being developed with Imogen’s very personal “ gnome home” and significant stone carvings by Michael and of course a wide range of tropical plants including the “aloe berm”.</p>
+                <p><span class="intro-words">Michael and Imogen</span> designed a home within the grounds of his family's estate, but with both their children studying in the UK and expressing little prospect of returning it became apparent a rethink was required. The project was redesigned to create a gallery and AirBandB apartment that boasts signature pieces by the pair such as decorative porcelain fish and a handcarved granite sink.</p>
                 <img src="/assets/images/misc/gallery.png" alt="About Us">
             </div>
             <h2>Garden</h2>
             <div class="about-info-container">
                 <img src="/assets/images/misc/garden.jpeg" alt="About Us">
-                <p><span class="intro-words">Lorem ipsum</span> dolor sit amet consectetur, adipisicing elit. Perspiciatis, voluptatum aspernatur! Nemo at excepturi architecto officiis quaerat qui quam ullam, saepe quae, officia perspiciatis ducimus, explicabo quos quas itaque placeat! Et quo architecto numquam ipsa animi repudiandae magni? Reiciendis tempore consequatur eos esse. Debitis, dicta. Optio fugit eum nisi adipisci quibusdam quas sapiente distinctio porro nam! Placeat dignissimos vel veniam.</p>
+                <p><span class="intro-words">The grounds</span> are developing into an electic, personal landscape journey by the artists with an expanding range of tropical plants. A sculpture garden is planned to feature Imogen’s burgeoning “Gnome Home” and significant pieces of stone and wood carvings by Michael.</p>
             </div>
         </div>
     </section>
