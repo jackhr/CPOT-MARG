@@ -947,6 +947,7 @@ html:has(.modal.showing) {
 
 #item-modal .modal-content {
     max-width: var(--max-width);
+    margin   : auto;
 }
 
 #sconce-modal,
@@ -1009,6 +1010,14 @@ html:has(.modal.showing) {
     width     : 100%;
     height    : 100%;
     object-fit: cover;
+}
+
+#item-modal .img-container {
+    height: unset;
+}
+
+#item-modal .img-container img {
+    object-fit: contain;
 }
 
 .info-container {
