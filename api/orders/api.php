@@ -211,6 +211,9 @@ if (isset($data['action'])) {
             $stmt->bindValue(':current_status', "pending");
             $stmt->execute();
 
+            // Get the last inserted order ID
+            $enquiry_id = $pdo->lastInsertId();
+
             // Commit transaction
             $pdo->commit();
         } catch (Exception $e) {
@@ -227,11 +230,10 @@ if (isset($data['action'])) {
             $res['message'] = "Transaction was not completed successfully.";
         } else if ($res['status'] === 200) {
             // Transaction was successful
-            // Now need to generate a better formatted email body
             $mail_res_client = handleSendEmail(
                 "orders",
                 $data['email'],
-                "Your Portfolio Item enquiry has been submitted and is now pending review!",
+                generatePortfolioItemEnquiryEmail($pdo, $enquiry_id),
                 $email_subject
             );
 
@@ -249,7 +251,7 @@ if (isset($data['action'])) {
             $mail_res_admin = handleSendEmail(
                 "orders",
                 $admin_email_str,
-                "There has been an Portfolio Item enquiry made by {$data['first_name']} {$data['last_name']} on the website.",
+                generatePortfolioItemEnquiryEmail($pdo, $enquiry_id, true),
                 $email_subject,
                 $data['email']
             );
@@ -290,7 +292,7 @@ if (isset($data['action'])) {
                 INSERT INTO shop_item_enquiries (contact_id, shop_item_id, message, current_status)
                 VALUES (:contact_id, :shop_item_id, :message, :current_status)
             ");
-            
+
             // Bind order parameters
             $stmt->bindParam(':contact_id', $contact_id);
             $stmt->bindParam(':shop_item_id', $data['shop_item_id']);

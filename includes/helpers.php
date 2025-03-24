@@ -339,6 +339,10 @@ function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
         c.first_name,
         c.last_name,
         c.email,
+        c.address_1,
+        c.country,
+        c.state,
+        c.town_or_city,
         c.phone
     FROM
         shop_item_enquiries e
@@ -351,12 +355,12 @@ function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
     WHERE
         e.enquiry_id = :enquiry_id;
     ");
+
     $enquiry_stmt->bindParam(':enquiry_id', $enquiry_id, PDO::PARAM_INT);
     $enquiry_stmt->execute();
     $enquiry = $enquiry_stmt->fetch(PDO::FETCH_ASSOC);
 
-    $order_info_html = '
-        <!-- Product Listing -->
+    $enquiry_info_html = '
         <table width="100%"
             style="border-collapse: collapse; background-color: #ffffff; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">
             <tr>
@@ -388,7 +392,6 @@ function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
             </tr>
         </table>
 
-
         <!-- Sub total section -->
         <table width="100%"
             style="border-collapse: collapse; border-bottom: 1px solid #dcdcdc; font-size: 16px; margin-bottom: 20px;">
@@ -401,6 +404,7 @@ function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
                 </td>
             </tr>
         </table>
+
         <!-- Order Summary -->
         <table width="100%"
             style="border-collapse: collapse; background-color: #ffffff; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">
@@ -427,22 +431,27 @@ function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
                 </td>
             </tr>
         </table>
-    </div>';
+    ';
 
     $html_data = [
         "first_name" => $enquiry['first_name'],
         "last_name" => $enquiry['last_name'],
         "email" => $enquiry['email'],
         "phone" => $enquiry['phone'],
+        "address_1" => $enquiry['address_1'],
+        "country" => $enquiry['country'],
+        "state" => $enquiry['state'],
+        "town_or_city" => $enquiry['town_or_city'],
         "message" => $enquiry['message'],
         "year" => date("Y"),
-        "order_info_html" => $order_info_html
+        "enquiry_info_html" => $enquiry_info_html
     ];
 
+
     if ($is_admin) {
-        $template_path = __DIR__ . "/emails/enquiries/admin.html";
+        $template_path = __DIR__ . "/emails/enquiries/shop/admin.html";
     } else {
-        $template_path = __DIR__ . "/emails/enquiries/client.html";
+        $template_path = __DIR__ . "/emails/enquiries/shop/client.html";
     }
 
     if (!file_exists($template_path)) {
@@ -453,7 +462,107 @@ function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
 
     // Replace placeholders with actual data
     foreach ($html_data as $key => $value) {
-        if ($key === "order_info_html") {
+        if ($key === "enquiry_info_html") {
+            $email_body = str_replace("{{{$key}}}", $value, $email_body);
+        } else {
+            $email_body = str_replace("{{{$key}}}", htmlspecialchars($value, ENT_QUOTES, 'UTF-8'), $email_body);
+        }
+    }
+
+    return $email_body;
+}
+
+function generatePortfolioItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
+{
+    $enquiry_stmt = $pdo->prepare("SELECT
+        e.*,
+        pi.*,
+        pi_image.image_url AS portfolio_item_image_url,
+        c.first_name,
+        c.last_name,
+        c.email,
+        c.address_1,
+        c.country,
+        c.state,
+        c.town_or_city,
+        c.phone
+    FROM
+        portfolio_item_enquiries e
+    LEFT JOIN
+        contact_info c ON e.contact_id = c.contact_id
+    LEFT JOIN
+        portfolio_items pi ON e.portfolio_item_id = pi.portfolio_item_id
+    LEFT JOIN
+        portfolio_item_images pi_image ON pi.primary_image_id = pi_image.image_id
+    WHERE
+        e.enquiry_id = :enquiry_id;
+    ");
+
+    $enquiry_stmt->bindParam(':enquiry_id', $enquiry_id, PDO::PARAM_INT);
+    $enquiry_stmt->execute();
+    $enquiry = $enquiry_stmt->fetch(PDO::FETCH_ASSOC);
+
+    $enquiry_info_html = '
+        <table width="100%"
+            style="border-collapse: collapse; background-color: #ffffff; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">
+            <tr>
+                <td style="padding: 12px;">
+                    <h3 style="margin: 0; font-size: 18px; text-transform: capitalize;">Portfolio Item "' . $enquiry['name'] . '"</h3>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 12px;">
+                    <table width="100%" style="border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 150px; text-align: center; vertical-align: top;">
+                                ' . (isset($enquiry['portfolio_item_image_url']) ? '
+                                    <img src="https://www.marg.tropicalstudios.com' . str_replace(" ", "%20", $enquiry['portfolio_item_image_url']) . '"
+                                        alt="' . $enquiry['name'] . ' Sconce" width="150" style="display: block; border: 1px solid #ddd;">
+                                ' : '
+                                    <div style="display: block; border: 1px solid #ddd;width:150px;height:150px;"></div>
+                                ') . '
+                            </td>
+                            <td style="padding-left: 12px; vertical-align: top;">
+                                <p style="margin: 5px 0;">Size: <strong>' . $enquiry['dimensions'] . '</strong></p>
+                                <p style="margin: 5px 0;">Material: <strong>' . $enquiry['material'] . '</strong></p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    ';
+
+    $html_data = [
+        "first_name" => $enquiry['first_name'],
+        "last_name" => $enquiry['last_name'],
+        "email" => $enquiry['email'],
+        "phone" => $enquiry['phone'],
+        "address_1" => $enquiry['address_1'],
+        "country" => $enquiry['country'],
+        "state" => $enquiry['state'],
+        "town_or_city" => $enquiry['town_or_city'],
+        "message" => $enquiry['message'],
+        "year" => date("Y"),
+        "enquiry_info_html" => $enquiry_info_html
+    ];
+
+
+    if ($is_admin) {
+        $template_path = __DIR__ . "/emails/enquiries/portfolio/admin.html";
+    } else {
+        $template_path = __DIR__ . "/emails/enquiries/portfolio/client.html";
+    }
+
+    if (!file_exists($template_path)) {
+        throw new Error("Email template file not found: $template_path");
+    }
+
+    $email_body = file_get_contents($template_path);
+
+    // Replace placeholders with actual data
+    foreach ($html_data as $key => $value) {
+        if ($key === "enquiry_info_html") {
             $email_body = str_replace("{{{$key}}}", $value, $email_body);
         } else {
             $email_body = str_replace("{{{$key}}}", htmlspecialchars($value, ENT_QUOTES, 'UTF-8'), $email_body);
