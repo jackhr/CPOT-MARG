@@ -158,7 +158,7 @@
                         <span class="modal-close">×</span>
                     </div>
                     <h3>Complete Your Request</h3>
-                    <p>Provide your contact details below, and we will get in touch to finalize your request.</p>
+                    <p>Provide your contact details below, and we will get in touch to follow up on your request.</p>
                 </div>
                 <div class="modal-body">
                     <form action="">
