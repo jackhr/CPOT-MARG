@@ -32,7 +32,7 @@
             </div>
             <h2>Gallery</h2>
             <div class="about-info-container">
-                <p><span class="intro-words">Michael and Imogen</span> designed a home within the grounds of his family's estate, but with both their children studying in the UK and expressing little prospect of returning it became apparent a rethink was required. The project was redesigned to create a gallery and AirBandB apartment that boasts signature pieces by the pair such as decorative porcelain fish and a handcarved granite sink.</p>
+                <p><span class="intro-words">Michael and Imogen</span> designed a home within the grounds of his family's estate, but with both their children studying in the UK and expressing little prospect of returning it became apparent a rethink was required. The project was redesigned to create a gallery and Airbnb apartment that boasts signature pieces by the pair such as decorative porcelain fish and a hand carved granite sink.</p>
                 <img src="/assets/images/misc/gallery.png" alt="About Us">
             </div>
             <h2>Garden</h2>
