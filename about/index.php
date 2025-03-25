@@ -38,7 +38,7 @@
             <h2>Garden</h2>
             <div class="about-info-container">
                 <img src="/assets/images/misc/garden.jpeg" alt="About Us">
-                <p><span class="intro-words">The grounds</span> are developing into an electic, personal landscape journey by the artists with an expanding range of tropical plants. A sculpture garden is planned to feature Imogen’s burgeoning “Gnome Home” and significant pieces of stone and wood carvings by Michael.</p>
+                <p><span class="intro-words">The grounds</span> are developing into an eclectic, personal landscape journey by the artists with an expanding range of tropical plants. A sculpture garden is planned to feature Imogen’s burgeoning “Gnome Home” and significant pieces of stone and wood carvings by Michael.</p>
             </div>
         </div>
     </section>
