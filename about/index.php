@@ -6,7 +6,7 @@
     <section class="header">
         <div class="inner">
             <h1>Our Story</h1>
-            <p>Margrie Hunt brings together timeless craftsmanship and artistic innovation, creating bespoke ceramics that blend functionality with beauty.</p>
+            <p>Margrie Hunt brings together timeless craftsmanship and artistic invocation creating bespoke pieces principally in Ceramic, Stone and Wood, blending functionality with beauty.</p>
         </div>
     </section>
 
@@ -38,7 +38,7 @@
             <h2>Garden</h2>
             <div class="about-info-container">
                 <img src="/assets/images/misc/garden.jpeg" alt="About Us">
-                <p><span class="intro-words">The grounds</span> are developing into an eclectic, personal landscape journey by the artists with an expanding range of tropical plants. A sculpture garden is planned to feature Imogen’s burgeoning “Gnome Home” and significant pieces of stone and wood carvings by Michael.</p>
+                <p><span class="intro-words">The grounds</span> are developing into an eclectic, personal landscape journey by the artists with an expanding range of tropical plants. A sculpture garden is planned to feature Imogen’s burgeoning “Gnome Home” and significant pieces of stone and wood carvings by Michael. The gallery and gardens may also be hired for functions. <a href="/contact/index.php#contact-form-section">Please enquire for details.</a></p>
             </div>
         </div>
     </section>

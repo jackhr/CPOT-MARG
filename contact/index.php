@@ -15,9 +15,11 @@
         <div class="inner">
             <div>
                 <h2>Our Location</h2>
-                <p>Nestled in the heart of Antigua & Barbuda, Margrie Hunt's studio and gallery is a haven for art enthusiasts. Located just off Buckley's Main Road, the venue showcases a diverse range of finely crafted ceramics, stone, and wood pieces.</p>
+                <p>Nestled in the heart of Antigua and Barbuda the Margrie Hunt's visitors can explore the gallery, developing sculpture garden and tropical landscape.</p>
+                <p>For inquires or to plan your visit contact the studio at <a href="tel:+1 (268) 460-5293">+1 (268) 460-5293</a> or <a href="tel:+1 (268) 770-4061">+1 (268) 770-4061</a></p>
+                <!-- <p>Nestled in the heart of Antigua & Barbuda, Margrie Hunt's studio and gallery is a haven for art enthusiasts. Located just off Buckley's Main Road, the venue showcases a diverse range of finely crafted ceramics, stone, and wood pieces.</p>
                 <p>Visitors can explore the gallery and garden, and view unique sculptural commissions.</p>
-                <p>For inquiries or to plan your visit, contact the studio at: <a href="tel:+1 (268) 460-5293">+1 (268) 460-5293</a>.</p>
+                <p>For inquiries or to plan your visit, contact the studio at: <a href="tel:+1 (268) 460-5293">+1 (268) 460-5293</a>.</p> -->
             </div>
             <div id="map-container">
                 <div id="display-google-map">

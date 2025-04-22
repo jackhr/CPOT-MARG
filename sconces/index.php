@@ -52,7 +52,7 @@
                 <p>It has to be noted that not all patterns may be adapted to all sconce styles. Indications will be given as to the appropriateness or otherwise of certain styles to various patterns.</p>
                 <p>Combinations of patterns may be requested on any sconce style where compatible and the cutout price is adjusted accordingly.</p>
                 <p>The team at Margerie Hunt also offers the option of originating custom designs based on client briefs. Enquire for pricing.</p>
-                <p>Unless specified (below/with) all cutout designs should be adaptable across most sconce designs.</p>
+                <!-- <p>Unless specified (below/with) all cutout designs should be adaptable across most sconce designs.</p> -->
             </div>
             <div class="right">
                 <div class="mini-gallery"></div>

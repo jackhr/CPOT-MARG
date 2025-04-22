@@ -578,7 +578,8 @@
         $("#cutout-selection-container>button").on('click', function() {
             const selectedCutout = $(".cutout-list-item.selected");
             const cutoutId = selectedCutout.hasClass('no-cutout') ? null : selectedCutout.data('id');
-            $("[data-cutout] span").text(STATE.cutoutsLookup[cutoutId]?.name || "No Cutout Selected");
+            const displayStr = STATE.cutoutsLookup[cutoutId]?.name ? "Cutout Selected: " + STATE.cutoutsLookup[cutoutId]?.name : "No Cutout Selected";
+            $("[data-cutout] span").text(displayStr);
             $("#cutout-modal .modal-close").trigger('click');
         });
 

@@ -199,7 +199,8 @@ function setActiveSconce(item, editingCart = false) {
             const cutoutEl = cutoutId ? $(`.cutout-list-item[data-id="${cutoutId}"]`) : $(".cutout-list-item.no-cutout");
             cutoutEl.trigger('click');
             $("[data-cutout]").prop('disabled', false);
-            $("[data-cutout] span").text(STATE.cutoutsLookup[cutoutId]?.name || "No Cutout Selected");
+            const displayStr = STATE.cutoutsLookup[cutoutId]?.name ? "Cutout Selected: " + STATE.cutoutsLookup[cutoutId]?.name : "No Cutout Selected";
+            $("[data-cutout] span").text(displayStr);
         } else {
             $("[data-cutout]")
                 .prop('disabled', true)
@@ -350,7 +351,7 @@ function loadShopItems(getAllItems = false) {
                                 <span data-name="artist">${item.artist}</span>
                                 <span>${item.dimensions} (D/W/H)</span>
                                 <div>
-                                    <span class="shop-item-status ${item.status}">${item.status}</span>
+                                    ${item.status === "available" ? "" : `<span class="shop-item-status ${item.status}">${item.status}</span>`}
                                     <span>$${item.price}<span>(usd)</span></span>
                                     <span>View More...</span>
                                 </div>
@@ -450,7 +451,7 @@ function setActivePortfolioItem(portfolioItem) {
     $("#portfolio-item-modal [data-artist]").text(portfolioItem.artist);
     $("#portfolio-item-modal [data-dimensions]").text(portfolioItem.dimensions);
     $("#portfolio-item-modal [data-material]").text(portfolioItem.material);
-    $("#portfolio-item-modal [data-created_at]").text(new Date(portfolioItem.created_at).getFullYear());
+    $("#portfolio-item-modal [data-created_at]").text(portfolioItem.year_created || "-");
     $("#portfolio-item-modal [data-description]").text(portfolioItem.description || "This item has no description.");
     $("#portfolio-item-modal [data-price] span").text(formatPrice(portfolioItem.price));
     $("#portfolio-item-modal [data-quantity]").val(portfolioItem.quantity);

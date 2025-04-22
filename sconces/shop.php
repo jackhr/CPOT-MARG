@@ -172,7 +172,8 @@
     $(document).ready(async function() {
         function setActiveCutout(cutout) {
             STATE.activeCutout = cutout;
-            $("[data-cutout] span").text(cutout?.name || "No Cutout Selected");
+            const displayStr = cutout?.name ? "Cutout Selected: " + cutout?.name : "No Cutout Selected";
+            $("[data-cutout] span").text(displayStr);
         }
 
         function calculateNewTotal() {
