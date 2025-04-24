@@ -207,6 +207,10 @@ function setActiveSconce(item, editingCart = false) {
                 .find("span")
                 .text("No Cutouts Available For This Sconce");
         }
+        $(".sconce-add-on").each((_idx, elem) => {
+            if ($(elem).is(":checked")) $(elem).click()
+        });
+        item.item.addOnIds.forEach(id => $(`.sconce-add-on[value="${id}"]`).click());
     }
 
     STATE.activeSconce = sconce;
@@ -218,7 +222,12 @@ function generateOrderItemPrice(item) {
     const quantity = Number(item.quantity);
     const basePrice = Object.values(item.item.addOnIds || []).reduce((price, id) => {
         const addOn = STATE.addOnsLookup[id];
-        return price + Number(addOn.price);
+        if (addOn.is_percentage) {
+            price += ((addOn.price / 100) * itemPrice);
+        } else {
+            price += Number(addOn.price);
+        }
+        return price;
     }, itemPrice + cutoutPrice);
 
     return basePrice * quantity;
@@ -243,10 +252,12 @@ async function loadAddOns() {
 
                     if ($(".info-section.sconce-add-ons").length) {
                         const addOnIdHTML = `${addOn.name.replaceAll(" ", "_").toLowerCase()}_add_on`;
+                        console.log("addOn", addOn);
+                        const bracketsDisplay = addOn.is_percentage ? `+${addOn.price}% of original sconce price` : `$${addOn.price}`;
                         $(".info-section.sconce-add-ons").append(`
                             <div class="input-container">
                                 <input id="${addOnIdHTML}" class="sconce-add-on" type="checkbox" value="${addOn.add_on_id}">
-                                <label for="${addOnIdHTML}"><span>${addOn.name}: </span>${addOn.description} ($${addOn.price})</label>
+                                <label for="${addOnIdHTML}"><span>${addOn.name}: </span>${addOn.description} (${bracketsDisplay})</label>
                             </div>
                         `);
                     }

@@ -65,6 +65,7 @@
                                 <img src="/assets/icons/right-arrow.svg" alt="">
                             </button>
                         </div>
+                        <div class="info-section sconce-add-ons"></div>
                         <div class="info-section">
                             <h5>Quantity</h5>
                             <input data-quantity type="text" name="" id="">
@@ -367,6 +368,7 @@
                 item.item.cutout && (item.item.cutout = formatResource(item.item.cutout));
                 const quantity = Number(item.quantity);
                 const itemSubTotal = generateOrderItemPrice(item);
+                console.log("itemSubTotal:", itemSubTotal);
                 const formattedItemSubTotal = formatPrice(itemSubTotal)
                 const idKey = `${item.type}_id`;
 
@@ -483,17 +485,14 @@
                                 <div class="line-item-info">
                                     <div class="bottom">
                                         ${Object.values(STATE.addOnsLookup).map(addOn => {
+                                            const itemPrice = Number(item?.item?.base_price || 0);
                                             const addOnIsApplied = item?.item?.addOnIds.includes(addOn.add_on_id);
-                                            const finalAddOnStr = (addOnIsApplied ? "With" : "Without") + ` ${addOn.name}`
-                                            return `
-                                                <div>
-                                                    <span>${finalAddOnStr}:</span>
-                                                    <div>
-                                                        <span>$${addOnIsApplied ? addOn.price : 0}</span>
-                                                        <sub>(usd)</sub>
-                                                    </div>
-                                                </div>
-                                            `;
+                                            let addOnPrice = addOn.price;
+                                            if (addOn.is_percentage) {
+                                                addOnPrice = ((addOn.price / 100) * itemPrice);
+                                            }
+                                            const finalAddOnStr = (addOnIsApplied ? "With" : "Without") + " " + addOn.name;
+                                            return renderlineItemAddOnPrice(finalAddOnStr, addOnIsApplied, addOnPrice);
                                         }).join('')}
                                     </div>
                                 </div>
@@ -517,6 +516,18 @@
             $("#order-summary .summary-pair.total span:last-child").text(`$${subTotal}`);
         }
 
+        function renderlineItemAddOnPrice(finalAddOnStr, addOnIsApplied, addOnPrice) {
+            return `
+                <div>
+                    <span>${finalAddOnStr}: </span>
+                    <div>
+                        <span>$${addOnIsApplied ? addOnPrice : 0}</span>
+                        <sub>(usd)</sub>
+                    </div>
+                </div>
+            `;
+        }
+
         async function handleOpenCutoutModal() {
             const cart = getCart();
             const lineItem = cart[STATE.activeIdx];
@@ -531,6 +542,10 @@
             }
             $("#cutout-modal").addClass('showing');
         }
+
+        $(".sconce-add-on").on('change', function() {
+            calculateNewTotal();
+        });
 
         $("input").on('input', function() {
             $(this).removeClass('form-error');
@@ -548,6 +563,7 @@
             STATE.activeSconce = lineItem.item
 
             setActiveSconce(lineItem, true);
+            calculateNewTotal();
         });
 
         $("svg.delete").on('click', async function() {
@@ -588,12 +604,18 @@
             const cutoutId = selectedCutout.hasClass('no-cutout') ? null : selectedCutout.data('id');
             const cart = getCart();
             const newQuantity = $("#sconce-modal [data-quantity]").val();
+            const addOnsInfo = getSelectedAddOnsInfo();
+            const addOnIds = Object.values(addOnsInfo).reduce((arr, addOn) => {
+                if (addOn.checked) arr.push(addOn.add_on_id);
+                return arr;
+            }, []);
             STATE.activeCutout = STATE.cutoutsLookup[cutoutId] || null;
             cart[STATE.activeIdx] = {
                 ...structuredClone(cart[STATE.activeIdx]),
                 item: {
                     ...structuredClone(cart[STATE.activeIdx].item),
-                    cutout: STATE.activeCutout
+                    cutout: STATE.activeCutout,
+                    addOnIds
                 },
                 lineItemDesc: getLineItemDescription(newQuantity),
                 quantity: newQuantity
@@ -613,9 +635,20 @@
 
         function calculateNewTotal() {
             const quantity = Number($("#sconce-modal [data-quantity]").val());
-            const basePrice = Number(STATE?.activeSconce?.base_price);
+            const sconcePrice = Number(STATE?.activeSconce?.base_price);
             const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
-            const newPrice = formatPrice((basePrice + cutoutPrice) * quantity);
+            const basePrice = Object.values(getSelectedAddOnsInfo()).reduce((price, addOn) => {
+                if (addOn.checked) {
+                    if (addOn.is_percentage) {
+                        price += (sconcePrice * addOn.price / 100);
+                    } else {
+                        price += Number(addOn.price);
+                    }
+                }
+                return price;
+            }, sconcePrice + cutoutPrice);
+
+            const newPrice = formatPrice(basePrice * quantity);
             $("#sconce-modal [data-total_price]>span").text(newPrice);
         }
     });

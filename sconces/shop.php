@@ -181,7 +181,13 @@
             const sconcePrice = Number(STATE?.activeSconce?.base_price);
             const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
             const basePrice = Object.values(getSelectedAddOnsInfo()).reduce((price, addOn) => {
-                if (addOn.checked) price += Number(addOn.price);
+                if (addOn.checked) {
+                    if (addOn.is_percentage) {
+                        price += (sconcePrice * addOn.price / 100);
+                    } else {
+                        price += Number(addOn.price);
+                    }
+                }
                 return price;
             }, sconcePrice + cutoutPrice);
 
