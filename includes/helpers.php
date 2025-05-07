@@ -53,14 +53,17 @@ function handleSendEmail($from, $email_str = "", $email_body = "", $subject = ""
 
     // Prepare headers
     $headers  = "From: {$from}\r\n";
-    if (strlen($reply_to) > 0) {
+    if ($reply_to && strlen($reply_to) > 0 && filter_var($reply_to, FILTER_VALIDATE_EMAIL)) {
         $headers .= "Reply-To: $reply_to\r\n";
     }
+    
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+    $headers .= "Message-ID: <" . uniqid() . "@" . $_SERVER['SERVER_NAME'] . ">\r\n";
+    $headers .= "Date: " . gmdate("D, d M Y H:i:s") . " GMT\r\n";
 
     // Send email to recipients
-    if (!mail($email_str, $subject, $email_body, $headers)) {
+    if (!mail($email_str, $subject, $email_body, $headers, "-f {$from}")) {
         error_log("Failed to send email to $email_str");
     }
 
@@ -180,8 +183,8 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
 
     $order_info_html = '<div id="cart-list" style="box-sizing: border-box; width: 100%; max-width: 800px;">';
     foreach ($order_items as $item) {
-        $item['sconce_image_url'] = isset($item['sconce_image_url']) ? "https://www.marg.tropicalstudios.com{$item['sconce_image_url']}" : "";
-        $item['cutout_image_url'] = isset($item['cutout_image_url']) ? "https://www.marg.tropicalstudios.com{$item['cutout_image_url']}" : "";
+        $item['sconce_image_url'] = isset($item['sconce_image_url']) ? $item['sconce_image_url'] : "";
+        $item['cutout_image_url'] = isset($item['cutout_image_url']) ? $item['cutout_image_url'] : "";
 
         $order_info_html .= '
             <!-- Product Listing -->
@@ -198,7 +201,7 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
                             <tr>
                                 <td style="width: 150px; text-align: center; vertical-align: top;">
                                     ' . (isset($item['sconce_image_url']) ? '
-                                        <img src="https://www.marg.tropicalstudios.com' . str_replace(" ", "%20", $item['sconce_image_url']) . '"
+                                        <img src="https://www.margriehunt.com' . str_replace(" ", "%20", $item['sconce_image_url']) . '"
                                             alt="' . $item['sconce_name'] . ' Sconce" width="150" style="display: block; border: 1px solid #ddd;">
                                     ' : '
                                         <div style="display: block; border: 1px solid #ddd;width:150px;height:150px;"></div>
@@ -232,7 +235,7 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
                             <tr>
                                 <td style="width: 150px; text-align: center; vertical-align: top;">
                                     ' . (isset($item['cutout_image_url']) ? '
-                                        <img src="https://www.marg.tropicalstudios.com' . str_replace(" ", "%20", $item['cutout_image_url']) . '"
+                                        <img src="https://www.margriehunt.com' . str_replace(" ", "%20", $item['cutout_image_url']) . '"
                                             alt="' . $item['cutout_name'] . ' Cutout" width="150" style="display: block; border: 1px solid #ddd;">
                                     ' : '
                                         <div style="display: block; border: 1px solid #ddd;width:150px;height:150px;"></div>
@@ -374,7 +377,7 @@ function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
                         <tr>
                             <td style="width: 150px; text-align: center; vertical-align: top;">
                                 ' . (isset($enquiry['shop_item_image_url']) ? '
-                                    <img src="https://www.marg.tropicalstudios.com' . str_replace(" ", "%20", $enquiry['shop_item_image_url']) . '"
+                                    <img src="https://www.margriehunt.com' . str_replace(" ", "%20", $enquiry['shop_item_image_url']) . '"
                                         alt="' . $enquiry['name'] . ' Sconce" width="150" style="display: block; border: 1px solid #ddd;">
                                 ' : '
                                     <div style="display: block; border: 1px solid #ddd;width:150px;height:150px;"></div>
@@ -516,7 +519,7 @@ function generatePortfolioItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
                         <tr>
                             <td style="width: 150px; text-align: center; vertical-align: top;">
                                 ' . (isset($enquiry['portfolio_item_image_url']) ? '
-                                    <img src="https://www.marg.tropicalstudios.com' . str_replace(" ", "%20", $enquiry['portfolio_item_image_url']) . '"
+                                    <img src="https://www.margriehunt.com' . str_replace(" ", "%20", $enquiry['portfolio_item_image_url']) . '"
                                         alt="' . $enquiry['name'] . ' Sconce" width="150" style="display: block; border: 1px solid #ddd;">
                                 ' : '
                                     <div style="display: block; border: 1px solid #ddd;width:150px;height:150px;"></div>
