@@ -766,6 +766,7 @@ footer ul {
 
 .footer-logo {
     height         : 200px;
+    width          : 25%;
     padding        : 12px;
     display        : flex;
     align-items    : center;
@@ -1328,7 +1329,8 @@ html:has(.modal.showing) {
 
 .cutout-preview-container {
     /* width: 530px; */
-    width: 60%;
+    width    : 60%;
+    max-width: 588px;
 }
 
 .cutout-preview-container.viewing-cutout div,
@@ -2369,6 +2371,28 @@ body#portfolio.imogen section.header p {
 #shop-item-info p {
     margin: auto;
     width : 100%;
+}
+
+.social-icons {
+    flex-direction: row;
+    gap           : 12px;
+}
+
+.social-icons .contact-link {
+    width : 30px;
+    height: 30px;
+    margin: 0;
+}
+
+.social-icons .contact-link img {
+    width     : 100%;
+    height    : 100%;
+    transition: transform ease 0.4s;
+    transform : scale(1);
+}
+
+.social-icons .contact-link img:hover {
+    transform: scale(1.2);
 }
 
 @media screen and (max-width: 1400px) {
