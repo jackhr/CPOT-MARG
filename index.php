@@ -1,16 +1,14 @@
 <?php
 
 require_once __DIR__ . '/includes/head.php';
+require_once __DIR__ . '/includes/helpers.php';
 
-$stmt = $pdo->prepare(
-    "SELECT portfolio_items.*, portfolio_item_images.image_url
-        FROM portfolio_items
-        LEFT JOIN portfolio_item_images ON portfolio_items.primary_image_id = portfolio_item_images.image_id
-    WHERE status = :status"
-);
-$stmt->bindValue(':status', 'active', PDO::PARAM_STR);
-$stmt->execute();
-$portfolio_item_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+const IMOGEN_MARGRIE = 'Imogen Margrie';
+const MICHAEL_HUNT = 'Michael Hunt';
+
+$imogen_portfolio_item_arr = getPortfolioItemsForArtist($pdo, IMOGEN_MARGRIE);
+$michael_portfolio_item_arr = getPortfolioItemsForArtist($pdo, MICHAEL_HUNT);
+$portfolio_item_arr = array_merge($imogen_portfolio_item_arr, $michael_portfolio_item_arr);
 
 ?>
 
@@ -95,7 +93,7 @@ $portfolio_item_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="left">
                         <h2>Commissions</h2>
                         <p>We offer bespoke ceramic creations tailored to your unique vision. Collaborating closely with clients and architects, we develop one-of-a-kind pieces that enhance and personalize spaces. From conceptualization to completion, our commissioned works are a testament to our commitment to individualized artistry.</p>
-                        <a href="/portfolios/">view more...</a>
+                        <a href="/portfolios/imogen/">view more...</a>
                     </div>
                     <div class="right">
                         <img src="/assets/images/panels/delilah.jpg" alt="">
@@ -109,15 +107,22 @@ $portfolio_item_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="inner">
             <h1>Portfolio Items</h1>
             <div class="gallery">
-                <?php foreach ($portfolio_item_arr as $portfolio_item) {
+                <?php
+                $link_lookup = [
+                    IMOGEN_MARGRIE => "imogen",
+                    MICHAEL_HUNT => "michael",
+                ];
+                foreach ($portfolio_item_arr as $portfolio_item) {
+                    $artist_first_name = $link_lookup[$portfolio_item['artist']];
+                    $href = getPortfolioItemLink($artist_first_name, $portfolio_item['portfolio_item_id']);
                     echo "
-                        <div class='portfolio-item-panel' onclick='goToPortfolioItemPage({$portfolio_item['artist']}, {$portfolio_item['portfolio_item_id']})'>
+                        <a class='portfolio-item-panel' href='$href'>
                             <img src='{$portfolio_item['image_url']}' alt='Sconce'>
                             <div class='portfolio-item-title'>
                                 <h4>{$portfolio_item['name']}</h4>
                                 <h4>{$portfolio_item['artist']}</h4>
                             </div>
-                        </div>
+                        </a>
                     ";
                 } ?>
             </div>
@@ -139,11 +144,5 @@ $portfolio_item_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
 </body>
-
-<script>
-    function goToPortfolioItemPage(artist, id) {
-        location = `/portfolios/${artist}/?id=${id}`;
-    }
-</script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

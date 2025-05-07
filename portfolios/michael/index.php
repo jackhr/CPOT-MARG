@@ -224,7 +224,7 @@
         }
 
         await loadPortfolioItems({
-            getAll: true,
+            getAll: false,
             artist: "Michael Hunt"
         });
 
@@ -252,7 +252,10 @@
         });
 
         $(".load-more-btn").on('click', function() {
-            loadPortfolioItems();
+            loadPortfolioItems({
+                getAll: false,
+                artist: "Michael Hunt"
+            });
         });
 
         $("#portfolio-item-modal .img-container .prev").on('click', function() {

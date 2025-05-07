@@ -56,7 +56,7 @@ function handleSendEmail($from, $email_str = "", $email_body = "", $subject = ""
     if ($reply_to && strlen($reply_to) > 0 && filter_var($reply_to, FILTER_VALIDATE_EMAIL)) {
         $headers .= "Reply-To: $reply_to\r\n";
     }
-    
+
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
     $headers .= "Message-ID: <" . uniqid() . "@" . $_SERVER['SERVER_NAME'] . ">\r\n";
@@ -573,4 +573,26 @@ function generatePortfolioItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
     }
 
     return $email_body;
+}
+
+function getPortfolioItemsForArtist(PDO $pdo, string $artist, int $limit = 5)
+{
+    $stmt = $pdo->prepare(
+        "SELECT items.*, images.image_url
+            FROM portfolio_items items
+            LEFT JOIN portfolio_item_images images ON items.primary_image_id = images.image_id
+        WHERE status = :status
+        AND artist = :artist
+        ORDER BY items.year_created IS NULL, items.year_created, items.name
+        LIMIT :limit"
+    );
+    $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
+    $stmt->bindValue(':artist', $artist, PDO::PARAM_STR);
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getPortfolioItemLink(string $artist, int $id) {
+    return "/portfolios/$artist/?id=$id";
 }

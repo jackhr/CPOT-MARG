@@ -23,13 +23,15 @@ if (isset($data['action'])) {
 
         try {
             // Fetch data
-            $query = "SELECT portfolio_items.*, portfolio_item_images.image_url
-                FROM portfolio_items
-                LEFT JOIN portfolio_item_images ON portfolio_items.primary_image_id = portfolio_item_images.image_id
+            $query = "SELECT items.*, images.image_url
+            FROM portfolio_items items
+            LEFT JOIN portfolio_item_images images ON items.primary_image_id = images.image_id
             WHERE status = :status";
-            if (isset($data['artist'])) {
-                $query .= " AND artist = :artist";
-            }
+
+            if (isset($data['artist'])) $query .= " AND artist = :artist";
+
+            $query .= " ORDER BY items.year_created IS NULL, items.year_created, items.name";
+
             $stmt = $pdo->prepare($query);
             $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
             if (isset($data['artist'])) {
@@ -43,7 +45,7 @@ if (isset($data['action'])) {
         }
     } else if ($data['action'] === "get_more") {
         $page = isset($data['page']) ? (int)$data['page'] : 0;
-        $itemsPerPage = 6;
+        $itemsPerPage = 10;
         $offset = $page * $itemsPerPage;
 
         $res = [
@@ -60,24 +62,38 @@ if (isset($data['action'])) {
 
         try {
             // Fetch data
-            $stmt = $pdo->prepare(
-                "SELECT portfolio_items.*, portfolio_item_images.image_url
-                    FROM portfolio_items
-                    LEFT JOIN portfolio_item_images ON portfolio_items.primary_image_id = portfolio_item_images.image_id
-                WHERE status = :status
-                LIMIT :limit
-                OFFSET :offset"
-            );
+            $query = "SELECT items.*, images.image_url
+            FROM portfolio_items items
+            LEFT JOIN portfolio_item_images images ON items.primary_image_id = images.image_id
+            WHERE status = :status";
+
+            if (isset($data['artist'])) $query .= " AND artist = :artist";
+
+            $query .= " ORDER BY items.year_created IS NULL, items.year_created, items.name
+            LIMIT :limit
+            OFFSET :offset";
+
+            $stmt = $pdo->prepare($query);
             $stmt->bindValue(':status', 'active', PDO::PARAM_STR);
+            if (isset($data['artist'])) {
+                $stmt->bindValue(':artist', $data['artist'], PDO::PARAM_STR);
+            }
             $stmt->bindValue(':limit', $itemsPerPage, PDO::PARAM_INT);
             $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
             $res['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             // Fetch total items count
-            $count_query = "SELECT COUNT(*) FROM portfolio_items WHERE status = :status";
+            $count_query = "SELECT COUNT(*) FROM portfolio_items pi WHERE pi.status = :status";
+            if (isset($data['artist'])) {
+                $count_query .= " AND pi.artist = :artist";
+            }
             $count_stmt = $pdo->prepare($count_query);
-            $count_stmt->execute(['status' => 'active']);
+            if (isset($data['artist'])) {
+                $count_stmt->bindValue(':artist', $data['artist'], PDO::PARAM_STR);
+            }
+            $count_stmt->bindValue(':status', 'active', PDO::PARAM_STR);
+            $count_stmt->execute();
             $total_items = $count_stmt->fetchColumn();
 
             // Add pagination metadata

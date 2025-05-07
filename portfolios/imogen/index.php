@@ -224,7 +224,7 @@
         }
 
         await loadPortfolioItems({
-            getAll: true,
+            getAll: false,
             artist: "Imogen Margrie"
         });
 
@@ -252,7 +252,10 @@
         });
 
         $(".load-more-btn").on('click', function() {
-            loadPortfolioItems();
+            loadPortfolioItems({
+                getAll: false,
+                artist: "Imogen Margrie"
+            });
         });
 
         $("#portfolio-item-modal .img-container .prev").on('click', function() {
