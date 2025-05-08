@@ -489,26 +489,39 @@ async function loadPortfolioItems(options = {
         dataType: "json",
         success: res => {
             if (res.status === 200) {
-                STATE.portfolioItems = res.data.length ? res.data : [];
-                res.data.forEach((portfolioItem, idx) => {
-                    portfolioItem = formatResource(portfolioItem);
-                    STATE.portfolioItemsLookup[portfolioItem.portfolio_item_id] = portfolioItem;
-                    const portfolioItemEl = $(`
-                        <div data-idx="${idx}" data-id="${portfolioItem.portfolio_item_id}" class="portfolio-item-panel">
-                            <img src="${portfolioItem.image_url}" alt="Portfolio Item">
-                            <div class="portfolio-item-title">
-                                <h4>${portfolioItem.name}</h4>
-                                <h4>${portfolioItem.artist}</h4>
+                if (!STATE.portfolioItems) STATE.portfolioItems = [];
+                if (res.data.length) {
+                    console.log("structuredClone:", structuredClone);
+                    STATE.portfolioItems = [...structuredClone(STATE.portfolioItems), ...structuredClone(res.data)];
+
+                    res.data.forEach((portfolioItem, idx) => {
+                        portfolioItem = formatResource(portfolioItem);
+                        STATE.portfolioItemsLookup[portfolioItem.portfolio_item_id] = portfolioItem;
+                        const portfolioItemEl = $(`
+                            <div data-idx="${idx}" data-id="${portfolioItem.portfolio_item_id}" class="portfolio-item-panel">
+                                <img src="${portfolioItem.image_url}" alt="Portfolio Item">
+                                <div class="portfolio-item-title">
+                                    <h4>${portfolioItem.name}</h4>
+                                    <h4>${portfolioItem.artist}</h4>
+                                </div>
                             </div>
-                        </div>
-                    `);
+                        `);
 
-                    portfolioItemEl.on('click', function () {
-                        STATE.activePortfolioItemIdx = idx;
-                        setActivePortfolioItem(portfolioItem);
+                        $(".gallery").append(portfolioItemEl);
                     });
+                }
 
-                    $(".gallery").append(portfolioItemEl);
+                $(".portfolio-item-panel").each((idx, portfolioItemEl) => {
+                    portfolioItemEl = $(portfolioItemEl);
+                    const portfolioItemId = portfolioItemEl.data('id');
+                    const portfolioItem = STATE.portfolioItemsLookup[portfolioItemId];
+
+                    portfolioItemEl
+                        .off('click')
+                        .on('click', function () {
+                            STATE.activePortfolioItemIdx = idx;
+                            setActivePortfolioItem(portfolioItem);
+                        });
                 });
 
                 STATE.pagination = {
