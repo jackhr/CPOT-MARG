@@ -184,7 +184,7 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
     $order_info_html = '<div id="cart-list" style="box-sizing: border-box; width: 100%; max-width: 800px;">';
     foreach ($order_items as $item) {
         $item['sconce_image_url'] = isset($item['sconce_image_url']) ? $item['sconce_image_url'] : "";
-        $item['cutout_image_url'] = isset($item['cutout_image_url']) ? $item['cutout_image_url'] : "";
+        $item['cutout_image_url'] = isset($item['cutout_image_url']) ? $item['cutout_image_url'] : "https://placehold.co/500x500/ccc/272727?text=No+Cutout";
 
         $order_info_html .= '
             <!-- Product Listing -->
@@ -593,6 +593,7 @@ function getPortfolioItemsForArtist(PDO $pdo, string $artist, int $limit = 5)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getPortfolioItemLink(string $artist, int $id) {
+function getPortfolioItemLink(string $artist, int $id)
+{
     return "/portfolios/$artist/?id=$id";
 }
