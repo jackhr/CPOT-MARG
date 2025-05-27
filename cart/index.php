@@ -627,8 +627,7 @@
         $("#sconce-modal [data-quantity]").on('input', function(evt) {
             const currentQuantity = $(this).val();
             const match = currentQuantity.match(/\d+/g);
-            let newQuantity = match === null ? "" : match.join("");
-            if (newQuantity > 100) newQuantity = 100;
+            const newQuantity = match === null ? "" : match.join("");
             $(this).val(newQuantity);
             calculateNewTotal();
         });
