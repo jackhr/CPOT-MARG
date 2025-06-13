@@ -37,7 +37,7 @@
             </div>
             <div class="right">
                 <div>
-                    <p>The wide range of sconces also comes with an expanding choice of customised cut out motifs. The team continue to welcome customized briefs, working along with clients to specifically answer their needs with designs that are manufactured on an individual basis.</p>
+                    <p>The wide range of sconces also comes with an expanding choice of cutout motifs. Customized patterns may be requested. Please enquire for pricing.</p>
                     <a href="/sconces/shop.php" class="continue-btn">Shop Sconces</a>
                 </div>
             </div>
@@ -48,8 +48,8 @@
         <div class="inner">
             <div class="left">
                 <h1 class="animation-start">Cutout Selection</h1>
-                <p>Margrie Hunt’s growing range of classic bisqued finish sconces can also be complemented and personalized by the addition of their expanding choice of cut-out motifs. All patterns are individually cut into the leather hard-cast clay and incur additional charges based on their complexity.</p>
-                <p>It has to be noted that not all patterns may be adapted to all sconce styles. Indications will be given as to the appropriateness or otherwise of certain styles to various patterns.</p>
+                <p>Margrie Hunt’s growing range of classic bisqued finish sconces can also be complemented and personalized by the addition of their expanding choice of cut-out motifs. All patterns are handcut into the leather hard clay and incur an additional charge based on their complexity.</p>
+                <p>It has to be noted that not all patterns may be adapted to all sconce styles. Indications will be given as to the appropriateness of certain styles to the various patterns.</p>
                 <p>Combinations of patterns may be requested on any sconce style where compatible and the cutout price is adjusted accordingly.</p>
                 <p>The team at Margerie Hunt also offers the option of originating custom designs based on client briefs. Enquire for pricing.</p>
                 <!-- <p>Unless specified (below/with) all cutout designs should be adaptable across most sconce designs.</p> -->

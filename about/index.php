@@ -6,7 +6,7 @@
     <section class="header">
         <div class="inner">
             <h1>Our Story</h1>
-            <p>Margrie Hunt brings together timeless craftsmanship and artistic invocation creating bespoke pieces principally in Ceramic, Stone and Wood, blending functionality with beauty.</p>
+            <p>Margrie Hunt brings together timeless craftsmanship and artistic innovation creating bespoke pieces principally in Ceramic, Stone and Wood, blending functionality with beauty.</p>
         </div>
     </section>
 
@@ -14,7 +14,7 @@
         <div class="inner">
             <h2>Imogen & Michael</h2>
             <div class="about-info-container">
-                <p><span class="intro-words">Michael and his twin brother</span> were brought to the UK from Antigua in 1967, to reconnect with a mother they had known for their first six months and a father they had never met. They were seven years old. He remembers around age 9 being obsessed with painting and drawing to the point of going on to win many art prizes and primary and secondary school level. At age 13, having taken judo instruction after school with friends at a youth centre he had an epiphany. It came one evening with the discovery of an “Art room” at the centre, at the back of which someone was standing over a machine with their arm disappearing down into a mound of spinning clay… "it’s 3D you fool." He would go on to do a degree in Ceramics at Central School of Art in London, age 19.</p>
+                <p><span class="intro-words">Michael and his twin brother</span> were brought to the UK from Antigua in 1967, to reconnect with a mother they had known for their first six months and a father they had never met. They were seven years old. He remembers around age 9 being obsessed with painting and drawing to the point of going on to win many art prizes at primary and secondary school level. Whilst taking judo instruction after school with friends at a youth centre he had an epiphany. It came one evening with the discovery of an “Art room” at the centre, at the back of which someone was standing over a machine with their arm disappearing down into a mound of spinning clay… "it’s 3D you fool." He would go on to do a degree in Ceramics at Central School of Art in London, age 19.</p>
                 <img src="/assets/images/misc/about-us.jpg" alt="About Us">
             </div>
             <div class="about-info-container">
@@ -28,7 +28,7 @@
             <h2>Studio</h2>
             <div class="about-info-container">
                 <img src="/assets/images/misc/studio.png" alt="About Us">
-                <p><span class="intro-words">The pottery</span> was set up within the garage of the family home but as production increased It was deemed necessary to construct a Studio/workshop within the grounds of the family estate. The pair designed an airy studio appropriate for the tropics and large enough to accommodate a slipcasting area, a throwing area and a handbuilding section. The galvanised structure has withstood several hurricanes!</p>
+                <p><span class="intro-words">The pottery</span> was set up within the garage of the family home but as production increased It was deemed necessary to construct a Studio/workshop within the grounds of the family estate. The pair designed an airy studio appropriate for the tropics and large enough to accommodate a throwing, slipcast and handbuilding areas. The galvanised structure has withstood several hurricanes!</p>
             </div>
             <h2>Gallery</h2>
             <div class="about-info-container">
