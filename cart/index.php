@@ -8,25 +8,13 @@
         <div class="inner">
             <div id="cart-list"></div>
             <div id="order-summary">
-                <h2>Order Summary</h2>
+                <h2>Request Summary</h2>
                 <hr>
-                <div class="summary-pair sub">
-                    <span>Sub-Total:</span>
+                <div class="summary-pair items">
+                    <span>Total Items:</span>
                     <span>-</span>
                 </div>
-                <div class="summary-pair fee">
-                    <span>Delivery Fee:</span>
-                    <span>-</span>
-                </div>
-                <div class="summary-pair promo">
-                    <span>Promo:</span>
-                    <span>-</span>
-                </div>
-                <hr>
-                <div class="summary-pair total">
-                    <span>Total:</span>
-                    <span>-</span>
-                </div>
+                <p class="order-summary-note">Please submit and we will respond with pricing.</p>
             </div>
         </div>
     </section>
@@ -44,11 +32,6 @@
                     <div class="info-container">
                         <div class="info-section">
                             <h3 data-name></h3>
-                            <span data-base_price>
-                                $
-                                <span></span>
-                                <sub>(usd)</sub>
-                            </span>
                             <span data-dimensions></span>
                             <p>Made to order<br>Ships in 4 - 6 weeks<br>SKU - <span data-sku></span></p>
                         </div>
@@ -71,13 +54,8 @@
                             <input data-quantity type="text" name="" id="">
                         </div>
                         <div class="info-section final-price">
-                            <h5>Total Price</h5>
+                            <h5>Update Request</h5>
                             <div>
-                                <div data-total_price>
-                                    $
-                                    <span></span>
-                                    <sub>(usd)</sub>
-                                </div>
                                 <button id="update-cart">Confirm</button>
                             </div>
                         </div>
@@ -361,17 +339,10 @@
                 <button id="open-confirm-order-btn" onClick="openConfirmationModal()">Send Request</button>
             `);
 
-            $(".summary-pair.fee span:last-child").text("FREE");
-
-            let subTotal = cart.reduce((acc, item, idx) => {
+            const totalQuantity = cart.reduce((acc, item, idx) => {
                 item.item = formatResource(item.item);
                 item.item.cutout && (item.item.cutout = formatResource(item.item.cutout));
                 const quantity = Number(item.quantity);
-                const itemSubTotal = generateOrderItemPrice(item);
-                console.log("itemSubTotal:", itemSubTotal);
-                const formattedItemSubTotal = formatPrice(itemSubTotal)
-                const idKey = `${item.type}_id`;
-
                 const lineItemContainer = `
                     <div class="line-item-container" data-cart-idx="${idx}">
                         <div class="line-item ${item.type}" data-type="${item.type}">
@@ -399,10 +370,7 @@
                                     <div>
                                         <h5>${item.item.name}</h5>
                                         <div class="line-item-quantity">
-                                            <div>
-                                                <span>$${item.item.base_price}</span>
-                                                <sub>(usd)</sub>
-                                            </div>
+                                            <span>Quantity</span>
                                             <span>x</span>
                                             <input data-quantity type="text" name="" id="" value="${quantity}">
                                         </div>
@@ -432,11 +400,10 @@
                                         </div>
                                         ${Object.values(STATE.addOnsLookup).map(addOn => {
                                             const addOnIsApplied = item?.item?.addOnIds.includes(addOn.add_on_id);
-                                            const finalAddOnStr = (addOnIsApplied ? "With" : "Without") + ` ${addOn.name}`;
                                             return `
                                                 <div>
                                                     <span>${addOn.name}:</span>
-                                                    <span>${finalAddOnStr}</span>
+                                                    <span>${addOnIsApplied ? "Included" : "Not Included"}</span>
                                                 </div>
                                             `;
                                         }).join('')}
@@ -460,10 +427,6 @@
                                 <div class="line-item-info">
                                     <div>
                                         <h5>${item?.item?.cutout?.name || "No Cutout"}</h5>
-                                        <div>
-                                            <span>$${item?.item?.cutout?.base_price || 0}</span>
-                                            <sub>(usd)</sub>
-                                        </div>
                                     </div>
                                     <div class="bottom">
                                         <div>
@@ -485,14 +448,8 @@
                                 <div class="line-item-info">
                                     <div class="bottom">
                                         ${Object.values(STATE.addOnsLookup).map(addOn => {
-                                            const itemPrice = Number(item?.item?.base_price || 0);
                                             const addOnIsApplied = item?.item?.addOnIds.includes(addOn.add_on_id);
-                                            let addOnPrice = addOn.price;
-                                            if (addOn.is_percentage) {
-                                                addOnPrice = ((addOn.price / 100) * itemPrice);
-                                            }
-                                            const finalAddOnStr = (addOnIsApplied ? "With" : "Without") + " " + addOn.name;
-                                            return renderlineItemAddOnPrice(finalAddOnStr, addOnIsApplied, addOnPrice);
+                                            return renderlineItemAddOnState(addOn.name, addOnIsApplied);
                                         }).join('')}
                                     </div>
                                 </div>
@@ -500,30 +457,23 @@
                         </div>
                         <div class="line-item-total">
                             <p>${item.lineItemDesc}</p>
-                            <span data-price>$${formattedItemSubTotal}</span>
                         </div>
                     </div>
                 `;
 
                 $("#cart-list").append(lineItemContainer);
 
-                return acc + itemSubTotal;
+                return acc + quantity;
             }, 0);
 
-            subTotal = formatPrice(subTotal);
-
-            $("#order-summary .summary-pair.sub span:last-child").text(`$${subTotal}`);
-            $("#order-summary .summary-pair.total span:last-child").text(`$${subTotal}`);
+            $("#order-summary .summary-pair.items span:last-child").text(totalQuantity);
         }
 
-        function renderlineItemAddOnPrice(finalAddOnStr, addOnIsApplied, addOnPrice) {
+        function renderlineItemAddOnState(addOnName, addOnIsApplied) {
             return `
                 <div>
-                    <span>${finalAddOnStr}: </span>
-                    <div>
-                        <span>$${addOnIsApplied ? addOnPrice : 0}</span>
-                        <sub>(usd)</sub>
-                    </div>
+                    <span>${addOnName}:</span>
+                    <span>${addOnIsApplied ? "Included" : "Not Included"}</span>
                 </div>
             `;
         }
@@ -633,22 +583,7 @@
         });
 
         function calculateNewTotal() {
-            const quantity = Number($("#sconce-modal [data-quantity]").val());
-            const sconcePrice = Number(STATE?.activeSconce?.base_price);
-            const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
-            const basePrice = Object.values(getSelectedAddOnsInfo()).reduce((price, addOn) => {
-                if (addOn.checked) {
-                    if (addOn.is_percentage) {
-                        price += (sconcePrice * addOn.price / 100);
-                    } else {
-                        price += Number(addOn.price);
-                    }
-                }
-                return price;
-            }, sconcePrice + cutoutPrice);
-
-            const newPrice = formatPrice(basePrice * quantity);
-            $("#sconce-modal [data-total_price]>span").text(newPrice);
+            return;
         }
     });
 </script>

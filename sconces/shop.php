@@ -13,10 +13,10 @@
 
     <section id="pricing-section">
         <div class="inner">
-            <button id="toggle-pricing">Toggle Pricing</button>
-            <img src="/assets/images/pricing/sconce-pricing-table-1.png" alt="">
-            <img src="/assets/images/pricing/sconce-pricing-table-2.png" alt="">
-            <img src="/assets/images/pricing/sconce-pricing-table-3.png" alt="">
+            <button id="toggle-pricing">Toggle Sconce Specs</button>
+            <img src="/assets/images/pricing/sconce-pricing-table-1-no-price.png" alt="Sconce dimensions table one">
+            <img src="/assets/images/pricing/sconce-pricing-table-2-no-price.png" alt="Sconce dimensions table two">
+            <img src="/assets/images/pricing/sconce-pricing-table-3-no-price.png" alt="Sconce dimensions table three">
         </div>
     </section>
 
@@ -48,11 +48,6 @@
                     <div class="info-container">
                         <div class="info-section">
                             <h3 data-name></h3>
-                            <span data-base_price>
-                                $
-                                <span></span>
-                                <sub>(usd)</sub>
-                            </span>
                             <span data-dimensions></span>
                             <p>Made to order<br>Ships in 4 - 6 weeks<br>SKU - <span data-sku></span></p>
                         </div>
@@ -75,13 +70,8 @@
                             <input data-quantity type="text" name="" id="">
                         </div>
                         <div class="info-section final-price">
-                            <h5>Total Price</h5>
+                            <h5>Request</h5>
                             <div>
-                                <div data-total_price>
-                                    $
-                                    <span></span>
-                                    <sub>(usd)</sub>
-                                </div>
                                 <button id="add-to-cart">Add to Cart</button>
                             </div>
                         </div>
@@ -177,22 +167,7 @@
         }
 
         function calculateNewTotal() {
-            const quantity = Number($("[data-quantity]").val());
-            const sconcePrice = Number(STATE?.activeSconce?.base_price);
-            const cutoutPrice = Number(STATE?.activeCutout?.base_price) || 0;
-            const basePrice = Object.values(getSelectedAddOnsInfo()).reduce((price, addOn) => {
-                if (addOn.checked) {
-                    if (addOn.is_percentage) {
-                        price += (sconcePrice * addOn.price / 100);
-                    } else {
-                        price += Number(addOn.price);
-                    }
-                }
-                return price;
-            }, sconcePrice + cutoutPrice);
-
-            const newPrice = formatPrice(basePrice * quantity);
-            $("#sconce-modal [data-total_price]>span").text(newPrice);
+            return;
         }
 
         loadSconces();

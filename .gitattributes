@@ -43,8 +43,11 @@ assets/images/panels/sconces.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/michael.png filter=lfs diff=lfs merge=lfs -text
 assets/images/panels/delilah.jpg filter=lfs diff=lfs merge=lfs -text
 assets/images/pricing/sconce-pricing-table-1.png filter=lfs diff=lfs merge=lfs -text
+assets/images/pricing/sconce-pricing-table-1-no-price.png filter=lfs diff=lfs merge=lfs -text
 assets/images/pricing/sconce-pricing-table-2.png filter=lfs diff=lfs merge=lfs -text
+assets/images/pricing/sconce-pricing-table-2-no-price.png filter=lfs diff=lfs merge=lfs -text
 assets/images/pricing/sconce-pricing-table-3.png filter=lfs diff=lfs merge=lfs -text
+assets/images/pricing/sconce-pricing-table-3-no-price.png filter=lfs diff=lfs merge=lfs -text
 assets/images/sconces/Jumby-Bay-sconces-in-progress-3-of-20.jpeg filter=lfs diff=lfs merge=lfs -text
 assets/images/sconces/Jumby-Bay-sconces-in-progress-1-of-20.jpeg filter=lfs diff=lfs merge=lfs -text
 assets/images/sconces/Jumby-Bay-sconces-in-progress-20-of-20-768x1024.jpeg filter=lfs diff=lfs merge=lfs -text

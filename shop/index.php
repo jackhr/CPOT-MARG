@@ -30,11 +30,6 @@
                     <div class="info-container">
                         <div class="info-section">
                             <h3 data-name></h3>
-                            <span data-base_price>
-                                $
-                                <span></span>
-                                <sub>(usd)</sub>
-                            </span>
                             <span data-dimensions></span>
                         </div>
                         <div class="info-section img">
@@ -91,7 +86,6 @@
                         <div id="shop-item-info">
                             <p><strong>Name:</strong> <span data-name="name"></span></p>
                             <p><strong>Artist:</strong> <span data-name="artist"></span></p>
-                            <p><strong>Price:</strong> $<span data-name="price"></span> (USD)</p>
                             <p><strong>Size:</strong> <span data-name="dimensions"></span></p>
                             <p><strong>Material:</strong> <span data-name="material"></span></p>
                             <p><strong>Color:</strong> <span data-name="color"></span></p>
@@ -228,7 +222,6 @@
 
             $('#shop-item-info span[data-name="name"]').text(STATE.activeItem.name);
             $('#shop-item-info span[data-name="artist"]').text(STATE.activeItem.artist);
-            $('#shop-item-info span[data-name="price"]').text(STATE.activeItem.price);
             $('#shop-item-info span[data-name="dimensions"]').text(STATE.activeItem.dimensions);
             $('#shop-item-info span[data-name="material"]').text(STATE.activeItem.material);
             $('#shop-item-info span[data-name="color"]').text(STATE.activeItem.color);

@@ -97,15 +97,11 @@ function renderAddOnsInEmail($add_ons, $order_item)
         }
 
         $final_add_on_str = ($add_on_is_applied ? "With" : "Without") . " {$add_on['name']}";
-        $final_price = $add_on_is_applied ? $add_on['price'] : "0";
 
         $str .= '
             <tr>
                 <td style="padding: 5px 0; font-size: 14px; font-weight: bold; text-align: left;">
-                    ' . $final_add_on_str . ':
-                </td>
-                <td style="padding: 5px 0; font-size: 14px; font-weight: bold; text-align: right;">
-                    $' . $final_price . ' (USD)
+                    ' . $final_add_on_str . '
                 </td>
             </tr>
         ';
@@ -181,6 +177,10 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
         $order_items[$idx]['add_ons'] = $order_item_add_ons;
     }
 
+    $total_quantity_requested = array_reduce($order_items, function ($carry, $item) {
+        return $carry + (int)$item['quantity'];
+    }, 0);
+
     $order_info_html = '<div id="cart-list" style="box-sizing: border-box; width: 100%; max-width: 800px;">';
     foreach ($order_items as $item) {
         $item['sconce_image_url'] = isset($item['sconce_image_url']) ? $item['sconce_image_url'] : "";
@@ -208,7 +208,6 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
                                     ') . '
                                 </td>
                                 <td style="padding-left: 12px; vertical-align: top;">
-                                    <p style="margin: 5px 0;">Price: <strong>$' . $item['sconce_base_price'] . ' (USD)</strong></p>
                                     <p style="margin: 5px 0;">Size: <strong>' . $item['sconce_dimensions'] . '</strong></p>
                                     <p style="margin: 5px 0;">Material: <strong>' . $item['sconce_material'] . '</strong></p>
                                     <p style="margin: 5px 0;">Color: <strong>' . $item['sconce_color'] . '</strong></p>
@@ -242,7 +241,6 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
                                     ') . '
                                 </td>
                                 <td style="padding-left: 12px; vertical-align: top;">
-                                    <p style="margin: 5px 0;">Price: <strong>$' . ($item['cutout_base_price'] ?? "0") . ' (USD)</strong></p>
                                     <p style="margin: 5px 0;">Description: <strong>' . ($item['cutout_description'] ?? "-") . '</strong></p>
                                 </td>
                             </tr>
@@ -254,15 +252,17 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
             <!-- Add-Ons Section -->
             ' . renderAddOnsInEmail($add_ons, $item) . '
 
-            <!-- Sub total section -->
+            <!-- Request details section -->
             <table width="100%"
                 style="border-collapse: collapse; border-bottom: 1px solid #dcdcdc; font-size: 16px; margin-bottom: 20px;">
                 <tr>
                     <td style="padding: 12px; text-align: left; font-weight: bold;">
-                        ' . $item['description'] . '
+                        Request Details
                     </td>
-                    <td style="padding: 12px; text-align: right; font-weight: bold;">
-                        $' . $item['price'] . '
+                </tr>
+                <tr>
+                    <td style="padding: 0 12px 12px; text-align: left;">
+                        ' . $item['description'] . '
                     </td>
                 </tr>
             </table>
@@ -275,22 +275,19 @@ function generateSconceOrderEmail($pdo, $order_id, $is_admin = false)
             style="border-collapse: collapse; background-color: #ffffff; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">
             <tr>
                 <td style="padding: 12px; text-align: center; font-weight: bold; font-size: 18px;">
-                    Order Summary
+                    Request Summary
                 </td>
             </tr>
             <tr>
                 <td style="padding: 12px;">
                     <table width="100%" style="border-collapse: collapse;">
                         <tr>
-                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Subtotal:</td>
-                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">$' . $order['total_amount'] . '</td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Line Items:</td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">' . count($order_items) . '</td>
                         </tr>
                         <tr>
-                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Delivery Fee:</td>
-                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">FREE</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="border-top: 1px solid #ddd; padding-top: 12px; font-weight: bold;font-size:16px;">Total: $' . $order['total_amount'] . '</td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Total Quantity Requested:</td>
+                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">' . $total_quantity_requested . '</td>
                         </tr>
                     </table>
                 </td>
@@ -384,51 +381,11 @@ function generateShopItemEnquiryEmail($pdo, $enquiry_id, $is_admin = false)
                                 ') . '
                             </td>
                             <td style="padding-left: 12px; vertical-align: top;">
-                                <p style="margin: 5px 0;">Price: <strong>$' . $enquiry['price'] . ' (USD)</strong></p>
                                 <p style="margin: 5px 0;">Size: <strong>' . $enquiry['dimensions'] . '</strong></p>
                                 <p style="margin: 5px 0;">Material: <strong>' . $enquiry['material'] . '</strong></p>
                                 <p style="margin: 5px 0;">Color: <strong>' . $enquiry['color'] . '</strong></p>
+                                <p style="margin: 5px 0;">Description: <strong>' . ($enquiry['description'] ?? "-") . '</strong></p>
                             </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-
-        <!-- Sub total section -->
-        <table width="100%"
-            style="border-collapse: collapse; border-bottom: 1px solid #dcdcdc; font-size: 16px; margin-bottom: 20px;">
-            <tr>
-                <td style="padding: 12px; text-align: left; font-weight: bold;">
-                    ' . $enquiry['description'] . '
-                </td>
-                <td style="padding: 12px; text-align: right; font-weight: bold;">
-                    $' . $enquiry['price'] . '
-                </td>
-            </tr>
-        </table>
-
-        <!-- Order Summary -->
-        <table width="100%"
-            style="border-collapse: collapse; background-color: #ffffff; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">
-            <tr>
-                <td style="padding: 12px; text-align: center; font-weight: bold; font-size: 18px;">
-                    Order Summary
-                </td>
-            </tr>
-            <tr>
-                <td style="padding: 12px;">
-                    <table width="100%" style="border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Subtotal:</td>
-                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">$' . $enquiry['price'] . '</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: left;">Delivery Fee:</td>
-                            <td style="padding: 5px 0; font-size: 14px; font-weight: bold;text-align: right;">FREE</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="border-top: 1px solid #ddd; padding-top: 12px; font-weight: bold;font-size:16px;">Total: $' . $enquiry['price'] . '</td>
                         </tr>
                     </table>
                 </td>

@@ -158,13 +158,11 @@ function setActiveItem(item) {
     modal.find(".img-container img").attr("src", item.image_url);
     modal.find("[data-name]").text(item.name);
     modal.find("[data-artist]").text(item.artist);
-    modal.find("[data-base_price]>span").text(item.price);
     modal.find("[data-sku]").text("#" + item.shop_item_id);
     modal.find("[data-description]").text(item.description || "This item has no description.");
     modal.find("[data-dimensions]").text(`${item.dimensions} (D/W/H)`);
     modal.find("[data-material]").text(item.material);
     modal.find("[data-color]").text(item.color);
-    modal.find("[data-total_price]>span").text(item.price);
 
     STATE.activeItem = item;
 
@@ -182,14 +180,12 @@ function setActiveSconce(item, editingCart = false) {
 
     $("#sconce-modal .img-container img").attr("src", sconce.image_url);
     $("#sconce-modal [data-name]").text(sconce.name);
-    $("#sconce-modal [data-base_price]>span").text(sconce.base_price);
     $("#sconce-modal [data-sku]").text("#" + sconce.sconce_id);
     $("#sconce-modal [data-description]").text(sconce.description || "This item has no description.");
     $("#sconce-modal [data-dimensions]").text(`${sconce.dimensions} (D/W/H)`);
     $("#sconce-modal [data-material]").text(sconce.material);
     $("#sconce-modal [data-color]").text(sconce.color);
     $("#sconce-modal [data-quantity]").val(quantity);
-    $("#sconce-modal [data-total_price]>span").text(sconce.base_price);
     $("#sconce-modal [data-mounting_type]").text(sconce.mounting_type || "-");
     $("#sconce-modal [data-fitting_type]").text(sconce.fitting_type || "-");
 
@@ -252,12 +248,10 @@ async function loadAddOns() {
 
                     if ($(".info-section.sconce-add-ons").length) {
                         const addOnIdHTML = `${addOn.name.replaceAll(" ", "_").toLowerCase()}_add_on`;
-                        console.log("addOn", addOn);
-                        const bracketsDisplay = addOn.is_percentage ? `+${addOn.price}% of original sconce price` : `$${addOn.price}`;
                         $(".info-section.sconce-add-ons").append(`
                             <div class="input-container">
                                 <input id="${addOnIdHTML}" class="sconce-add-on" type="checkbox" value="${addOn.add_on_id}">
-                                <label for="${addOnIdHTML}"><span>${addOn.name}: </span>${addOn.description} (${bracketsDisplay})</label>
+                                <label for="${addOnIdHTML}"><span>${addOn.name}: </span>${addOn.description}</label>
                             </div>
                         `);
                     }
@@ -302,7 +296,6 @@ function loadSconces(getAllSconces = false) {
                                 <h4>${sconce.name}</h4>
                                 <span>${sconce.dimensions} (D/W/H)</span>
                                 <div>
-                                    <span>$${sconce.base_price}<sub>(usd)</sub></span>
                                     <span>View More...</span>
                                 </div>
                             </div>
@@ -363,7 +356,6 @@ function loadShopItems(getAllItems = false) {
                                 <span>${item.dimensions} (D/W/H)</span>
                                 <div>
                                     ${item.status === "available" ? "" : `<span class="shop-item-status ${item.status}">${item.status}</span>`}
-                                    <span>$${item.price}<span>(usd)</span></span>
                                     <span>View More...</span>
                                 </div>
                             </div>
@@ -420,10 +412,6 @@ async function loadCutouts() {
                             </div>
                             <div class="cutout-list-item-info">
                                 <span>${cutout.name}</span>
-                                <div>
-                                    <span>$${cutout.base_price}</span>
-                                    <sub>(usd)</sub>
-                                </div>
                             </div>
                         </div>
                     `);
@@ -464,7 +452,6 @@ function setActivePortfolioItem(portfolioItem) {
     $("#portfolio-item-modal [data-material]").text(portfolioItem.material);
     $("#portfolio-item-modal [data-created_at]").text(portfolioItem.year_created || "-");
     $("#portfolio-item-modal [data-description]").text(portfolioItem.description || "This item has no description.");
-    $("#portfolio-item-modal [data-price] span").text(formatPrice(portfolioItem.price));
     $("#portfolio-item-modal [data-quantity]").val(portfolioItem.quantity);
 
     STATE.activePortfolioItem = portfolioItem;

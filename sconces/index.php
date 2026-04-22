@@ -37,7 +37,7 @@
             </div>
             <div class="right">
                 <div>
-                    <p>The wide range of sconces also comes with an expanding choice of cutout motifs. Customized patterns may be requested. Please enquire for pricing.</p>
+                    <p>The wide range of sconces also comes with an expanding choice of cutout motifs. Customized patterns may be requested.</p>
                     <a href="/sconces/shop.php" class="continue-btn">Shop Sconces</a>
                 </div>
             </div>
@@ -48,10 +48,10 @@
         <div class="inner">
             <div class="left">
                 <h1 class="animation-start">Cutout Selection</h1>
-                <p>Margrie Hunt’s growing range of classic bisqued finish sconces can also be complemented and personalized by the addition of their expanding choice of cut-out motifs. All patterns are handcut into the leather hard clay and incur an additional charge based on their complexity.</p>
+                <p>Margrie Hunt’s growing range of classic bisqued finish sconces can also be complemented and personalized by the addition of their expanding choice of cut-out motifs. All patterns are handcut into the leather hard clay and reviewed individually for suitability on each design.</p>
                 <p>It has to be noted that not all patterns may be adapted to all sconce styles. Indications will be given as to the appropriateness of certain styles to the various patterns.</p>
-                <p>Combinations of patterns may be requested on any sconce style where compatible and the cutout price is adjusted accordingly.</p>
-                <p>The team at Margerie Hunt also offers the option of originating custom designs based on client briefs. Enquire for pricing.</p>
+                <p>Combinations of patterns may be requested on any sconce style where compatible.</p>
+                <p>The team at Margerie Hunt also offers the option of originating custom designs based on client briefs.</p>
                 <!-- <p>Unless specified (below/with) all cutout designs should be adaptable across most sconce designs.</p> -->
             </div>
             <div class="right">

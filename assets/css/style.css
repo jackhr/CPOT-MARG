@@ -1145,6 +1145,11 @@ html:has(.modal.showing) {
     gap    : 16px;
 }
 
+.info-container .info-section.final-price button {
+    width     : 100%;
+    margin-top: 20px;
+}
+
 .info-container .info-section [data-total_price] {
     width          : max-content;
     background     : rgba(var(--primary-rgb-vals), 0.1);
@@ -1542,16 +1547,11 @@ html:has(.modal.showing) {
 }
 
 .line-item.cutout .line-item-info>div:first-child h5+div,
-.line-item-quantity>div,
 .line-item.add-ons .bottom div div {
     display    : flex;
     align-items: baseline;
     font-size  : 28px;
     font-weight: 500;
-}
-
-.line-item-quantity>div~* {
-    display: none;
 }
 
 .line-item .line-item-info>div:first-child h5+div sub,
@@ -1685,6 +1685,14 @@ html:has(.modal.showing) {
     color      : var(--black);
     font-weight: 600;
     font-size  : 18px;
+}
+
+.order-summary-note {
+    margin     : 0;
+    font-size  : 14px;
+    line-height: 22px;
+    color      : var(--grey-dark);
+    font-style : italic;
 }
 
 #empty-cart-alert {
